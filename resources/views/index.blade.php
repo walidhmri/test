@@ -42,10 +42,16 @@
         :root {
             --primary-color: #f39c12;
             /* لون أصفر ذهبي */
+            --primary-hover: #e67e22;
+            /* لون أصفر ذهبي أغمق */
             --secondary-color: #2c3e50;
             /* لون داكن للتباين */
             --light-color: #ecf0f1;
             --accent-color: #e74c3c;
+            --dark-color: #1a252f;
+            --text-color: #333;
+            --text-color-light: #666;
+            --success-color: #2ecc71;
         }
 
         /* قسم الـ Hero */
@@ -60,42 +66,128 @@
             color: #fff;
             display: flex;
             align-items: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        /* Animated Gradient Overlay for Hero */
+        .hero-section::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: linear-gradient(135deg, rgba(243, 156, 18, 0.3), rgba(44, 62, 80, 0.6));
+            z-index: 1;
+            animation: gradientShift 15s ease infinite;
+        }
+
+        @keyframes gradientShift {
+            0% {
+                background-position: 0% 50%;
+            }
+            50% {
+                background-position: 100% 50%;
+            }
+            100% {
+                background-position: 0% 50%;
+            }
         }
 
         .hero-content {
             z-index: 2;
         }
 
+        /* Floating particles animation */
+        .particles-container {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            overflow: hidden;
+            z-index: 1;
+        }
+
+        .particle {
+            position: absolute;
+            display: block;
+            background-color: rgba(255, 255, 255, 0.2);
+            border-radius: 50%;
+            animation: float 20s linear infinite;
+        }
+
+        @keyframes float {
+            0% {
+                transform: translateY(0) translateX(0) rotate(0deg);
+                opacity: 0;
+            }
+            10% {
+                opacity: 1;
+            }
+            90% {
+                opacity: 1;
+            }
+            100% {
+                transform: translateY(-100vh) translateX(100px) rotate(360deg);
+                opacity: 0;
+            }
+        }
+
         /* تأثيرات وتحسينات */
         .navbar {
-            transition: all 0.3s ease;
+            transition: all 0.4s ease;
+            padding: 1rem 0;
         }
 
         .navbar.scrolled {
+            padding: 0.5rem 0;
             box-shadow: 0 5px 20px rgba(0, 0, 0, 0.1);
+            background-color: rgba(255, 255, 255, 0.98) !important;
+        }
+
+        .navbar-brand {
+            position: relative;
+            display: inline-flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .navbar-brand img {
+            transition: all 0.3s ease;
+        }
+
+        .navbar.scrolled .navbar-brand img {
+            transform: scale(0.9);
         }
 
         .btn-brand {
             background-color: var(--primary-color);
             color: white;
             transition: all 0.3s ease;
+            border: none;
+            font-weight: 600;
         }
 
         .btn-brand:hover {
-            background-color: #e67e22;
-            transform: translateY(-2px);
-            box-shadow: 0 10px 20px rgba(243, 156, 18, 0.2);
+            background-color: var(--primary-hover);
+            transform: translateY(-3px);
+            box-shadow: 0 10px 20px rgba(243, 156, 18, 0.3);
         }
 
         .btn-outline-brand {
             border: 2px solid var(--primary-color);
             color: var(--primary-color);
             transition: all 0.3s ease;
+            font-weight: 600;
         }
 
         .btn-outline-brand:hover {
             background-color: var(--primary-color);
             color: white;
+            transform: translateY(-2px);
+            box-shadow: 0 8px 15px rgba(243, 156, 18, 0.2);
         }
 
         .text-brand {
@@ -103,14 +195,16 @@
         }
 
         .card {
-            transition: all 0.3s ease;
+            transition: all 0.4s ease;
             border-radius: 12px;
             overflow: hidden;
+            border: none;
+            box-shadow: 0 6px 15px rgba(0, 0, 0, 0.05);
         }
 
         .card:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.1);
+            transform: translateY(-8px);
+            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.15);
         }
 
         .feature-icon {
@@ -122,6 +216,12 @@
             border-radius: 50%;
             background-color: rgba(243, 156, 18, 0.1);
             margin-bottom: 1.5rem;
+            transition: all 0.5s ease;
+        }
+
+        .card:hover .feature-icon {
+            transform: rotateY(180deg);
+            background-color: rgba(243, 156, 18, 0.2);
         }
 
         .testimonial-card {
@@ -131,17 +231,49 @@
         }
 
         .stat-card {
-            padding: 2rem;
-            border-radius: 12px;
+            padding: 2.5rem 1.5rem;
+            border-radius: 16px;
             background-color: white;
-            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.05);
             text-align: center;
+            position: relative;
+            z-index: 1;
+            overflow: hidden;
+            transition: all 0.4s ease;
+        }
+
+        .stat-card::before {
+            content: '';
+            position: absolute;
+            top: -10px;
+            left: -10px;
+            right: -10px;
+            bottom: -10px;
+            background: linear-gradient(135deg, rgba(243, 156, 18, 0.1), rgba(44, 62, 80, 0.05));
+            z-index: -1;
+            transform: scale(0);
+            border-radius: 16px;
+            transition: all 0.4s ease;
+        }
+
+        .stat-card:hover::before {
+            transform: scale(1);
+        }
+
+        .stat-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.1);
         }
 
         .stat-card .number {
-            font-size: 2.5rem;
-            font-weight: 700;
+            font-size: 3rem;
+            font-weight: 800;
             color: var(--primary-color);
+            margin-bottom: 0.5rem;
+            background: linear-gradient(135deg, var(--primary-color), var(--primary-hover));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            display: inline-block;
         }
 
         .partner-logo {
@@ -149,10 +281,13 @@
             object-fit: contain;
             opacity: 0.7;
             transition: all 0.3s ease;
+            filter: grayscale(100%);
         }
 
         .partner-logo:hover {
             opacity: 1;
+            filter: grayscale(0%);
+            transform: scale(1.05);
         }
 
         .nav-link {
@@ -160,6 +295,7 @@
             padding: 0.5rem 1rem;
             margin: 0 0.25rem;
             font-weight: 500;
+            transition: all 0.3s ease;
         }
 
         .nav-link:after {
@@ -172,23 +308,21 @@
             background-color: var(--primary-color);
             transition: all 0.3s ease;
         }
-        .navbar-nav {
-    margin-left: auto !important;
-    margin-right: 0 !important;
-}
 
-[dir="rtl"] .navbar-nav {
-    margin-left: 0 !important;
-    margin-right: auto !important;
-}
-[dir="ltr"] .footer {
-    margin-left: auto;
-    margin-right: auto !important;
-}
-[dir="ltr"] .footer {
-    margin-left: auto;
-    margin-right: auto !important;
-}
+        .navbar-nav {
+            margin-left: auto !important;
+            margin-right: 0 !important;
+        }
+
+        [dir="rtl"] .navbar-nav {
+            margin-left: 0 !important;
+            margin-right: auto !important;
+        }
+
+        [dir="ltr"] .footer {
+            margin-left: auto;
+            margin-right: auto !important;
+        }
 
         .nav-link:hover:after,
         .nav-link.active:after {
@@ -198,42 +332,162 @@
 
         .section-title {
             position: relative;
-            margin-bottom: 3rem;
+            margin-bottom: 3.5rem;
+            font-weight: 800;
         }
 
         .section-title:after {
             content: '';
             position: absolute;
-            width: 50px;
-            height: 3px;
-            background-color: var(--primary-color);
-            bottom: -10px;
+            width: 60px;
+            height: 4px;
+            background: linear-gradient(to right, var(--primary-color), var(--primary-hover));
+            bottom: -15px;
             left: 50%;
             transform: translateX(-50%);
+            border-radius: 2px;
         }
 
-        /* قسم الخدمات */
-        .service-card {
-            height: 100%;
-            display: flex;
-            flex-direction: column;
+        /* Improved Accordion Styles */
+        .accordion-item {
+            border: none;
+            margin-bottom: 1rem;
+            border-radius: 12px !important;
+            overflow: hidden;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+            transition: all 0.3s ease;
         }
 
-        .service-card .card-img-top {
-            height: 200px;
-            object-fit: cover;
+        .accordion-item:hover {
+            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.1);
         }
 
-        /* قسم المميزات */
-        .feature-icon i {
-            font-size: 2rem;
+        .accordion-button {
+            padding: 1.2rem 1.5rem;
+            font-weight: 600;
+            background-color: white;
+            color: var(--text-color);
+            transition: all 0.3s ease;
+        }
+
+        .accordion-button:not(.collapsed) {
             color: var(--primary-color);
+            background-color: rgba(243, 156, 18, 0.05);
+        }
+
+        .accordion-button:focus {
+            box-shadow: none;
+            border-color: rgba(243, 156, 18, 0.25);
+        }
+
+        .accordion-button::after {
+            transition: all 0.3s ease;
+        }
+
+        .accordion-body {
+            padding: 1.5rem;
+            color: var(--text-color-light);
+        }
+
+        /* Footer Improvements */
+        .footer {
+            position: relative;
+            overflow: hidden;
+        }
+
+        .footer::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 5px;
+            background: linear-gradient(to right, var(--primary-color), var(--secondary-color));
+        }
+
+        /* Back to Top Button Animation */
+        .back-to-top {
+            width: 50px;
+            height: 50px;
+            position: fixed;
+            bottom: 30px;
+            right: 30px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            background-color: var(--primary-color);
+            color: white;
+            border-radius: 50%;
+            z-index: 99;
+            opacity: 0;
+            visibility: hidden;
+            transition: all 0.4s ease;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.15);
+        }
+
+        .back-to-top.active {
+            opacity: 1;
+            visibility: visible;
+            animation: pulse 2s infinite;
+        }
+
+        @keyframes pulse {
+            0% {
+                box-shadow: 0 0 0 0 rgba(243, 156, 18, 0.7);
+            }
+            70% {
+                box-shadow: 0 0 0 10px rgba(243, 156, 18, 0);
+            }
+            100% {
+                box-shadow: 0 0 0 0 rgba(243, 156, 18, 0);
+            }
+        }
+
+        /* Counter animation */
+        @keyframes countUp {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        /* Call to action buttons animation */
+        .cta-button {
+            position: relative;
+            overflow: hidden;
+        }
+
+        .cta-button::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+            transition: all 0.6s ease;
+        }
+
+        .cta-button:hover::before {
+            left: 100%;
         }
 
         /* للأجهزة الصغيرة */
         @media (max-width: 768px) {
             .hero-section {
                 min-height: 70vh;
+            }
+            
+            .hero-section h1 {
+                font-size: 2.5rem;
+            }
+            
+            .stat-card .number {
+                font-size: 2.5rem;
             }
         }
     </style>
@@ -262,9 +516,9 @@
                     @auth
                     <li class="nav-item">
                         <a class="nav-link btn btn-brand px-4 mx-2"
-                            href="@if(Auth::user()->role === 'admin') 
-                             {{route('admin.dashboard')}} 
-                            @elseif(Auth::user()->role === 'ingenieur') 
+                            href="@if(Auth::user()->role === 'admin')
+                             {{route('admin.dashboard')}}
+                            @elseif(Auth::user()->role === 'ingenieur')
                              {{route('ingenieur.dashboard')}}
                             @else
                              {{route('dashboard')}}
@@ -275,7 +529,7 @@
                     @else
                     <li class="nav-item">
                         <a class="nav-link btn btn-outline-brand px-4 mx-2" href="{{ route('login') }}">
-                            <i class="bi bi-box-arrow-in-right me-1"></i> تسجيل الدخول
+                            <i class="bi bi-box-arrow-in-right me-1"></i> @lang('messages.login')
                         </a>
                     </li>
                     @endauth

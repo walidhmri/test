@@ -1,7 +1,6 @@
 <?php
 
 namespace App\Http\Controllers\Api;
-
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -10,13 +9,13 @@ class UserController extends Controller
 {
     public function login(Request $request)
     {
-        // Validate incoming request
+
         $credentials = $request->validate([
             'email'    => 'required|string',
             'password' => 'required',
         ]);
 
-        // Attempt login
+
         if (!Auth::attempt($credentials)) {
             return response()->json([
                 'message' => 'Invalid login details'
@@ -40,7 +39,7 @@ class UserController extends Controller
         $request->user()->currentAccessToken()->delete();
 
         return response()->json([
-            'message' => 'Logged out merci from Walid Hamri'
+            'message' => 'Logged '
         ]);
     }
 }

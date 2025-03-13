@@ -4,6 +4,9 @@ namespace App\Http\Controllers\User;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
+use App\Models\Ticket;
+use App\Models\User;
+
 
 class TicketsController extends Controller
 {
@@ -19,6 +22,7 @@ class TicketsController extends Controller
     public function create()
     {
         //
+        return view('employee.tickets.add');
     }
 
     /**
@@ -26,7 +30,7 @@ class TicketsController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        
     }
 
     /**

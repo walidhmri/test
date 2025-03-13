@@ -12,10 +12,12 @@ Ajouter un employé
         <strong class="font-bold">خطأ!</strong>
         <span class="block sm:inline">{{ session('error') }}</span>
     </div>
-@endif
+    @endif
+
 
     <div class="px-4 py-3 mb-8 bg-white rounded-lg shadow-md dark:bg-gray-800">
         <form method="POST" action="{{ route('admin.employee.store') }}">
+            
             @csrf
             <label class="block text-sm">
                 <span class="text-gray-400 dark:text-gray-400">الاسم</span>

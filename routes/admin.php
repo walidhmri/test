@@ -19,4 +19,6 @@ Route::middleware(['auth', 'adminMiddleware'])->group(function () {
     Route::get('/admin/employee/ajouter', [AdminController::class, 'addEmployee'])->name('admin.employee.ajouter');
     Route::post('/admin/employee/ajouter', [AdminController::class, 'storeEmployee'])->name('admin.employee.store');
     Route::get('/admin',function(){ return redirect()->route('admin.dashboard');})->name('index');
+    Route::delete('/admin/employee', [AdminController::class, 'deleteEmployee'])->name('admin.employee.delete');
+
 });

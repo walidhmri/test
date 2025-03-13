@@ -5,6 +5,18 @@ Liste des employees
 @section('content')
 <div class="w-full overflow-hidden rounded-lg shadow-xs">
     <div class="w-full overflow-x-auto">
+        @if(session('error'))
+            <div class="bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded relative" role="alert">
+                <strong class="font-bold">خطأ!</strong>
+                <span class="block sm:inline">{{ session('error') }}</span>
+            </div>
+        @endif
+        @if(session('success'))
+            <div class="bg-green-100 border border-green-400 text-green-700 px-4 py-3 rounded relative" role="alert">
+                <strong class="font-bold">نجاح!</strong>
+                <span class="block sm:inline">{{ session('success') }}</span>
+            </div>
+        @endif
         <table class="w-full whitespace-no-wrap">
             <thead>
                 <tr
@@ -54,7 +66,16 @@ Liste des employees
                                     </path>
                                 </svg>
                             </button>
-                            <button
+
+
+
+
+
+                            <form method="post" action="{{route('admin.employee.delete')}}">
+                                <input type="hidden" name="id" value="{{ $employee->id }}">
+                            @method('DELETE')
+                                @csrf
+                            <button onclick="return confirm('Vous voulez supprimer {{ $employee->name }}?')"
                                 class="flex items-center justify-between px-2 py-2 text-sm font-medium leading-5 text-purple-600 rounded-lg dark:text-gray-400 focus:outline-none focus:shadow-outline-gray"
                                 aria-label="Delete">
                                 <svg class="w-5 h-5" aria-hidden="true" fill="currentColor" viewBox="0 0 20 20">
@@ -63,6 +84,7 @@ Liste des employees
                                         clip-rule="evenodd"></path>
                                 </svg>
                             </button>
+                            </form>
                         </div>
                     </td>
                 </tr>

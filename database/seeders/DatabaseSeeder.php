@@ -3,8 +3,9 @@
 namespace Database\Seeders;
 
 use App\Models\User;
-// use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
+use Illuminate\Support\Str;
+use Faker\Factory as Faker;
 
 class DatabaseSeeder extends Seeder
 {
@@ -13,11 +14,15 @@ class DatabaseSeeder extends Seeder
      */
     public function run(): void
     {
-        // User::factory(10)->create();
+        $faker = Faker::create();
 
-        User::factory()->create([
-            'name' => 'Test User',
-            'email' => 'test@example.com',
-        ]);
+        for ($i = 0; $i < 10; $i++) {
+            User::create([
+                'name' => $faker->name,  // اسم عشوائي
+                'email' => (string) Str::uuid(), // تحويل UUID إلى نص ليكون كـ user_id
+                'password' => bcrypt('password'), // تشفير كلمة المرور
+                'role' => 'employee'
+            ]);
+        }
     }
 }

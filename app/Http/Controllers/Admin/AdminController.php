@@ -26,8 +26,8 @@ class AdminController extends Controller
     }
     public function storeEmployee(Request $request): RedirectResponse
     {
-        
-        
+
+
         $employee = User::where('email', $request->input('email'))->first();
 
 if ($employee) {
@@ -39,23 +39,32 @@ if ($employee) {
             'password' => ['required', 'confirmed', Rules\Password::defaults()],
             'role' => ['required', 'in:admin,ingenieur,user'], // التأكد من صحة الدور
         ]);
-    
+
 
         // إنشاء المستخد
         $user = User::create([
             'name' => $request->name,
             'email' => $request->email,
             'password' => Hash::make($request->password),
-            'role' => $request->role, // حفظ الدور المحدد
+            'role' => $request->role,
         ]);
-        
-        // إطلاق حدث التسجيل (اختياري إذا كنت تستخدم أحداث تسجيل Laravel)
+
         event(new Registered($user));
-    
+
         // عدم تسجيل دخول المستخدم لأنه يتم إنشاؤه من قبل **الإداري**
-        
-        // إعادة التوجيه إلى قائمة الموظفين بعد النجاح
+
         return redirect()->route('admin.employee.list')->with('success', 'تمت إضافة المستخدم بنجاح.');
-    } 
+    }
+    function deleteEmployee(Request $request){
+
+        $employee = User::find($request->id);
+        if (!$employee) {
+            return redirect()->route('admin.employee.list')->with('error', 'User not found');
+        }
+        $employee->delete();
+
+        return redirect()->route('admin.employee.list')->with('success', 'User deleted succeffully');
+
+    }
 }
 
