@@ -4,7 +4,7 @@ namespace App\Http\Controllers\User;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
-use App\Models\Ticket;
+use App\Models\Teket;
 use App\Models\User;
 
 
@@ -13,7 +13,8 @@ class TicketsController extends Controller
 
     public function index()
     {
-        return view('employee.tickets');
+        $tickets = Teket::where('user_id', auth()->user()->id)->paginate(5);
+        return view('employee.tickets',compact('tickets'));
     }
 
     /**
@@ -21,7 +22,7 @@ class TicketsController extends Controller
      */
     public function create()
     {
-        //
+       
         return view('employee.tickets.add');
     }
 
@@ -30,6 +31,18 @@ class TicketsController extends Controller
      */
     public function store(Request $request)
     {
+        $request->validate([
+            'title' => 'required',
+            'description' => 'required',
+            'priority'=>'required'
+        ]);
+        $ticket=Teket::create([
+            'title' => $request->title,
+            'description' => $request->description,
+            'priority' => $request->priority,
+            'user_id' => auth()->user()->id
+        ]); 
+        return redirect()->route('dasboard.tickets')->with('success', 'تمت إضافة التذكرة بنجاح.');
         
     }
 

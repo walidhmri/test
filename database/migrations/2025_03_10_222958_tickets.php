@@ -17,9 +17,10 @@ return new class extends Migration
             $table->string('title');
             $table->foreignId('user_id')->constrained()->onDelete('cascade');
             $table->text('description')->nullable();
-            $table->text('periority')->nullable();
+            $table->text('priority')->default('low');
             $table->string('signedToEnG')->nullable();
             $table->timestamp('last_used_at')->nullable();
+            $table->string('status')->default('pending');
             $table->timestamp('expires_at')->nullable();
             $table->timestamps();
         });

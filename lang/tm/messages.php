@@ -3,6 +3,7 @@
 return [
     'dir' => 'ltr',
     'langualge' => 'Tamaziɣt',
+    'dashboard' => 'Tugna n Temyura',
     'title' => 'Naftal Temyura n Upitṛul',
     'platform_title' => 'Naftal',
     'platform_subtitle' => 'Aselkim i Uẓewwaṛ n Yiɣewwaren',

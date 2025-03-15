@@ -1,7 +1,10 @@
 <?php
 
+use SebastianBergmann\CodeCoverage\Report\Html\Dashboard;
+
 return [
     'dir' => 'rtl',
+    'dashboard' => 'لوحة التحكم',
     'title' => 'نافطال للخدمات البترولية',
     'langualge' => 'العربية',
     'platform_title' => 'نافطال',

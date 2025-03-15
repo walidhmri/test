@@ -12,7 +12,8 @@ Route::middleware(['auth', 'userMiddleware'])->group(function () {
         return view('employee.dashboard');
     })->name('dashboard');
    Route::get('/dashboard/tickets',[TicketsController::class,'index'])->name('dasboard.tickets'); 
-   Route::get('/dashboard/ticketes/add',[TicketsController::class,'create'])->name('tickets.add');
+   Route::post('/dashoard/ticketes/add',[TicketsController::class,'store'])->name('employee.tickets.create');
+
     
 
 

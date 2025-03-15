@@ -11,4 +11,5 @@ Route::get('/user', function (Request $request) {
 Route::post('/login', [UserController::class, 'login'])->name('api.login');
 Route::middleware(['auth', 'adminMiddleware'])->group(function () {
     Route::post('/logout', [UserController::class, 'logout'])->name('api.logout');
+    
 });

@@ -3,6 +3,7 @@
 return [
     'dir' => 'ltr',
     'title' => 'Naftal Petroleum Services',
+    'dashboard' => 'Dashboard',
     'langualge' => 'English',
     'platform_title' => 'Naftal',
     'platform_subtitle' => 'Platform for Equipment Complaints',

@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Admin;
 use App\Http\Controllers\Controller;
 use App\Models\User;
+use App\Models\Teket;
 use Illuminate\Auth\Events\Registered;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
@@ -15,10 +16,12 @@ use Illuminate\View\View;
 class AdminController extends Controller
 {
     function index(){
-        return view('admin.dashboard');
+        $tickets = Teket::get();
+        $employees = User::get();
+        return view('admin.dashboard',compact('employees', 'tickets'));
     }
     function employee(){
-        $employees = User::whereIn('role', ['user', 'ingenieur', 'admin'])->get();
+        $employees = User::paginate(5);
         return view('admin.employee.list',compact('employees'));
     }
     function addEmployee(){
@@ -41,7 +44,7 @@ if ($employee) {
         ]);
 
 
-        // إنشاء المستخد
+        
         $user = User::create([
             'name' => $request->name,
             'email' => $request->email,
@@ -63,8 +66,31 @@ if ($employee) {
         }
         $employee->delete();
 
-        return redirect()->route('admin.employee.list')->with('success', 'User deleted succeffully');
+        return redirect()->back()->with('success', 'User deleted succeffully');
 
+    }
+    function editEmployee(Request $request){
+        $employee = User::find($request->id);
+  
+        return view('admin.employee.edit',compact('employee'));
+    }
+    function updateEmployee(Request $request){
+        $employee = User::find($request->id);
+        if (!$employee) {
+            return redirect()->route('admin.employee.list')->with('error', 'User not found');
+        }
+        $request->validate([
+            'name' => ['required', 'string', 'max:255'],
+            'email' => ['required', 'string', 'lowercase', 'max:255'],
+            'role' => ['required', 'in:admin,ingenieur,user'], // التأكد من صحة الدور
+        ]);
+        
+        $employee->update([
+            'name' => $request->name,
+            'email' => $request->email,
+            'role' => $request->role,
+        ]);
+        return redirect()->route('admin.employee.list')->with('success', 'User updated succeffully');
     }
 }
 

@@ -3,6 +3,7 @@
 return [
     'dir' => 'ltr',
     'title' => 'Naftal Services Pétroliers',
+    'dashboard' => 'Tableau de bord',
     'langualge' => 'Français',
     'platform_title' => 'Naftal',
     'platform_subtitle' => 'Plateforme de réclamations d\'équipement',

@@ -24,6 +24,12 @@ class AuthenticatedSessionController extends Controller
      */
     public function store(LoginRequest $request): RedirectResponse
     {
+        if (!Auth::attempt($request->only('email', 'password'), $request->filled('remember'))) {
+            return back()->withErrors([
+                'email' => ' Balak le mot de pass inek negh user id faux.',
+            ]);
+        }
+
 
         $request->authenticate();
         if (Auth::user()->role == 'admin') {

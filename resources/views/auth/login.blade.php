@@ -1,313 +1,646 @@
 <!DOCTYPE html>
-<html :class="{ 'theme-dark': dark }" x-data="data()" lang="en" dir="ltr">
+<html lang="en" dir="@lang('messages.dir')">
 <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <meta name="description" content="Naftal secure login portal - Access your account safely" />
-    <meta name="theme-color" content="#FF6B00" />
-    <title>Naftal - Secure Login</title>
-    <link rel="preconnect" href="https://fonts.googleapis.com" />
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
-    <link rel="stylesheet" href="{{ asset('assets/css/tailwind.output.css') }}" />
-    <script src="https://cdn.jsdelivr.net/gh/alpinejs/alpine@v2.x.x/dist/alpine.min.js" defer></script>
-    <script src="{{ asset('assets/js/init-alpine.js') }}" defer></script>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="description" content="Naftal secure login portal - Access your account safely">
+<meta name="theme-color" content="#f39c12">
+<title>Naftal - Secure Login</title>
 
-    <!-- Custom styles for Naftal branding -->
-    <style>
-        :root {
-            --naftal-orange: #FF6B00;
-            --naftal-orange-dark: #E05A00;
-            --naftal-yellow: #FFB800;
-            --naftal-yellow-dark: #E0A000;
-            --dark-bg: #1A1A1A;
-            --dark-card: #292929;
-        }
-        
-        .theme-dark {
-            --naftal-text: #FFB800;
-        }
-        
-        /* Fix for dark mode toggle */
-        [x-cloak] { display: none !important; }
-        
-        /* Custom gradient for Naftal */
-        .naftal-gradient {
-            background: linear-gradient(135deg, var(--naftal-orange) 0%, var(--naftal-yellow) 100%);
-        }
-        
-        .dark .naftal-gradient {
-            background: linear-gradient(135deg, var(--naftal-orange-dark) 0%, var(--naftal-yellow-dark) 70%);
-        }
-        
-        /* Button gradients */
-        .naftal-btn {
-            background: linear-gradient(to right, var(--naftal-orange), var(--naftal-yellow));
-            transition: all 0.3s ease;
-        }
-        
-        .naftal-btn:hover {
-            background: linear-gradient(to right, var(--naftal-orange-dark), var(--naftal-yellow));
-        }
-        
-        /* Custom inputs */
-        .naftal-input:focus {
-            border-color: var(--naftal-orange) !important;
-            box-shadow: 0 0 0 2px rgba(255, 107, 0, 0.25);
-        }
-    </style>
+<!-- Bootstrap CSS -->
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+
+<!-- Font Awesome -->
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+<!-- Bootstrap Icons -->
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.2/font/bootstrap-icons.min.css">
+
+<!-- Google Fonts -->
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@400;500;700;800&display=swap" rel="stylesheet">
+
+<style>
+    :root {
+        --primary: #f39c12;
+        --primary-dark: #e67e22;
+        --secondary: #2c3e50;
+        --secondary-dark: #1a252f;
+        --light: #f8f9fa;
+        --dark: #121212;
+        --dark-card: #1E1E1E;
+        --naftal-gradient: linear-gradient(135deg, var(--primary) 0%, var(--primary-dark) 100%);
+        --header-gradient: linear-gradient(135deg, var(--secondary), #1a1a2e);
+    }
+    
+    body {
+        font-family: 'Tajawal', sans-serif;
+        background-color: #f8f9fa;
+        min-height: 100vh;
+        display: flex;
+        flex-direction: column;
+        transition: background-color 0.3s ease;
+    }
+    
+    body.dark-mode {
+        background-color: var(--dark);
+        color: #fff;
+    }
+    
+    .main-content {
+        flex: 1;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        padding: 2rem 1rem;
+    }
+    
+    /* Naftal branding */
+    .naftal-logo {
+        width: 50px;
+        height: 50px;
+        border-radius: 50%;
+        background: var(--naftal-gradient);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        color: white;
+        font-weight: 700;
+        font-size: 1.5rem;
+        box-shadow: 0 4px 10px rgba(243, 156, 18, 0.3);
+    }
+    
+    .naftal-btn {
+        background: var(--naftal-gradient);
+        border: none;
+        color: white;
+        font-weight: 600;
+        transition: all 0.3s ease;
+        border-radius: 30px;
+        position: relative;
+        overflow: hidden;
+        z-index: 1;
+        box-shadow: 0 4px 15px rgba(243, 156, 18, 0.3);
+    }
+    
+    .naftal-btn::before {
+        content: '';
+        position: absolute;
+        top: 0;
+        left: -100%;
+        width: 100%;
+        height: 100%;
+        background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+        transition: all 0.6s ease;
+        z-index: -1;
+    }
+    
+    .naftal-btn:hover::before {
+        left: 100%;
+    }
+    
+    .naftal-btn:hover {
+        transform: translateY(-3px);
+        box-shadow: 0 8px 20px rgba(243, 156, 18, 0.4);
+        color: white;
+    }
+    
+    /* Login card */
+    .login-card {
+        background: white;
+        border-radius: 1rem;
+        overflow: hidden;
+        box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+        width: 100%;
+        max-width: 900px;
+        transition: all 0.3s ease;
+    }
+    
+    .dark-mode .login-card {
+        background-color: var(--dark-card);
+        box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+    }
+    
+    .login-sidebar {
+        background: var(--naftal-gradient);
+        position: relative;
+        min-height: 300px;
+    }
+    
+    .login-sidebar-content {
+        position: relative;
+        z-index: 2;
+        height: 100%;
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+        padding: 2rem;
+        color: white;
+    }
+    
+    .login-sidebar::after {
+        content: '';
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        background: rgba(0, 0, 0, 0.2);
+        z-index: 1;
+    }
+    
+    .sidebar-circle {
+        position: absolute;
+        border-radius: 50%;
+        background: rgba(255, 255, 255, 0.2);
+    }
+    
+    .circle-1 {
+        width: 80px;
+        height: 80px;
+        top: 20%;
+        right: 10%;
+    }
+    
+    .circle-2 {
+        width: 40px;
+        height: 40px;
+        bottom: 30%;
+        left: 10%;
+    }
+    
+    /* Form styling */
+    .form-control:focus {
+        border-color: var(--primary);
+        box-shadow: 0 0 0 0.25rem rgba(243, 156, 18, 0.25);
+    }
+    
+    .form-check-input:checked {
+        background-color: var(--primary);
+        border-color: var(--primary);
+    }
+    
+    .input-group-text {
+        background-color: transparent;
+    }
+    
+    .dark-mode .form-control,
+    .dark-mode .input-group-text {
+        background-color: rgba(255, 255, 255, 0.05);
+        border-color: rgba(255, 255, 255, 0.1);
+        color: white;
+    }
+    
+    .dark-mode .form-control::placeholder {
+        color: rgba(255, 255, 255, 0.5);
+    }
+    
+    .dark-mode .text-muted {
+        color: rgba(255, 255, 255, 0.6) !important;
+    }
+    
+    .dark-mode .text-dark {
+        color: white !important;
+    }
+    
+    /* Header & Footer - IMPROVED */
+    .navbar {
+        padding: 0.75rem 1rem;
+        background: var(--header-gradient) !important;
+        box-shadow: 0 2px 15px rgba(0, 0, 0, 0.2);
+        transition: all 0.3s ease;
+    }
+    
+    .navbar-brand {
+        display: flex;
+        align-items: center;
+        gap: 0.75rem;
+    }
+    
+    .navbar-brand img {
+        width: 50px;
+        height: 50px;
+        object-fit: contain;
+        transition: transform 0.3s ease;
+        filter: drop-shadow(0 0 5px rgba(255, 255, 255, 0.3));
+    }
+    
+    .navbar-brand span, .navbar-brand small {
+        color: white !important;
+    }
+    
+    .dark-mode .navbar,
+    .dark-mode .footer {
+        background: var(--dark-card) !important;
+        box-shadow: 0 2px 15px rgba(0, 0, 0, 0.3);
+    }
+    
+    .footer {
+        padding: 1rem;
+        background: var(--header-gradient);
+        box-shadow: 0 -2px 15px rgba(0, 0, 0, 0.1);
+        transition: all 0.3s ease;
+        color: white;
+    }
+    
+    .footer .text-muted {
+        color: rgba(255, 255, 255, 0.7) !important;
+    }
+    
+    /* Language dropdown - IMPROVED to match home page */
+    .btn-outline-brand {
+        background: transparent;
+        color: white;
+        border: 2px solid var(--primary);
+        font-weight: 600;
+        transition: all 0.3s ease;
+        border-radius: 30px;
+        position: relative;
+        overflow: hidden;
+        z-index: 1;
+    }
+    
+    .btn-outline-brand::before {
+        content: '';
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 0%;
+        height: 100%;
+        background: linear-gradient(135deg, var(--primary), var(--primary-dark));
+        transition: all 0.3s ease;
+        z-index: -1;
+    }
+    
+    .btn-outline-brand:hover::before {
+        width: 100%;
+    }
+    
+    .btn-outline-brand:hover {
+        color: white;
+        border-color: transparent;
+        transform: translateY(-2px);
+        box-shadow: 0 8px 15px rgba(243, 156, 18, 0.3);
+    }
+    
+    .dropdown-menu {
+        border-radius: 0.5rem;
+        border: none;
+        box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+        overflow: hidden;
+    }
+    
+    .dark-mode .dropdown-menu {
+        background-color: var(--dark-card);
+        box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+    }
+    
+    .dropdown-item {
+        padding: 0.5rem 1rem;
+        transition: all 0.2s ease;
+    }
+    
+    .dark-mode .dropdown-item {
+        color: white;
+    }
+    
+    .dropdown-item:hover {
+        background-color: rgba(243, 156, 18, 0.1);
+    }
+    
+    .dark-mode .dropdown-item:hover {
+        background-color: rgba(243, 156, 18, 0.2);
+    }
+    
+    /* Dark mode toggle */
+    .dark-mode-toggle {
+        width: 40px;
+        height: 40px;
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        cursor: pointer;
+        transition: all 0.3s ease;
+        color: white;
+    }
+    
+    .dark-mode-toggle:hover {
+        background-color: rgba(255, 255, 255, 0.2);
+    }
+    
+    .dark-mode .dark-mode-toggle:hover {
+        background-color: rgba(255, 255, 255, 0.1);
+    }
+    
+    /* Error message */
+    .error-message {
+        background-color: rgba(220, 53, 69, 0.1);
+        border-left: 4px solid #dc3545;
+    }
+    
+    .dark-mode .error-message {
+        background-color: rgba(220, 53, 69, 0.2);
+    }
+    
+    /* Divider */
+    .divider {
+        display: flex;
+        align-items: center;
+        margin: 1.5rem 0;
+    }
+    
+    .divider-line {
+        flex: 1;
+        height: 1px;
+        background-color: #dee2e6;
+    }
+    
+    .dark-mode .divider-line {
+        background-color: rgba(255, 255, 255, 0.2);
+    }
+    
+    .divider-text {
+        padding: 0 1rem;
+        font-size: 0.75rem;
+        text-transform: uppercase;
+        color: #6c757d;
+    }
+    
+    .dark-mode .divider-text {
+        color: rgba(255, 255, 255, 0.6);
+    }
+    
+    /* Animations */
+    @keyframes fadeIn {
+        from { opacity: 0; transform: translateY(20px); }
+        to { opacity: 1; transform: translateY(0); }
+    }
+    
+    .animate-fade-in {
+        animation: fadeIn 0.5s ease forwards;
+    }
+</style>
 </head>
-<body class="flex flex-col min-h-screen bg-gray-50 dark:bg-gray-900 transition-colors duration-300"
-      x-data="{ dark: localStorage.getItem('darkMode') === 'true' }"
-      x-init="$watch('dark', val => localStorage.setItem('darkMode', val))">
-
-    <!-- Header -->
-    <header class="py-3 bg-white dark:bg-gray-800 shadow-sm transition-colors duration-300">
-        <div class="container mx-auto px-6">
-            <div class="flex justify-between items-center">
-                <div class="flex items-center">
-                    <div class="h-10 w-10 rounded-full naftal-gradient flex items-center justify-center">
-                        <span class="text-white font-bold text-lg">N</span>
-                    </div>
-                    <span class="ml-3 text-lg font-semibold text-gray-800 dark:text-gray-200">Naftal</span>
-                </div>
-                <button @click="dark = !dark" class="p-2 rounded-md text-gray-600 dark:text-gray-400 hover:bg-gray-100 dark:hover:bg-gray-700 focus:outline-none focus:ring-2 focus:ring-orange-400" aria-label="Toggle dark mode">
-                    <svg x-show="!dark" class="w-5 h-5" fill="currentColor" viewBox="0 0 20 20">
-                        <path d="M17.293 13.293A8 8 0 016.707 2.707a8.001 8.001 0 1010.586 10.586z"></path>
-                    </svg>
-                    <svg x-show="dark" class="w-5 h-5" fill="currentColor" viewBox="0 0 20 20">
-                        <path fill-rule="evenodd" d="M10 2a1 1 0 011 1v1a1 1 0 11-2 0V3a1 1 0 011-1zm4 8a4 4 0 11-8 0 4 4 0 018 0zm-.464 4.95l.707.707a1 1 0 001.414-1.414l-.707-.707a1 1 0 00-1.414 1.414zm2.12-10.607a1 1 0 010 1.414l-.706.707a1 1 0 11-1.414-1.414l.707-.707a1 1 0 011.414 0zM17 11a1 1 0 100-2h-1a1 1 0 100 2h1zm-7 4a1 1 0 011 1v1a1 1 0 11-2 0v-1a1 1 0 011-1zM5.05 6.464A1 1 0 106.465 5.05l-.708-.707a1 1 0 00-1.414 1.414l.707.707zm1.414 8.486l-.707.707a1 1 0 01-1.414-1.414l.707-.707a1 1 0 011.414 1.414zM4 11a1 1 0 100-2H3a1 1 0 000 2h1z" clip-rule="evenodd"></path>
-                    </svg>
+<body>
+<!-- Header - IMPROVED to match home page -->
+<nav class="navbar navbar-expand-lg">
+    <div class="container">
+        <a class="navbar-brand" href="/">
+            <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/c/ce/LogoNAFTAL.svg/1280px-LogoNAFTAL.svg.png" alt="Naftal Logo" class="rounded">
+            <div>
+                <span class="fw-bold fs-4">@lang('messages.platform_title')</span>
+                <small class="d-block fs-6 text-white-50">@lang('messages.platform_subtitle')</small>
+            </div>
+        </a>
+        
+        <div class="d-flex align-items-center">
+            <!-- Language Dropdown - Matches home page style -->
+            <div class="dropdown me-2">
+                <button class="btn btn-outline-brand px-4 dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">
+                    <i class="bi bi-translate me-1"></i> @lang('messages.langualge')
                 </button>
+                <ul class="dropdown-menu dropdown-menu-end shadow-sm border-0">
+                    <li><a class="dropdown-item" href="{{ url('locale/fr') }}">Français</a></li>
+                    <li><a class="dropdown-item" href="{{ url('locale/en') }}">English</a></li>
+                    <li><a class="dropdown-item" href="{{ url('locale/ar') }}">العربية</a></li>
+                    <li><a class="dropdown-item" href="{{ url('locale/tm') }}">Kabyle</a></li>
+                </ul>
+            </div>
+            
+            <!-- Dark Mode Toggle -->
+            <div class="dark-mode-toggle" id="darkModeToggle">
+                <i class="bi bi-moon"></i>
             </div>
         </div>
-    </header>
+    </div>
+</nav>
 
-    <!-- Login Container -->
-    <div class="flex flex-1 items-center justify-center p-6">
-        <div class="flex-1 h-full max-w-4xl mx-auto overflow-hidden bg-white rounded-xl shadow-xl dark:bg-gray-800 transition-colors duration-300">
-            <div class="flex flex-col md:flex-row">
-                <!-- Image Section with Naftal branding -->
-                <div class="h-48 md:h-auto md:w-1/2 relative overflow-hidden">
-                    <div class="absolute inset-0 naftal-gradient"></div>
-                    <div class="absolute inset-0 bg-black bg-opacity-20"></div>
-                    <div class="absolute top-0 left-0 right-0 p-6">
-                        <div class="flex items-center">
-                            <div class="h-16 w-16 rounded-full bg-white flex items-center justify-center">
-                                <div class="h-12 w-12 rounded-full naftal-gradient flex items-center justify-center">
-                                    <span class="text-white font-bold text-xl">N</span>
-                                </div>
+<!-- Main Content -->
+<div class="main-content">
+    <div class="login-card animate-fade-in">
+        <div class="row g-0">
+            <!-- Left sidebar with Naftal branding -->
+            <div class="col-md-5 login-sidebar d-none d-md-block">
+                <div class="sidebar-circle circle-1"></div>
+                <div class="sidebar-circle circle-2"></div>
+                <div class="login-sidebar-content">
+                    <div>
+                        <div class="d-flex align-items-center">
+                            <div class="bg-white rounded-circle p-2">
+                                <div class="naftal-logo" style="width: 40px; height: 40px; font-size: 1.2rem;">N</div>
                             </div>
                         </div>
                     </div>
-                    <div class="absolute bottom-0 left-0 right-0 p-6 text-white">
-                        <h2 class="text-2xl font-bold mb-2">Tickets</h2>
-                    </div>
-                    <!-- Decorative elements -->
-                    <div class="absolute top-1/4 right-8">
-                        <div class="h-12 w-12 rounded-full bg-white bg-opacity-20"></div>
-                    </div>
-                    <div class="absolute top-1/2 left-8">
-                        <div class="h-8 w-8 rounded-full bg-white bg-opacity-10"></div>
+                    <div>
+                        <h2 class="fw-bold mb-2">Tickets</h2>
+                        <p class="mb-0 opacity-75">Système de gestion des tickets</p>
                     </div>
                 </div>
-
-                <!-- Login Form -->
-                <div class="flex items-center justify-center p-6 sm:p-12 md:w-1/2">
-                    <div class="w-full">
-                        <div class="flex items-center justify-between mb-2">
-                            <h1 class="text-2xl font-bold text-gray-800 dark:text-gray-100">Welcome Back</h1>
-                            <span class="flex items-center text-sm text-orange-600 dark:text-orange-400">
-                                <svg class="w-4 h-4 mr-1" fill="currentColor" viewBox="0 0 20 20">
-                                    <path fill-rule="evenodd" d="M5 9V7a5 5 0 0110 0v2a2 2 0 012 2v5a2 2 0 01-2 2H5a2 2 0 01-2-2v-5a2 2 0 012-2zm8-2v2H7V7a3 3 0 016 0z" clip-rule="evenodd"></path>
-                                </svg>
-                                Secure Login
-                            </span>
+            </div>
+            
+            <!-- Login form -->
+            <div class="col-md-7">
+                <div class="p-4 p-lg-5">
+                    <div class="d-flex justify-content-between align-items-center mb-4">
+                        <h1 class="h3 fw-bold text-dark mb-0">Welcome Back</h1>
+                        <span class="badge bg-transparent text-dark d-flex align-items-center">
+                            <i class="fas fa-lock me-1"></i>
+                            Secure Login
+                        </span>
+                    </div>
+                    <p class="text-muted mb-4">Sign in to access your Naftal account dashboard</p>
+                    
+                    @if ($errors->any())
+                    <div class="error-message p-3 rounded mb-4">
+                        <div class="d-flex align-items-center">
+                            <i class="fas fa-exclamation-circle text-danger me-2"></i>
+                            <p class="fw-medium text-danger mb-0">Authentication failed</p>
                         </div>
-                        <p class="mb-6 text-gray-600 dark:text-gray-400">Sign in to access your Naftal account dashboard</p>
-
-                        <div x-data="{ loginAttempts: 0 }">
-                            @if ($errors->any())
-                                <div x-init="loginAttempts++" class="mb-4 p-3 bg-red-100 border-l-4 border-red-500 text-red-700 dark:bg-red-900/50 dark:text-red-300 rounded-md">
-                                    <div class="flex items-center">
-                                        <svg class="w-5 h-5 mr-2" fill="currentColor" viewBox="0 0 20 20">
-                                            <path fill-rule="evenodd" d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-7 4a1 1 0 11-2 0 1 1 0 012 0zm-1-9a1 1 0 00-1 1v4a1 1 0 102 0V6a1 1 0 00-1-1z" clip-rule="evenodd"></path>
-                                        </svg>
-                                        <p class="font-medium">Authentication failed</p>
-                                    </div>
-                                    <ul class="ml-6 mt-2 list-disc text-sm">
-                                        @foreach ($errors->all() as $error)
-                                            <li>{{ $error }}</li>
-                                        @endforeach
-                                    </ul>
-                                    <template x-if="loginAttempts >= 3">
-                                        <p class="mt-2 text-sm">
-                                            Too many failed attempts? <a href="{{ route('password.request') }}" class="font-medium underline">Reset your password</a> or <a href="/support" class="font-medium underline">contact support</a>.
-                                        </p>
-                                    </template>
-                                </div>
-                            @endif
-                            
-                            <form method="POST" action="{{ route('login') }}" class="space-y-6">
-                                @csrf
-                                <div>
-                                    <label class="block text-sm font-medium mb-2" for="user-id">
-                                        <span class="text-gray-700 dark:text-gray-300">User ID</span>
-                                    </label>
-                                    <div class="relative">
-                                        <div class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
-                                            <svg class="h-5 w-5 text-gray-400" fill="currentColor" viewBox="0 0 20 20">
-                                                <path fill-rule="evenodd" d="M10 9a3 3 0 100-6 3 3 0 000 6zm-7 9a7 7 0 1114 0H3z" clip-rule="evenodd"></path>
-                                            </svg>
-                                        </div>
-                                        <input id="user-id"
-                                            class="naftal-input block w-full pl-10 pr-4 py-3 text-gray-700 bg-gray-50 border border-gray-300 rounded-lg dark:border-gray-600 dark:bg-gray-700 focus:outline-none dark:text-gray-300 transition-all duration-200"
-                                            type="text" name="email" value="{{ old('email') }}" required autofocus 
-                                            placeholder="Enter your user ID" />
-                                    </div>
-                                </div>
-
-                                <div x-data="{ showPassword: false }">
-                                    <label class="block text-sm font-medium mb-2" for="password">
-                                        <span class="text-gray-700 dark:text-gray-300">Password</span>
-                                    </label>
-                                    <div class="relative">
-                                        <div class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
-                                            <svg class="h-5 w-5 text-gray-400" fill="currentColor" viewBox="0 0 20 20">
-                                                <path fill-rule="evenodd" d="M5 9V7a5 5 0 0110 0v2a2 2 0 012 2v5a2 2 0 01-2 2H5a2 2 0 01-2-2v-5a2 2 0 012-2zm8-2v2H7V7a3 3 0 016 0z" clip-rule="evenodd"></path>
-                                            </svg>
-                                        </div>
-                                        <input id="password"
-                                            class="naftal-input block w-full pl-10 pr-10 py-3 text-gray-700 bg-gray-50 border border-gray-300 rounded-lg dark:border-gray-600 dark:bg-gray-700 focus:outline-none dark:text-gray-300 transition-all duration-200"
-                                            :type="showPassword ? 'text' : 'password'" 
-                                            name="password" required 
-                                            placeholder="••••••••" />
-                                        <div class="absolute inset-y-0 right-0 pr-3 flex items-center">
-                                            <button type="button" @click="showPassword = !showPassword" class="text-gray-400 hover:text-gray-500 focus:outline-none" tabindex="-1">
-                                                <svg x-show="!showPassword" class="h-5 w-5" fill="currentColor" viewBox="0 0 20 20">
-                                                    <path d="M10 12a2 2 0 100-4 2 2 0 000 4z"></path>
-                                                    <path fill-rule="evenodd" d="M.458 10C1.732 5.943 5.522 3 10 3s8.268 2.943 9.542 7c-1.274 4.057-5.064 7-9.542 7S1.732 14.057.458 10zM14 10a4 4 0 11-8 0 4 4 0 018 0z" clip-rule="evenodd"></path>
-                                                </svg>
-                                                <svg x-show="showPassword" class="h-5 w-5" fill="currentColor" viewBox="0 0 20 20">
-                                                    <path fill-rule="evenodd" d="M3.28 2.22a.75.75 0 00-1.06 1.06l14.5 14.5a.75.75 0 101.06-1.06l-1.745-1.745a10.029 10.029 0 003.3-4.38 1.651 1.651 0 000-1.185A10.004 10.004 0 009.999 3a9.956 9.956 0 00-4.744 1.194L3.28 2.22zM7.752 6.69l1.092 1.092a2.5 2.5 0 013.374 3.373l1.091 1.092a4 4 0 00-5.557-5.557z" clip-rule="evenodd"></path>
-                                                    <path d="M10.748 13.93l2.523 2.523a9.987 9.987 0 01-3.27.547c-4.258 0-7.894-2.66-9.337-6.41a1.651 1.651 0 010-1.186A10.007 10.007 0 012.839 6.02L6.07 9.252a4 4 0 004.678 4.678z"></path>
-                                                </svg>
-                                            </button>
-                                        </div>
-                                    </div>
-                                </div>
-
-                                <div class="flex flex-col sm:flex-row sm:items-center sm:justify-between">
-                                    <label class="inline-flex items-center mb-2 sm:mb-0">
-                                        <input type="checkbox" name="remember" class="rounded border-gray-300 text-orange-600 shadow-sm focus:border-orange-500 focus:ring focus:ring-orange-500 focus:ring-opacity-50" />
-                                        <span class="ml-2 text-sm text-gray-600 dark:text-gray-400">Remember me</span>
-                                    </label>
-                                    @if (Route::has('password.request'))
-                                        <a class="text-sm font-medium text-orange-600 dark:text-orange-400 hover:underline transition-colors duration-200" href="{{ route('password.request') }}">
-                                            Forgot your password?
-                                        </a>
-                                    @endif
-                                </div>
-
-                                <button type="submit" class="naftal-btn block w-full px-4 py-3 text-sm font-medium text-center text-white 
-                                    transition-all duration-200 border border-transparent rounded-lg 
-                                    focus:outline-none focus:ring-2 focus:ring-orange-500 focus:ring-offset-2">
-                                    <div class="flex items-center justify-center">
-                                        <svg class="w-5 h-5 mr-2" fill="currentColor" viewBox="0 0 20 20">
-                                            <path fill-rule="evenodd" d="M14.243 5.757a6 6 0 10-.986 9.284 1 1 0 111.087 1.678A8 8 0 1118 10a3 3 0 01-4.8 2.401A4 4 0 1114 10a1 1 0 102 0c0-1.537-.586-3.07-1.757-4.243zM12 10a2 2 0 10-4 0 2 2 0 004 0z" clip-rule="evenodd"></path>
-                                        </svg>
-                                        S'identifier
-                                    </div>
-                                </button>
-                            </form>
-                        </div>
-
-                        <div class="flex items-center my-6">
-                            <hr class="flex-1 border-gray-200 dark:border-gray-700" />
-                            <span class="px-3 text-xs text-gray-500 dark:text-gray-400 uppercase">System information</span>
-                            <hr class="flex-1 border-gray-200 dark:border-gray-700" />
-                        </div>
-
-                        <div class="text-xs text-center text-gray-500 dark:text-gray-400 space-y-2">
-                            <p>Dernier mise a jour: <span class="font-medium">Mars 8, 2025</span></p>
-                            <div class="flex justify-center space-x-4 mt-2">
-                                <a href="/support" class="hover:text-orange-600 dark:hover:text-orange-400 transition-colors duration-200">Support</a>
+                        <ul class="ps-4 mt-2 mb-0 text-danger" style="font-size: 0.9rem;">
+                            @foreach ($errors->all() as $error)
+                            <li>{{ $error }}</li>
+                            @endforeach
+                        </ul>
+                    </div>
+                    @endif
+                    
+                    <form method="POST" action="{{ route('login') }}">
+                        @csrf
+                        <div class="mb-3">
+                            <label for="email" class="form-label fw-medium">User ID</label>
+                            <div class="input-group">
+                                <span class="input-group-text">
+                                    <i class="fas fa-user text-muted"></i>
+                                </span>
+                                <input type="text" class="form-control" id="email" name="email" 
+                                       value="{{ old('email') }}" placeholder="Enter your user ID" required autofocus>
                             </div>
                         </div>
+                        
+                        <div class="mb-3">
+                            <label for="password" class="form-label fw-medium">Password</label>
+                            <div class="input-group">
+                                <span class="input-group-text">
+                                    <i class="fas fa-lock text-muted"></i>
+                                </span>
+                                <input type="password" class="form-control" id="password" name="password" 
+                                       placeholder="••••••••" required>
+                                <button class="input-group-text bg-transparent border-start-0" type="button" id="togglePassword">
+                                    <i class="fas fa-eye text-muted"></i>
+                                </button>
+                            </div>
+                        </div>
+                        
+                        <div class="d-flex justify-content-between align-items-center mb-4">
+                            <div class="form-check">
+                                <input class="form-check-input" type="checkbox" id="remember" name="remember">
+                                <label class="form-check-label text-muted" for="remember">
+                                    Remember me
+                                </label>
+                            </div>
+                            @if (Route::has('password.request'))
+                            <a href="{{ route('password.request') }}" class="text-decoration-none" style="color: var(--primary);">
+                                Forgot your password?
+                            </a>
+                            @endif
+                        </div>
+                        
+                        <!-- IMPROVED Button -->
+                        <button type="submit" class="btn naftal-btn w-100 py-2 mb-3">
+                            <i class="fas fa-sign-in-alt me-2"></i> S'identifier
+                        </button>
+                    </form>
+                    
+                    <div class="divider">
+                        <div class="divider-line"></div>
+                        <span class="divider-text">Access Rapide</span>
+                        <div class="divider-line"></div>
+                    </div>
+                    <button type="submit" class="btn naftal-btn w-100 py-2 mb-3" onclick="ekchem('12','password')">
+                        <i class="fas fa-sign-in-alt me-2"></i> Employee
+                    </button>
+                    <button type="submit" class="btn naftal-btn w-100 py-2 mb-3" onclick="ekchem('12345','password')">
+                        <i class="fas fa-sign-in-alt me-2"></i> Admin
+                    </button>
+                    <button type="submit" class="btn naftal-btn w-100 py-2 mb-3" onclick="ekchem('1234','password')">
+                        <i class="fas fa-sign-in-alt me-2"></i> Ingenieur
+                    </button>
+                    <div class="divider">
+                        <div class="divider-line"></div>
+                        <span class="divider-text">System information</span>
+                        <div class="divider-line"></div>
+                    </div>
+                    <div class="text-center text-muted" style="font-size: 0.875rem;">
+                        <p class="mb-2">Dernier mise a jour: <span class="fw-medium">Mars 8, 2025</span></p>
+                        <a href="/support" class="text-decoration-none" style="color: var(--primary);">Support</a>
                     </div>
                 </div>
             </div>
         </div>
     </div>
+</div>
 
-    <!-- Footer -->
-    <footer class="py-4 px-6 bg-white dark:bg-gray-800 shadow-inner transition-colors duration-300">
-        <div class="container mx-auto">
-            <div class="flex flex-col md:flex-row justify-between items-center space-y-2 md:space-y-0">
-                <div class="flex space-x-4">
-                    <a href="/" class="naftal-btn px-4 py-2 text-sm font-medium text-white rounded-lg 
-                    transition-all duration-200 focus:outline-none focus:ring-2 focus:ring-orange-500 focus:ring-offset-2">
-                        <div class="flex items-center">
-                            <svg class="w-4 h-4 mr-1" fill="currentColor" viewBox="0 0 20 20">
-                                <path d="M10.707 2.293a1 1 0 00-1.414 0l-7 7a1 1 0 001.414 1.414L4 10.414V17a1 1 0 001 1h2a1 1 0 001-1v-2a1 1 0 011-1h2a1 1 0 011 1v2a1 1 0 001 1h2a1 1 0 001-1v-6.586l.293.293a1 1 0 001.414-1.414l-7-7z"></path>
-                            </svg>
-                            Accueil
-                        </div>
+<!-- Footer - IMPROVED with Language Dropdown -->
+<footer class="footer">
+    <div class="container">
+        <div class="row align-items-center">
+            <div class="col-md-6 mb-3 mb-md-0">
+                <div class="d-flex gap-2">
+                    <a href="/" class="btn naftal-btn btn-sm">
+                        <i class="fas fa-home me-1"></i> Accueil
                     </a>
-                    <a href="/language" class="px-4 py-2 text-sm font-medium text-gray-700 bg-gray-100 rounded-lg 
-                    transition-all duration-200 hover:bg-gray-200 focus:outline-none focus:ring-2 focus:ring-gray-500 focus:ring-offset-2 dark:bg-gray-700 dark:text-gray-200 dark:hover:bg-gray-600">
-                        <div class="flex items-center">
-                            <svg class="w-4 h-4 mr-1" fill="currentColor" viewBox="0 0 20 20">
-                                <path fill-rule="evenodd" d="M7 2a1 1 0 011 1v1h3a1 1 0 110 2H9.578a18.87 18.87 0 01-1.724 4.78c.29.354.596.696.914 1.026a1 1 0 11-1.44 1.389c-.188-.196-.373-.396-.554-.6a19.098 19.098 0 01-3.107 3.567 1 1 0 01-1.334-1.49 17.087 17.087 0 003.13-3.733 18.992 18.992 0 01-1.487-2.494 1 1 0 111.79-.89c.234.47.489.928.764 1.372.417-.934.752-1.913.997-2.927H3a1 1 0 110-2h3V3a1 1 0 011-1zm6 6a1 1 0 01.894.553l2.991 5.982a.869.869 0 01.02.037l.99 1.98a1 1 0 11-1.79.895L15.383 16h-4.764l-.724 1.447a1 1 0 11-1.788-.894l.99-1.98.019-.038 2.99-5.982A1 1 0 0113 8zm-1.382 6h2.764L13 11.236 11.618 14z" clip-rule="evenodd"></path>
-                            </svg>
-                            Français
-                        </div>
-                    </a>
-                </div>
-                <div class="flex items-center">
-                    <p class="text-sm text-gray-600 dark:text-gray-400">
-                        &copy; 2025 Naftal. All rights reserved.
-                    </p>
                 </div>
             </div>
+            <div class="col-md-6 text-md-end">
+                <p class="text-muted mb-0" style="font-size: 0.875rem;">
+                    &copy; 2025 Naftal. All rights reserved.
+                </p>
+            </div>
         </div>
-    </footer>
+    </div>
+</footer>
 
-    <!-- Fix dark mode toggle script -->
-    <script>
-        document.addEventListener('DOMContentLoaded', function() {
-            // Initialize dark mode from localStorage
-            const darkModeStored = localStorage.getItem('darkMode');
-            if (darkModeStored === 'true') {
-                document.documentElement.classList.add('theme-dark');
-            } else if (darkModeStored === null && window.matchMedia('(prefers-color-scheme: dark)').matches) {
-                document.documentElement.classList.add('theme-dark');
-                localStorage.setItem('darkMode', 'true');
+<!-- Bootstrap Bundle with Popper -->
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+
+<script>
+    function ekchem(userid, password) {
+        document.getElementById('email').value = userid;
+        document.getElementById('password').value = password;
+    }
+
+    document.addEventListener('DOMContentLoaded', function() {
+        // Dark mode toggle
+        const darkModeToggle = document.getElementById('darkModeToggle');
+        const body = document.body;
+        const icon = darkModeToggle.querySelector('i');
+        
+        // Check for saved dark mode preference
+        if (localStorage.getItem('dark') === 'true') {
+            body.classList.add('dark-mode');
+            icon.classList.remove('bi-moon');
+            icon.classList.add('bi-sun');
+        }
+        
+        // Toggle dark mode
+        darkModeToggle.addEventListener('click', function() {
+            body.classList.toggle('dark-mode');
+            
+            if (body.classList.contains('dark-mode')) {
+                icon.classList.remove('bi-moon');
+                icon.classList.add('bi-sun');
+                localStorage.setItem('dark', 'true');
+            } else {
+                icon.classList.remove('bi-sun');
+                icon.classList.add('bi-moon');
+                localStorage.setItem('dark', 'false');
             }
-            
-            // Track user activity
-            let lastActivity = Date.now();
-            const inactivityTimeout = 15 * 60 * 1000; // 15 minutes
-            
-            function resetActivity() {
-                lastActivity = Date.now();
-            }
-            
-            function checkInactivity() {
-                if (Date.now() - lastActivity > inactivityTimeout) {
-                    // Could implement auto-logout or warning here
-                    console.log('User inactive for 15 minutes');
-                }
-            }
-            
-            // Reset activity timer when user interacts
-            window.addEventListener('mousemove', resetActivity);
-            window.addEventListener('keypress', resetActivity);
-            window.addEventListener('click', resetActivity);
-            
-            // Check inactivity every minute
-            setInterval(checkInactivity, 60000);
         });
-    </script>
+        
+        // Password visibility toggle
+        const togglePassword = document.getElementById('togglePassword');
+        const passwordInput = document.getElementById('password');
+        
+        togglePassword.addEventListener('click', function() {
+            const type = passwordInput.getAttribute('type') === 'password' ? 'text' : 'password';
+            passwordInput.setAttribute('type', type);
+            
+            const icon = this.querySelector('i');
+            icon.classList.toggle('fa-eye');
+            icon.classList.toggle('fa-eye-slash');
+        });
+        
+        // Add shine effect to login button
+        const loginButton = document.querySelector('.naftal-btn');
+        loginButton.addEventListener('mouseover', function() {
+            this.style.transition = 'all 0.3s ease';
+        });
+        
+        // Track user activity
+        let lastActivity = Date.now();
+        const inactivityTimeout = 15 * 60 * 1000; // 15 minutes
+        
+        function resetActivity() {
+            lastActivity = Date.now();
+        }
+        
+        function checkInactivity() {
+            if (Date.now() - lastActivity > inactivityTimeout) {
+                console.log('User inactive for 15 minutes');
+                // Could implement auto-logout or warning here
+            }
+        }
+        
+        // Reset activity timer when user interacts
+        ['mousemove', 'keypress', 'click', 'touchstart'].forEach(event => {
+            window.addEventListener(event, resetActivity);
+        });
+        
+        // Check inactivity every minute
+        setInterval(checkInactivity, 60000);
+    });
+</script>
 </body>
 </html>
