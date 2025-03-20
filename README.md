@@ -1,6 +1,7 @@
+updated 20/03/2025 by oualid
 # Welcome to My New Website!
 
-This repository contains the source code for my brand-new website, developed by Oualid Hamri.
+This repository contains the source code for my brand-new website
 
 ## About
 
@@ -11,6 +12,9 @@ This website is designed to [briefly describe the purpose of the website, e.g., 
 *   [List key features of the website, e.g., Responsive design, Contact form, Blog section, etc.]
 *   [Another feature]
 *   [And another one]
+*   [New Feature 1: Dark mode support]
+*   [New Feature 2: Interactive animations]
+*   [New Feature 3: Live chat support]
 
 ## Getting Started
 
