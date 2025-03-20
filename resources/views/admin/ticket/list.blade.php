@@ -16,8 +16,39 @@
             </div>
         @endif
         
+
         <h2 class="my-6 text-2xl font-semibold text-gray-700 dark:text-gray-200"> Liste des Tickets
         </h2>
+        <div>
+            <form method="post" action="{{ route('admin.tickets.filter') }}" class="dark:bg-gray-900 p-4 rounded-lg">
+                @csrf  
+                <select class="bg-gray-800 border border-gray-600 text-gray-200 rounded-md px-4 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500" name="priority">
+                    <option value="*">All</option>
+                    <option value="low">Low</option>
+                    <option value="medium">Medium</option>
+                    <option value="high">High</option>
+                    <option value="urgent">Urgent</option>
+                </select>
+            
+                <select class="bg-gray-800 border border-gray-600 text-gray-200 rounded-md px-4 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500" name="status">
+                    <option value="*">All</option>
+                    <option value="pending">Pending</option>
+                    <option value="solved">Solved</option>
+                </select>
+            
+                <select class="bg-gray-800 border border-gray-600 text-gray-200 rounded-md px-4 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500" name="employee_id">
+                    <option value="*">All</option>
+                    @foreach($employees as $employee)
+                    <option value="{{ $employee->id }}">{{ $employee->name }}</option>
+                    @endforeach
+                </select>
+            
+                <button type="submit" class="bg-blue-600 hover:bg-blue-800 text-white font-bold py-2 px-4 rounded">
+                    Filter
+                </button>
+            </form>
+            
+        </div>
         <table class="w-full whitespace-no-wrap">
             <thead>
                 <tr
@@ -66,7 +97,7 @@
                     </td>
                     <td class="px-4 py-3">
                         <div class="flex items-center space-x-4 text-sm">
-                            <button type="submit" onclick="window.location='{{ route('admin.employee.editemployee', ['id' => $ticket->id]) }}'"
+                            <button type="submit" onclick="window.location='{{ route('admin.tickets.show', ['id' => $ticket->id]) }}'"
                                 class="flex items-center justify-between px-2 py-2 text-sm font-medium leading-5 text-purple-600 rounded-lg dark:text-gray-400 focus:outline-none focus:shadow-outline-gray"
                                 aria-label="Edit">
                                 <svg class="w-5 h-5" aria-hidden="true" fill="currentColor" viewBox="0 0 20 20">
@@ -77,17 +108,10 @@
                             </button>
 
 
-                            <button type="submit" onclick="window.location='{{ route('admin.profile.show', ['id' => $ticket->id]) }}'"
-                                class="flex items-center justify-between px-2 py-2 text-sm font-medium leading-5 text-purple-600 rounded-lg dark:text-gray-400 focus:outline-none focus:shadow-outline-gray"
-                                aria-label="Edit">
-                                <svg class="w-6 h-6" aria-hidden="true" fill="currentColor" viewBox="0 0 24 24">
-                                    <path d="M12 12c2.761 0 5-2.239 5-5S14.761 2 12 2 7 4.239 7 7s2.239 5 5 5zm0 2c-3.33 0-10 1.67-10 5v2h20v-2c0-3.33-6.67-5-10-5z"/>
-                                </svg>
-                            </button>
+                      
 
 
-                            <form method="post" action="{{route('admin.employee.delete')}}">
-                                <input type="hidden" $ticket="id" value="{{ $ticket->id }}">
+                            <form method="post" action="{{route('admin.tickets.delete',$ticket->id)}}">
                             @method('DELETE')
                                 @csrf
                             <button onclick="return confirm('Vous voulez supprimer {{ $ticket->title }}?')"

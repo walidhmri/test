@@ -11,7 +11,8 @@ class Teket extends Model
         'title',
         'description',
         'user_id',
-        'priority'
+        'priority',
+        'file'
     ];
    
 }

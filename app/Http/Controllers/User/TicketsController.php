@@ -36,11 +36,20 @@ class TicketsController extends Controller
             'description' => 'required',
             'priority'=>'required'
         ]);
+        if ($request->hasFile('file')) {
+            $file = $request->file('file');
+            $filepath = $file->store('uploads','public');
+        } else {
+            return back()->withErrors(['error' => 'يرجى اختيار ملف للرفع.']);
+        }
+        
+        
         $ticket=Teket::create([
             'title' => $request->title,
             'description' => $request->description,
             'priority' => $request->priority,
-            'user_id' => auth()->user()->id
+            'user_id' => auth()->user()->id,
+            'file' => $filepath
         ]); 
         return redirect()->route('dasboard.tickets')->with('success', 'تمت إضافة التذكرة بنجاح.');
         
@@ -73,8 +82,14 @@ class TicketsController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(string $id)
+    public function destroy(Request $request)
     {
-        //
+      
+         $ticket=Teket::find($request->id);
+         if(!$ticket){
+            return redirect()->route('employee.tickets')->with('error', 'Ticket not found');
+         }
+         $ticket->delete();
+        return redirect()->route('dasboard.tickets')->with('success', 'Ticket supprimé avec succès');
     }
 }
