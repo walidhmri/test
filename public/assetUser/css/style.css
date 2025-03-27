@@ -47,3 +47,32 @@
     padding: 0.5rem; /* Less padding on mobile */
   }
 }
+.my_chart {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 20px;
+  justify-content: center;
+  padding: 20px;
+}
+
+/* تخصيص تصميم الرسم البياني */
+canvas {
+  max-width: 400px;
+  max-height: 400px;
+  background: #fff;
+  border-radius: 10px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  padding: 10px;
+}
+
+/* تخصيص تصميم القسم الثاني */
+.second-label {
+  text-align: center;
+  font-size: 18px;
+  font-weight: bold;
+  color: #444;
+  background: #f9f9f9;
+  padding: 10px;
+  border-radius: 10px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}

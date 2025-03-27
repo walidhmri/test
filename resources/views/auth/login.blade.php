@@ -534,7 +534,7 @@
                     </div>
                     <div class="text-center text-muted" style="font-size: 0.875rem;">
                         <p class="mb-2">Dernier mise a jour: <span class="fw-medium">Mars 8, 2025</span></p>
-                        <a href="/support" class="text-decoration-none" style="color: var(--primary);">Support</a>
+                        <a href="http://localhost/ticket" class="text-decoration-none" style="color: var(--primary);">Support</a>
                     </div>
                 </div>
             </div>

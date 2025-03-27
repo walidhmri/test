@@ -5,8 +5,7 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
-    <title>Naftal - @yield('title')</title>
-    <link rel="stylesheet" href="{{ asset('css/chat-admin.css') }}">
+    <title>Naftal -Ingenieur @yield('title')</title>
 
     <!-- Google Fonts -->
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap"
@@ -36,7 +35,7 @@
         <aside class="z-20 hidden w-64 overflow-y-auto bg-white dark:bg-gray-800 md:block flex-shrink-0">
             <div class="py-4 text-gray-500 dark:text-gray-400">
                 <a class="ml-6 text-lg font-bold text-gray-800 dark:text-gray-200" href="{{route('index')}}">
-                    Naftal Platforme
+                    منصة نافطال
                 </a>
                 <ul class="mt-6">
                     <li class="relative px-6 py-3">
@@ -380,6 +379,18 @@
             </main>
         </div>
     </div>
+  <!--Start of Tawk.to Script-->
+<script type="text/javascript">
+    var Tawk_API=Tawk_API||{}, Tawk_LoadStart=new Date();
+    (function(){
+    var s1=document.createElement("script"),s0=document.getElementsByTagName("script")[0];
+    s1.async=true;
+    s1.src='https://embed.tawk.to/67e1ce8cf421cd1907c2765e/1in50tlkd';
+    s1.charset='UTF-8';
+    s1.setAttribute('crossorigin','*');
+    s0.parentNode.insertBefore(s1,s0);
+    })();
+    </script>
 </body>
 
 </html>

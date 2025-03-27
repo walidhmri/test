@@ -21,7 +21,7 @@ class AdminController extends Controller
         return view('admin.dashboard',compact('employees', 'tickets'));
     }
     function employee(){
-        $employees = User::paginate(5);
+        $employees = User::paginate(10);
         return view('admin.employee.list',compact('employees'));
     }
     function addEmployee(){
@@ -79,6 +79,25 @@ if ($employee) {
         if (!$employee) {
             return redirect()->route('admin.employee.list')->with('error', 'User not found');
         }
+        if($employee->role == 'admin'){
+            $request->validate([
+                'name' => ['required', 'string', 'max:255'],
+                'email' => ['required', 'string', 'lowercase', 'max:255'],
+                'role' => ['required', 'in:admin,ingenieur,user'], 
+                'password' => ['required']
+            ]);
+            $employee->update([
+                'name' => $request->name,
+                'email' => $request->email,
+                'role' => $request->role,
+                'password' => Hash::make($request->password),
+            ]);
+            return redirect()->route('admin.profile.show',['id' => $employee->id])->with('success', 'Profile modifier avec succées');
+        }
+
+
+        
+        else{
         $request->validate([
             'name' => ['required', 'string', 'max:255'],
             'email' => ['required', 'string', 'lowercase', 'max:255'],
@@ -92,5 +111,8 @@ if ($employee) {
         ]);
         return redirect()->route('admin.employee.list')->with('success', 'User updated succeffully');
     }
+    
+    }
+    
 }
 

@@ -11,11 +11,14 @@ class IngenieurController extends Controller
     {
         return view('ingenieur.dashboard');
     }
-    function create()
-    {
-        return view('ingenieur.create');
-    }
+
     function store(Request $request){
+
+    }
+    function update(Request $request){
+
+    }
+    function destroy(Request $request){
 
     }
 }

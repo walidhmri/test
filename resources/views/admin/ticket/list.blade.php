@@ -23,26 +23,33 @@
             <form method="post" action="{{ route('admin.tickets.filter') }}" class="dark:bg-gray-900 p-4 rounded-lg">
                 @csrf  
                 <select class="bg-gray-800 border border-gray-600 text-gray-200 rounded-md px-4 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500" name="priority">
-                    <option value="*">All</option>
-                    <option value="low">Low</option>
-                    <option value="medium">Medium</option>
-                    <option value="high">High</option>
-                    <option value="urgent">Urgent</option>
+                    <option value="" {{ request('priority') == '' ? 'selected' : '' }}>All</option>
+                    <option value="low" {{ request('priority') == 'low' ? 'selected' : '' }}>Low</option>
+                    <option value="medium" {{ request('priority') == 'medium' ? 'selected' : '' }}>Medium</option>
+                    <option value="high" {{ request('priority') == 'high' ? 'selected' : '' }}>High</option>
+                    <option value="urgent" {{ request('priority') == 'urgent' ? 'selected' : '' }}>Urgent</option>
                 </select>
             
                 <select class="bg-gray-800 border border-gray-600 text-gray-200 rounded-md px-4 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500" name="status">
-                    <option value="*">All</option>
-                    <option value="pending">Pending</option>
-                    <option value="solved">Solved</option>
+                    <option value="" {{ request('status') == '' ? 'selected' : '' }}>All</option>
+                    <option value="pending" {{ request('status') == 'pending' ? 'selected' : '' }}>Pending</option>
+                    <option value="solved" {{ request('status') == 'solved' ? 'selected' : '' }}>Solved</option>
                 </select>
             
                 <select class="bg-gray-800 border border-gray-600 text-gray-200 rounded-md px-4 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500" name="employee_id">
-                    <option value="*">All</option>
+                    <option value="" {{ request('employee_id') == '' ? 'selected' : '' }}>All</option>
                     @foreach($employees as $employee)
-                    <option value="{{ $employee->id }}">{{ $employee->name }}</option>
+                        <option value="{{ $employee->id }}" {{ request('employee_id') == $employee->id ? 'selected' : '' }}>
+                            {{ $employee->name }}
+                        </option>
                     @endforeach
                 </select>
-            
+                <input type="month" name="month" id="month"
+                value="{{ request('month') }}"
+                class="bg-gray-800  border border-gray-600 
+                       rounded-lg px-4 py-2 focus:ring-2 focus:ring-blue-500 
+                       focus:border-blue-500 outline-none transition duration-200">
+
                 <button type="submit" class="bg-blue-600 hover:bg-blue-800 text-white font-bold py-2 px-4 rounded">
                     Filter
                 </button>
@@ -80,24 +87,41 @@
                     {{ $employees->where('id',$ticket->user_id)->first()->name }}
                     <td class="px-4 py-3 text-xs">
 
-                        <span
-                            class="px-2 py-1 font-semibold leading-tight text-green-700 bg-green-100 rounded-full dark:bg-green-700 dark:text-green-100">
-                            {{$ticket->status}}
-                        </span>
+                        <span style="
+                            @switch($ticket->status)
+                            @case('pending') background-color:orange; @break
+                            @case('closed') background-color:brown; @break
+                            @case('solved') background-color:green; @break
+                            @default background-color:gray;
+                        @endswitch
+                            
+                            
+                " class="px-2 py-1 font-semibold leading-tight rounded-full 
+                    
+                             text-gray-700 bg-gray-100 dark:bg-gray-700 dark:text-gray-100">
+                        
+                        {{$ticket->status}}
+                    </span>
                     </td>
                     <td class="px-4 py-3 text-xs">
 
-                        <span
-                            class="px-2 py-1 font-semibold leading-tight text-green-700 bg-green-100 rounded-full dark:bg-green-700 dark:text-green-100">
-                            {{$ticket->priority}}
-                        </span>
+                        <span class="px-2 py-1 font-semibold leading-tight rounded-full 
+                        @switch($ticket->priority)
+                            @case('low') text-green-700 bg-green-100 dark:bg-green-700 dark:text-green-100 @break
+                            @case('medium') text-yellow-700 bg-yellow-100 dark:bg-yellow-700 dark:text-yellow-100 @break
+                            @case('high') text-dark-700 bg-orange-100 dark:bg-orange-700 dark:text-dark-700 @break
+                            @case('urgent') text-red-700 bg-red-100 dark:bg-red-700 dark:text-red-100 @break
+                            @default text-gray-700 bg-gray-100 dark:bg-gray-700 dark:text-gray-100
+                        @endswitch">
+                        {{$ticket->priority}}
+                    </span>
                     </td>
                     <td class="px-4 py-3 text-sm">
                         {{ $ticket->created_at->format('Y-m-d') }}
                     </td>
                     <td class="px-4 py-3">
                         <div class="flex items-center space-x-4 text-sm">
-                            <button type="submit" onclick="window.location='{{ route('admin.tickets.show', ['id' => $ticket->id]) }}'"
+                            <button type="submit" onclick="window.location='{{ route('admin.tickets.show', ['id' => $ticket->id,'user_id'=>$ticket->user_id]) }}'"
                                 class="flex items-center justify-between px-2 py-2 text-sm font-medium leading-5 text-purple-600 rounded-lg dark:text-gray-400 focus:outline-none focus:shadow-outline-gray"
                                 aria-label="Edit">
                                 <svg class="w-5 h-5" aria-hidden="true" fill="currentColor" viewBox="0 0 20 20">

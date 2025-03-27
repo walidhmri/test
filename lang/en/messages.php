@@ -33,4 +33,5 @@ return [
     'developper_walid' => 'Oualid Hamri Pages',
     'logout' => 'Logout',
     'login' => 'Login',
+    
 ];

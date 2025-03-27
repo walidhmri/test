@@ -8,6 +8,17 @@
   <title>
     Naftal @yield('title', 'Dashboard')
   </title>
+<style>
+</style>
+  <!-- In your main layout file (e.g., resources/views/layouts/app.blade.php) -->
+<!-- Add these lines before the closing </body> tag -->
+<meta name="csrf-token" content="{{ csrf_token() }}">
+<!-- Chat Support CSS -->
+<link rel="stylesheet" href="{{ asset('css/chat.css') }}">
+<!-- Chart  JS -->
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.3/Chart.min.css" />
+
+<!-- Chat Support JS -->
   <!-- Fonts and icons -->
   <link rel="stylesheet" type="text/css" href="https://fonts.googleapis.com/css?family=Inter:300,400,500,600,700,900" />
   <link href="{{ asset('assetUser/css/nucleo-icons.css') }}" rel="stylesheet" />
@@ -19,7 +30,10 @@
   <link rel="stylesheet" href="{{ asset('assetUser/css/style.css') }}">
 </head>
 
+
 <body class="g-sidenav-show bg-gray-100">
+  
+
   <aside class="sidenav navbar navbar-vertical navbar-expand-xs border-radius-lg fixed-start ms-2 bg-white my-2" id="sidenav-main">
     <div class="sidenav-header">
       <i class="fas fa-times p-3 cursor-pointer text-dark opacity-5 position-absolute end-0 top-0 d-none d-xl-none" aria-hidden="true" id="iconSidenav"></i>
@@ -34,7 +48,7 @@
         <li class="nav-item">
           <a class="nav-link {{ Route::is('dashboard') ? 'active bg-gradient-dark text-white' : 'text-dark' }}" href="{{ route('dashboard') }}">
             <i class="material-symbols-rounded opacity-5">dashboard</i>
-            <span class="nav-link-text ms-1">Dashboard</span>
+            <span class="nav-link-text ms-1">Dashboard </span>
           </a>
         </li>
         <li class="nav-item">
@@ -130,6 +144,7 @@
         {{ session('success') }}
       </div>
     @endif
+
     @if (session('error'))
       <div class="alert alert-danger mx-3">
         {{ session('error') }}
@@ -137,7 +152,7 @@
     @endif
     @yield('content')
   </main>
-
+<div class="" id="chatIcon"></div>chatIcon
   <!-- Core JS Files -->
   <script src="{{ asset('assetUser/js/core/popper.min.js') }}"></script>
   <script src="{{ asset('assetUser/js/core/bootstrap.min.js') }}"></script>
@@ -147,5 +162,40 @@
   <!-- Chart JS scripts remain unchanged unless needed -->
   <script async defer src="https://buttons.github.io/buttons.js"></script>
   <script src="{{ asset('assetUser/js/material-dashboard.min.js?v=3.2.0') }}"></script>
+
+<!--Start of Tawk.to Script-->
+<script type="text/javascript">
+  var Tawk_API=Tawk_API||{}, Tawk_LoadStart=new Date();
+  (function(){
+  var s1=document.createElement("script"),s0=document.getElementsByTagName("script")[0];
+  s1.async=true;
+  s1.src='https://embed.tawk.to/67e1ce8cf421cd1907c2765e/1in50tlkd';
+  s1.charset='UTF-8';
+  s1.setAttribute('crossorigin','*');
+  s0.parentNode.insertBefore(s1,s0);
+  })();
+  </script>
+
+  <!--End of Tawk.to Script-->
+  <script type="text/javascript">
+    var Tawk_API = Tawk_API || {};
+
+    @if(Auth::check())
+        Tawk_API.onLoad = function() {
+            Tawk_API.setAttributes({
+                'name'  : "{{ Auth::user()->name }}",
+                'email' : "{{ Auth::user()->department_name }}",
+                'hash'  : "{{ hash_hmac('sha256', Auth::user()->department_name, env('TAWK_API_KEY')) }}"
+            }, function(error) {
+                console.log("Tawk.to attributes updated!", error);
+            });
+        };
+    @endif
+</script>
+
+
+
+
+
 </body>
 </html>

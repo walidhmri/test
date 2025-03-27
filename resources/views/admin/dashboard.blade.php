@@ -7,9 +7,30 @@ Admin Dashboard
 <meta name="tickets-medium" content="{{ $tickets->where('priority' ,'medium')->count() }}">
 <meta name="tickets-high" content="{{ $tickets->where('priority' ,'high')->count() }}">
 <meta name="tickets-urgent" content="{{ $tickets->where('priority' ,'urgent')->count() }}">
+@for ($i = 1; $i <= 7; $i++)
+    @php
+        $solvedTickets = $tickets->filter(function ($ticket) use ($i) {
+            return \Carbon\Carbon::parse($ticket->updated_at)->month == $i &&
+                   \Carbon\Carbon::parse($ticket->updated_at)->year == now()->year &&
+                   $ticket->status == 'solved';
+        })->count();
+    @endphp
 
+    <meta name="tickets-solved-{{ $i }}" content="{{ $solvedTickets }}">
+@endfor
+@for ($i = 1; $i <= 7; $i++)
+    @php
+        $pendingTickets = $tickets->filter(function ($ticket) use ($i) {
+            return \Carbon\Carbon::parse($ticket->updated_at)->month == $i &&
+                   \Carbon\Carbon::parse($ticket->updated_at)->year == now()->year &&
+                   $ticket->status == 'pending';
+        })->count();
+    @endphp
 
+    <meta name="tickets-pending-{{ $i }}" content="{{ $pendingTickets }}">
+@endfor
 
+                  
 <div class="container px-6 mx-auto grid">
     <h2 class="my-6 text-2xl font-semibold text-gray-700 dark:text-gray-200">Dashboard</h2>
 

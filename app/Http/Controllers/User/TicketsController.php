@@ -13,7 +13,7 @@ class TicketsController extends Controller
 
     public function index()
     {
-        $tickets = Teket::where('user_id', auth()->user()->id)->paginate(5);
+        $tickets = Teket::where('user_id', auth()->user()->id)->paginate(10);
         return view('employee.tickets',compact('tickets'));
     }
 
@@ -39,18 +39,22 @@ class TicketsController extends Controller
         if ($request->hasFile('file')) {
             $file = $request->file('file');
             $filepath = $file->store('uploads','public');
-        } else {
-            return back()->withErrors(['error' => 'يرجى اختيار ملف للرفع.']);
+            $ticket=Teket::create([
+                'title' => $request->title,
+                'description' => $request->description,
+                'priority' => $request->priority,
+                'user_id' => auth()->user()->id,
+                'file' => $filepath
+            ]); 
+        }else{
+            $ticket=Teket::create([
+                'title' => $request->title,
+                'description' => $request->description,
+                'priority' => $request->priority,
+                'user_id' => auth()->user()->id,
+            ]); 
         }
         
-        
-        $ticket=Teket::create([
-            'title' => $request->title,
-            'description' => $request->description,
-            'priority' => $request->priority,
-            'user_id' => auth()->user()->id,
-            'file' => $filepath
-        ]); 
         return redirect()->route('dasboard.tickets')->with('success', 'تمت إضافة التذكرة بنجاح.');
         
     }

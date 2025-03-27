@@ -17,13 +17,7 @@
   <!-- End Navbar -->
 
   <div class="container-fluid py-4">
-    @if (session('success'))
-    <div class="alert alert-success alert-dismissible fade show mt-3 mx-3" role="alert">
-      <div class="alert-body">
-        <strong>{{ session('success') }}</strong>
-      </div>
-    </div>
-    @endif
+ 
     <div class="row">
       <div class="col-12">
         <div class="card my-4">
@@ -99,23 +93,55 @@
                         </div>
                       </td>
                       <td>
-                        <p class="text-xs font-weight-bold mb-0">{{ $ticket->priority }}</p>
-                      </td>
+                        <span class="badge 
+                            @if($ticket->priority == 'low') bg-gradient-success
+                            @elseif($ticket->priority == 'medium') bg-gradient-warning
+                            @elseif($ticket->priority == 'high') bg-gradient-danger
+                            @elseif($ticket->priority == 'urgent') bg-gradient-dark
+                            @else bg-gradient-secondary
+                            @endif">
+                            {{ ucfirst($ticket->priority) }}
+                        </span>
+                    </td>
+                    
+                    
                       <td>
                         <p class="text-xs font-weight-bold mb-0">{{ $ticket->created_at }}</p>
                       </td>
                       <td>
+                        @php
+                        $createdAt = \Carbon\Carbon::parse($ticket->created_at);
+                        $now = \Carbon\Carbon::now();
+                        $diffInHours = $createdAt->diffInHours($now);
+                    @endphp
+                    
+                    @if($diffInHours < 24)
                         <form action="{{ route('employee.tickets.destroy', $ticket->id) }}" method="POST" style="display: inline;">
-                          @csrf
-                          @method('DELETE')
-                          <button type="submit" class="btn btn-sm bg-gradient-danger" onclick="return confirm('Êtes-vous sûr de vouloir supprimer ce ticket ?')">
-                            <span class="text-white">Supprimer</span>
-                          </button>
+                            @csrf
+                            @method('DELETE')
+                            <button type="submit" class="btn btn-sm bg-gradient-danger" onclick="return confirm('Êtes-vous sûr de vouloir supprimer ce ticket ?')">
+                                <span class="text-white">Supprimer</span>
+                            </button>
                         </form>
+                        @else
+                        <label for="down">u can't delete</label>
+                    @endif
+                        <a name="down" href="{{route('pdf.ticket',['id'=>$ticket->id])}}"  class="btn btn-sm bg-gradient-dark">
+                          Download
+                      </a>
                       </td>
                       <td>
-                        <span class="badge bg-gradient-success">{{ $ticket->status }}</span>
-                      </td>
+                        <span class="badge 
+                            @if($ticket->status == 'pending') bg-gradient-warning
+                            @elseif($ticket->status == 'solved') bg-gradient-success
+                            @elseif($ticket->status == 'in_progress') bg-gradient-info
+                            @elseif($ticket->status == 'closed') bg-gradient-secondary
+                            @else bg-gradient-dark
+                            @endif">
+                            {{ $ticket->status }}
+                        </span>
+                    </td>
+                    
 
                     </tr>
                   @endforeach
