@@ -13,8 +13,8 @@ class TicketsController extends Controller
 
     public function index()
     {
-        $tickets = Teket::where('user_id', auth()->user()->id)->paginate(10);
-        return view('employee.tickets',compact('tickets'));
+        $tickets = Teket::where('user_id', auth()->user()->id)->paginate(5);
+        return view('employee.liste',compact('tickets'));
     }
 
     /**
@@ -23,7 +23,7 @@ class TicketsController extends Controller
     public function create()
     {
        
-        return view('employee.tickets.add');
+        return view('employee.tickets');
     }
 
     /**
@@ -72,15 +72,28 @@ class TicketsController extends Controller
      */
     public function edit(string $id)
     {
-        //
+        $ticket = Teket::findOrFail($id); // Get a single model instance
+        return view('employee.update', compact('ticket')); // Adjust view name as needed
     }
 
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, string $id)
+    public function update(Request $request)
     {
-        //
+        
+        $request->validate([
+            'title' => 'required|string|max:255',
+            'priority' => 'required|in:low,medium,high,urgent', 
+            'file' => 'nullable|file|mimes:jpg,jpeg,png,pdf|max:2048', 
+        ]);
+        $ticket=Teket::find($request->id);
+        $ticket->title=$request->title;
+        $ticket->description=$request->description;
+        $ticket->priority=$request->priority;
+        $ticket->save();
+    
+        return redirect()->back()->with('success', 'Ticket mis à jour avec succès.');
     }
 
     /**
@@ -96,4 +109,5 @@ class TicketsController extends Controller
          $ticket->delete();
         return redirect()->route('dasboard.tickets')->with('success', 'Ticket supprimé avec succès');
     }
+
 }

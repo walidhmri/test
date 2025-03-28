@@ -47,6 +47,7 @@ class DatabaseSeeder extends Seeder
                 'email' => (string) Str::uuid(), // تحويل UUID إلى نص ليكون كـ user_id
                 'password' => bcrypt('password'), // تشفير كلمة المرور
                 'role' => 'user'
+                
             ]);
         }
         for ($i = 0; $i < 10; $i++) {
@@ -55,6 +56,24 @@ class DatabaseSeeder extends Seeder
                 'description' => $faker->paragraph, // تحويل UUID إلى نص ليكون كـ user_id
                 'status' => 'pending', // تشفير كلمة المرور
                 'priority' => 'low',
+                'user_id' => 2
+            ]);
+        }
+        for ($i = 0; $i < 10; $i++) {
+            Teket::create([
+                'title' => $faker->paragraph ,  // اسم عشوائي
+                'description' => $faker->paragraph, // تحويل UUID إلى نص ليكون كـ user_id
+                'status' => 'solved', // تشفير كلمة المرور
+                'priority' => 'medium',
+                'user_id' => 2
+            ]);
+        }
+        for ($i = 0; $i < 10; $i++) {
+            Teket::create([
+                'title' => $faker->paragraph ,  // اسم عشوائي
+                'description' => $faker->paragraph, // تحويل UUID إلى نص ليكون كـ user_id
+                'status' => 'closed', // تشفير كلمة المرور
+                'priority' => 'high',
                 'user_id' => 2
             ]);
         }

@@ -32,7 +32,6 @@ Admin Dashboard
 
                   
 <div class="container px-6 mx-auto grid">
-    <h2 class="my-6 text-2xl font-semibold text-gray-700 dark:text-gray-200">Dashboard</h2>
 
     <div class="grid gap-6 mb-8 md:grid-cols-2 xl:grid-cols-4">
         <!-- Card -->
@@ -130,6 +129,80 @@ Admin Dashboard
               </div>
             </div>
           </div>
+          <h5 class=" text-2xl font-semibold text-gray-700 dark:text-gray-200">Last Created Tickets</h5>
+
+          <table class="w-full whitespace-no-wrap">
+            <thead>
+                <tr
+                    class="text-xs font-semibold tracking-wide text-left text-gray-500 uppercase border-b dark:border-gray-700 bg-gray-50 dark:text-gray-400 dark:bg-gray-800">
+                    <th class="px-4 py-3">Ticket Title</th>
+                    <th class="px-4 py-3">Employee </th>
+                    <th class="px-4 py-3">Status</th>
+                    <th class="px-4 py-3">Priority</th>
+                    <th class="px-4 py-3">Date</th>
+                </tr>
+            </thead>
+            <tbody class="bg-white divide-y dark:divide-gray-700 dark:bg-gray-800">
+                @php
+                $compteur=0
+                @endphp
+                @foreach($tickets as $ticket)
+                <meta name="" content="{{$compteur++}}">
+                @if($compteur>=5)
+                @break
+                @endif
+                
+                <tr class="text-gray-700 dark:text-gray-400">
+                    <td class="px-4 py-3">
+                        <div class="flex items-center text-sm">
+                            <div class="min-w-0 max-w-full">
+                                {{ \Illuminate\Support\Str::words($ticket->title, 5, '...') }}                                <p class="text-xs text-gray-600 dark:text-gray-400 truncate">
+                                    {{ $ticket->role }}
+                                </p>
+                            </div>
+                        </div>
+                    </td>
+                    <td class="px-4 py-3 text-sm">
+                    {{ $employees->where('id',$ticket->user_id)->first()->name }}
+                    <td class="px-4 py-3 text-xs">
+
+                        <span style="
+                            @switch($ticket->status)
+                            @case('pending') background-color:orange; @break
+                            @case('closed') background-color:brown; @break
+                            @case('solved') background-color:green; @break
+                            @default background-color:gray;
+                        @endswitch
+                            
+                            
+                " class="px-2 py-1 font-semibold leading-tight rounded-full 
+                    
+                             text-gray-700 bg-gray-100 dark:bg-gray-700 dark:text-gray-100">
+                        
+                        {{$ticket->status}}
+                    </span>
+                    </td>
+                    <td class="px-4 py-3 text-xs">
+
+                        <span class="px-2 py-1 font-semibold leading-tight rounded-full 
+                        @switch($ticket->priority)
+                            @case('low') text-green-700 bg-green-100 dark:bg-green-700 dark:text-green-100 @break
+                            @case('medium') text-yellow-700 bg-yellow-100 dark:bg-yellow-700 dark:text-yellow-100 @break
+                            @case('high') text-dark-700 bg-orange-100 dark:bg-orange-700 dark:text-dark-700 @break
+                            @case('urgent') text-red-700 bg-red-100 dark:bg-red-700 dark:text-red-100 @break
+                            @default text-gray-700 bg-gray-100 dark:bg-gray-700 dark:text-gray-100
+                        @endswitch">
+                        {{$ticket->priority}}
+                    </span>
+                    </td>
+                    <td class="px-4 py-3 text-sm">
+                        {{ $ticket->created_at->format('Y-m-d') }}
+                    </td>
+                
+                </tr>
+                @endforeach
+            </tbody>
+        </table>
 
 </div>
 @endsection

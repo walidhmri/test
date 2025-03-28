@@ -19,6 +19,7 @@ return new class extends Migration
             $table->text('description')->nullable();
             $table->text('priority')->default('low');
             $table->string('signedToEnG')->nullable();
+            $table->string('file')->nullable();
             $table->timestamp('last_used_at')->nullable();
             $table->string('status')->default('pending');
             $table->timestamp('expires_at')->nullable();

@@ -8,7 +8,7 @@
 <title>Naftal - Secure Login</title>
 
 <!-- Bootstrap CSS -->
-<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+<link href="{{asset('css/bootstrap.min.css')}}" rel="stylesheet">
 
 <!-- Font Awesome -->
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
@@ -17,8 +17,6 @@
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.2/font/bootstrap-icons.min.css">
 
 <!-- Google Fonts -->
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@400;500;700;800&display=swap" rel="stylesheet">
 
 <style>
@@ -434,8 +432,8 @@
                         </div>
                     </div>
                     <div>
-                        <h2 class="fw-bold mb-2">Tickets</h2>
-                        <p class="mb-0 opacity-75">Système de gestion des tickets</p>
+                        <h2 class="fw-bold mb-2">@lang('messages.tickets')</h2>
+                        <p class="mb-0 opacity-75">@lang('messages.platform_subtitle')</p>
                     </div>
                 </div>
             </div>
@@ -444,13 +442,13 @@
             <div class="col-md-7">
                 <div class="p-4 p-lg-5">
                     <div class="d-flex justify-content-between align-items-center mb-4">
-                        <h1 class="h3 fw-bold text-dark mb-0">Welcome Back</h1>
+                        <h1 class="h3 fw-bold text-dark mb-0">@lang('messages.welcome_back')</h1>
                         <span class="badge bg-transparent text-dark d-flex align-items-center">
                             <i class="fas fa-lock me-1"></i>
-                            Secure Login
+                            @lang('messages.secure_login')
                         </span>
                     </div>
-                    <p class="text-muted mb-4">Sign in to access your Naftal account dashboard</p>
+                    <p class="text-muted mb-4">@lang('messages.signin_text')</p>
                     
                     @if ($errors->any())
                     <div class="error-message p-3 rounded mb-4">
@@ -469,18 +467,18 @@
                     <form method="POST" action="{{ route('login') }}">
                         @csrf
                         <div class="mb-3">
-                            <label for="email" class="form-label fw-medium">User ID</label>
+                            <label for="email" class="form-label fw-medium">@lang('messages.userid')</label>
                             <div class="input-group">
                                 <span class="input-group-text">
                                     <i class="fas fa-user text-muted"></i>
                                 </span>
                                 <input type="text" class="form-control" id="email" name="email" 
-                                       value="{{ old('email') }}" placeholder="Enter your user ID" required autofocus>
+                                       value="{{ old('email') }}" placeholder="@lang('messages.userid')" required autofocus>
                             </div>
                         </div>
                         
                         <div class="mb-3">
-                            <label for="password" class="form-label fw-medium">Password</label>
+                            <label for="password" class="form-label fw-medium">@lang('messages.password')</label>
                             <div class="input-group">
                                 <span class="input-group-text">
                                     <i class="fas fa-lock text-muted"></i>
@@ -497,25 +495,20 @@
                             <div class="form-check">
                                 <input class="form-check-input" type="checkbox" id="remember" name="remember">
                                 <label class="form-check-label text-muted" for="remember">
-                                    Remember me
+                                    @lang('messages.remember_me')
                                 </label>
                             </div>
-                            @if (Route::has('password.request'))
-                            <a href="{{ route('password.request') }}" class="text-decoration-none" style="color: var(--primary);">
-                                Forgot your password?
-                            </a>
-                            @endif
                         </div>
                         
                         <!-- IMPROVED Button -->
                         <button type="submit" class="btn naftal-btn w-100 py-2 mb-3">
-                            <i class="fas fa-sign-in-alt me-2"></i> S'identifier
+                            <i class="fas fa-sign-in-alt me-2"></i> @lang('messages.login')
                         </button>
                     </form>
                     
                     <div class="divider">
                         <div class="divider-line"></div>
-                        <span class="divider-text">Access Rapide</span>
+                        <span class="divider-text">@lang('messages.access')</span>
                         <div class="divider-line"></div>
                     </div>
                     <button type="submit" class="btn naftal-btn w-100 py-2 mb-3" onclick="ekchem('12','password')">
@@ -529,12 +522,12 @@
                     </button>
                     <div class="divider">
                         <div class="divider-line"></div>
-                        <span class="divider-text">System information</span>
+                        <span class="divider-text">@lang('messages.system')</span>
                         <div class="divider-line"></div>
                     </div>
                     <div class="text-center text-muted" style="font-size: 0.875rem;">
-                        <p class="mb-2">Dernier mise a jour: <span class="fw-medium">Mars 8, 2025</span></p>
-                        <a href="http://localhost/ticket" class="text-decoration-none" style="color: var(--primary);">Support</a>
+                        <p class="mb-2">@lang('messages.last_update')<span class="fw-medium">Mars 8, 2025</span></p>
+                        <a href="http://localhost/ticket" class="text-decoration-none" style="color: var(--primary);">@lang('messages.support')</a>
                     </div>
                 </div>
             </div>
@@ -549,13 +542,13 @@
             <div class="col-md-6 mb-3 mb-md-0">
                 <div class="d-flex gap-2">
                     <a href="/" class="btn naftal-btn btn-sm">
-                        <i class="fas fa-home me-1"></i> Accueil
+                        <i class="fas fa-home me-1"></i> @lang('messages.home')
                     </a>
                 </div>
             </div>
             <div class="col-md-6 text-md-end">
                 <p class="text-muted mb-0" style="font-size: 0.875rem;">
-                    &copy; 2025 Naftal. All rights reserved.
+                    &copy; @lang('messages.copyrights')
                 </p>
             </div>
         </div>

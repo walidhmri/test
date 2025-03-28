@@ -10,7 +10,7 @@ class TicketsController extends Controller
 {
     public function index()
     {
-        $tickets = Teket::paginate(10);
+        $tickets = Teket::orderBy('updated_at', 'desc')->paginate(10);
         $employees = User::where('role', 'user')->get();
         return view('admin.ticket.list',compact('tickets','employees'));
     }
@@ -64,7 +64,7 @@ class TicketsController extends Controller
     }
 
     // تنفيذ البحث مع التصفح
-    $tickets = $query->paginate(10)->appends($request->query());
+    $tickets = $query->orderBy('updated_at', 'desc')->get()->appends($request->query());
 
     return view('admin.ticket.list', compact('tickets', 'employees'));
 }

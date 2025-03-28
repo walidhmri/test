@@ -73,11 +73,8 @@
                 <tr class="text-gray-700 dark:text-gray-400">
                     <td class="px-4 py-3">
                         <div class="flex items-center text-sm">
-                            <!-- Avatar with inset shadow -->
-
-                            <div>
-                                <p class="font-semibold">{{ $ticket->title }}</p>
-                                <p class="text-xs text-gray-600 dark:text-gray-400">
+                            <div class="min-w-0 max-w-full">
+                                {{ \Illuminate\Support\Str::words($ticket->title, 5, '...') }}                                <p class="text-xs text-gray-600 dark:text-gray-400 truncate">
                                     {{ $ticket->role }}
                                 </p>
                             </div>

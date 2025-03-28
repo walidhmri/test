@@ -76,7 +76,7 @@
                             <!-- Avatar with inset shadow -->
 
                             <div>
-                                <p class="font-semibold">{{ $ticket->title }}</p>
+                                <p class="font-semibold"> {{ \Illuminate\Support\Str::words($ticket->title, 4, '...') }} </p>
                                 <p class="text-xs text-gray-600 dark:text-gray-400">
                                     {{ $ticket->role }}
                                 </p>

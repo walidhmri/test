@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html :class="{ 'theme-dark': dark }" x-data="data()" lang="en">
+<html :class="{ 'theme-dark': dark }" x-data="data()" lang="en" dir="@lang('messages.dir')">
 
 <head>
     <meta charset="UTF-8" />
@@ -9,8 +9,7 @@
     <link rel="stylesheet" href="{{ asset('css/chat-admin.css') }}">
 
     <!-- Google Fonts -->
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap"
-        rel="stylesheet" />
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
 
     <!-- Tailwind CSS -->
     <link rel="stylesheet" href="{{ asset('assets/css/tailwind.output.css') }}" />
@@ -33,100 +32,101 @@
 <body>
     <div class="flex h-screen bg-gray-50 dark:bg-gray-900" :class="{ 'overflow-hidden': isSideMenuOpen }">
         <!-- Desktop sidebar -->
-        <aside class="z-20 hidden w-64 overflow-y-auto bg-white dark:bg-gray-800 md:block flex-shrink-0">
-            <div class="py-4 text-gray-500 dark:text-gray-400">
-                <a class="ml-6 text-lg font-bold text-gray-800 dark:text-gray-200" href="{{route('index')}}">
-                    Naftal Platforme
-                </a>
-                <ul class="mt-6">
-                    <li class="relative px-6 py-3">
-                        <span class="absolute inset-y-0 left-0 w-1 bg-purple-600 rounded-tr-lg rounded-br-lg"
-                            aria-hidden="true"></span>
-                        <a class="inline-flex items-center w-full text-sm font-semibold text-gray-800 transition-colors duration-150 hover:text-gray-800 dark:hover:text-gray-200 dark:text-gray-100"
-                            href="{{route('admin.dashboard')}}">
-                            <svg class="w-5 h-5" aria-hidden="true" fill="none" stroke-linecap="round"
-                                stroke-linejoin="round" stroke-width="2" viewBox="0 0 24 24" stroke="currentColor">
-                                <path
-                                    d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6">
-                                </path>
-                            </svg>
-                            <span class="ml-4">Dashboard</span>
-                        </a>
-                    </li>
-                </ul>
-                <ul>
+        @php
+        use Illuminate\Support\Str;
+    
+        // تحقق مما إذا كان المسار الحالي ينتمي إلى فئة معينة
+        $isDashboardActive = request()->routeIs('admin.dashboard');
+        $isTicketsActive = Str::startsWith(request()->route()->getName(), 'admin.tickets');
+        $isEmployeesActive = Str::startsWith(request()->route()->getName(), 'admin.employee');
+        $isIngenActive = Str::startsWith(request()->route()->getName(), 'admin.ingenieur');
+
+    @endphp
+    
+    <aside class="z-20 hidden w-64 overflow-y-auto bg-white dark:bg-gray-800 md:block flex-shrink-0">
+        <div class="py-4 text-gray-500 dark:text-gray-400">
+            <a class="ml-6 text-lg font-bold text-gray-800 dark:text-gray-200" href="{{ route('admin.dashboard') }}">
+                @lang('messages.title')
+            </a>
+            <ul class="mt-6">
                 <li class="relative px-6 py-3">
-                        <button
-                            class="inline-flex items-center justify-between w-full text-sm font-semibold transition-colors duration-150 hover:text-gray-800 dark:hover:text-gray-200"
-                            @click="togglePagesMenu" aria-haspopup="true">
-                            <span class="inline-flex items-center">
-                                <svg class="w-5 h-5" aria-hidden="true" fill="none" stroke-linecap="round"
-                                    stroke-linejoin="round" stroke-width="2" viewBox="0 0 24 24" stroke="currentColor">
-                                    <path
-                                        d="M4 5a1 1 0 011-1h14a1 1 0 011 1v2a1 1 0 01-1 1H5a1 1 0 01-1-1V5zM4 13a1 1 0 011-1h6a1 1 0 011 1v6a1 1 0 01-1 1H5a1 1 0 01-1-1v-6zM16 13a1 1 0 011-1h2a1 1 0 011 1v6a1 1 0 01-1 1h-2a1 1 0 01-1-1v-6z">
-                                    </path>
-                                </svg>
-                                <span class="ml-4">Tickets</span>
-                            </span>
-                            <svg class="w-4 h-4" aria-hidden="true" fill="currentColor" viewBox="0 0 20 20">
-                                <path fill-rule="evenodd"
-                                    d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z"
-                                    clip-rule="evenodd"></path>
-                            </svg>
-                        </button>
-                        <template x-if="isPagesMenuOpen">
-                            <ul x-transition:enter="transition-all ease-in-out duration-300"
-                                x-transition:enter-start="opacity-25 max-h-0"
-                                x-transition:enter-end="opacity-100 max-h-xl"
-                                x-transition:leave="transition-all ease-in-out duration-300"
-                                x-transition:leave-start="opacity-100 max-h-xl"
-                                x-transition:leave-end="opacity-0 max-h-0"
-                                class="p-2 mt-2 space-y-2 overflow-hidden text-sm font-medium text-gray-500 rounded-md shadow-inner bg-gray-50 dark:text-gray-400 dark:bg-gray-900"
-                                aria-label="submenu">
-                                <li
-                                    class="px-2 py-1 transition-colors duration-150 hover:text-gray-800 dark:hover:text-gray-200">
-                                    <a class="w-full" href="{{route('admin.tickets.list')}}">Show all</a>
-                                </li>
-          
-      
-                               
-                               
-                              
-                            </ul>
-                        </template>
-                    
-
-
-                    <li class="relative px-6 py-3">
-                        <a class="inline-flex items-center w-full text-sm font-semibold transition-colors duration-150 hover:text-gray-800 dark:hover:text-gray-200"
-                            href="{{route('admin.employee.list')}}">
-                            <svg class="w-5 h-5" aria-hidden="true" fill="none" stroke-linecap="round"
-                                stroke-linejoin="round" stroke-width="2" viewBox="0 0 24 24" stroke="currentColor">
-                                <path d="M4 6h16M4 10h16M4 14h16M4 18h16"></path>
-                            </svg>
-                            <span class="ml-4">Employees</span>
-                        </a>
-                    </li>
-                    <li class="relative px-6 py-3">
-                        <a class="inline-flex items-center w-full text-sm font-semibold transition-colors duration-150 hover:text-gray-800 dark:hover:text-gray-200"
-                            href="{{route('admin.employee.list')}}">
-                            <svg class="w-5 h-5" aria-hidden="true" fill="none" stroke-linecap="round"
-                                stroke-linejoin="round" stroke-width="2" viewBox="0 0 24 24" stroke="currentColor">
-                                <path d="M4 6h16M4 10h16M4 14h16M4 18h16"></path>
-                            </svg>
-                            <span class="ml-4">Ingenieurs</span>
-                        </a>
-                    </li>
-
-                </ul>
-                <div class="px-6 my-6">
-                    <a
-                        class="flex items-center justify-between w-full px-4 py-2 text-sm font-medium leading-5 text-dark transition-colors duration-150  border border-transparent rounded-lg">
-                        Logged in as {{Auth::user()->name}}
-</a>
-                </div>
+                    @if($isDashboardActive)
+                    <span class="absolute inset-y-0 left-0 w-1 bg-purple-600 rounded-tr-lg rounded-br-lg" aria-hidden="true"></span>
+                    @endif
+                    <a class="inline-flex items-center w-full text-sm font-semibold transition-colors duration-150 hover:text-gray-800 dark:hover:text-gray-200 {{ $isDashboardActive ? 'text-gray-800 dark:text-gray-100' : '' }}" 
+                       href="{{ route('admin.dashboard') }}">
+                        <svg class="w-5 h-5" aria-hidden="true" fill="none" stroke-linecap="round"
+                            stroke-linejoin="round" stroke-width="2" viewBox="0 0 24 24" stroke="currentColor">
+                            <path d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6"></path>
+                        </svg>
+                        <span class="ml-4"> @lang('messages.dashboard')</span>
+                    </a>
+                </li>
+            </ul>
+            
+            <ul>
+                <!-- Tickets Section -->
+                <li class="relative px-6 py-3">
+                    @if($isTicketsActive)
+                    <span class="absolute inset-y-0 left-0 w-1 bg-purple-600 rounded-tr-lg rounded-br-lg" aria-hidden="true"></span>
+                    @endif
+                    <a class="inline-flex items-center w-full text-sm font-semibold transition-colors duration-150 hover:text-gray-800 dark:hover:text-gray-200 {{ $isTicketsActive ? 'text-gray-800 dark:text-gray-100' : '' }}" 
+                       href="{{ route('admin.tickets.list') }}">
+                       
+                       <!-- New SVG Icon for Tickets -->
+                       <svg class="w-5 h-5" aria-hidden="true" fill="none" stroke-linecap="round"
+                           stroke-linejoin="round" stroke-width="2" viewBox="0 0 24 24" stroke="currentColor">
+                           <path d="M3 9V7a2 2 0 012-2h14a2 2 0 012 2v2a3 3 0 000 6v2a2 2 0 01-2 2H5a2 2 0 01-2-2v-2a3 3 0 000-6z"></path>
+                       </svg>
+                        <span class="ml-4"> @lang('messages.tickets')</span>
+                    </a>
+                </li>
+    
+                <!-- Employees Section -->
+                <li class="relative px-6 py-3">
+                    @if($isEmployeesActive)
+                    <span class="absolute inset-y-0 left-0 w-1 bg-purple-600 rounded-tr-lg rounded-br-lg" aria-hidden="true"></span>
+                    @endif
+                    <a class="inline-flex items-center w-full text-sm font-semibold transition-colors duration-150 hover:text-gray-800 dark:hover:text-gray-200 {{ $isEmployeesActive ? 'text-gray-800 dark:text-gray-100' : '' }}" 
+                       href="{{ route('admin.employee.list') }}">
+    
+                       <!-- New SVG Icon for Employees -->
+                       <svg class="w-5 h-5" aria-hidden="true" fill="none" stroke-linecap="round"
+                           stroke-linejoin="round" stroke-width="2" viewBox="0 0 24 24" stroke="currentColor">
+                           <path d="M5.5 21a1.5 1.5 0 01-1.5-1.5V17a4 4 0 014-4h8a4 4 0 014 4v2.5a1.5 1.5 0 01-1.5 1.5H5.5z"></path>
+                           <path d="M12 11a4 4 0 100-8 4 4 0 000 8z"></path>
+                       </svg>
+    
+                        <span class="ml-4"> @lang('messages.employees')</span>
+                    </a>
+                </li>
+    
+                <!-- Ingenieurs Section -->
+                <li class="relative px-6 py-3">
+                    @if($isIngenActive)
+                    <span class="absolute inset-y-0 left-0 w-1 bg-purple-600 rounded-tr-lg rounded-br-lg" aria-hidden="true"></span>
+                    @endif
+                    <a class="inline-flex items-center w-full text-sm font-semibold transition-colors duration-150 hover:text-gray-800 dark:hover:text-gray-200 {{ $isIngenActive ? 'text-gray-800 dark:text-gray-100' : '' }}" 
+                       href="{{ route('admin.ingenieurs.list') }}">
+                       
+                       <!-- Plus Icon -->
+                       <svg class="w-5 h-5" aria-hidden="true" fill="none" stroke-linecap="round"
+                           stroke-linejoin="round" stroke-width="2" viewBox="0 0 24 24" stroke="currentColor">
+                           <path d="M12 6v6m0 0v6m0-6h6m-6 0H6"></path>
+                       </svg>
+                        <span class="ml-4"> @lang('messages.ingenieurs')</span>
+                    </a>
+                </li>
+            </ul>
+    
+            <div class="px-6 my-6">
+                <a class="flex items-center justify-between w-full px-4 py-2 text-sm font-medium leading-5 text-dark transition-colors duration-150 border border-transparent rounded-lg">
+                    @lang('messages.looged_in_as') {{ Auth::user()->name }}
+                </a>
             </div>
-        </aside>
+        </div>
+    </aside>
+    
         <!-- Mobile sidebar -->
         <!-- Backdrop -->
         <div x-show="isSideMenuOpen" x-transition:enter="transition ease-in-out duration-150"
@@ -134,7 +134,8 @@
             x-transition:leave="transition ease-in-out duration-150" x-transition:leave-start="opacity-100"
             x-transition:leave-end="opacity-0"
             class="fixed inset-0 z-10 flex items-end bg-black bg-opacity-50 sm:items-center sm:justify-center"></div>
-        <aside class="fixed inset-y-0 z-20 flex-shrink-0 w-64 mt-16 overflow-y-auto bg-white dark:bg-gray-800 md:hidden"
+        <aside
+            class="fixed inset-y-0 z-20 flex-shrink-0 w-64 mt-16 overflow-y-auto bg-white dark:bg-gray-800 md:hidden"
             x-show="isSideMenuOpen" x-transition:enter="transition ease-in-out duration-150"
             x-transition:enter-start="opacity-0 transform -translate-x-20" x-transition:enter-end="opacity-100"
             x-transition:leave="transition ease-in-out duration-150" x-transition:leave-start="opacity-100"
@@ -149,7 +150,7 @@
                         <span class="absolute inset-y-0 left-0 w-1 bg-purple-600 rounded-tr-lg rounded-br-lg"
                             aria-hidden="true"></span>
                         <a class="inline-flex items-center w-full text-sm font-semibold text-gray-800 transition-colors duration-150 hover:text-gray-800 dark:hover:text-gray-200 dark:text-gray-100"
-                            href="{{route('dashboard')}}">
+                            href="{{ route('dashboard') }}">
                             <svg class="w-5 h-5" aria-hidden="true" fill="none" stroke-linecap="round"
                                 stroke-linejoin="round" stroke-width="2" viewBox="0 0 24 24" stroke="currentColor">
                                 <path
@@ -167,7 +168,8 @@
                             @click="togglePagesMenu" aria-haspopup="true">
                             <span class="inline-flex items-center">
                                 <svg class="w-5 h-5" aria-hidden="true" fill="none" stroke-linecap="round"
-                                    stroke-linejoin="round" stroke-width="2" viewBox="0 0 24 24" stroke="currentColor">
+                                    stroke-linejoin="round" stroke-width="2" viewBox="0 0 24 24"
+                                    stroke="currentColor">
                                     <path
                                         d="M4 5a1 1 0 011-1h14a1 1 0 011 1v2a1 1 0 01-1 1H5a1 1 0 01-1-1V5zM4 13a1 1 0 011-1h6a1 1 0 011 1v6a1 1 0 01-1 1H5a1 1 0 01-1-1v-6zM16 13a1 1 0 011-1h2a1 1 0 011 1v6a1 1 0 01-1 1h-2a1 1 0 01-1-1v-6z">
                                     </path>
@@ -180,29 +182,22 @@
                                     clip-rule="evenodd"></path>
                             </svg>
                         </button>
-                        <template x-if="isPagesMenuOpen">
-                            <ul x-transition:enter="transition-all ease-in-out duration-300"
-                                x-transition:enter-start="opacity-25 max-h-0"
-                                x-transition:enter-end="opacity-100 max-h-xl"
-                                x-transition:leave="transition-all ease-in-out duration-300"
-                                x-transition:leave-start="opacity-100 max-h-xl"
-                                x-transition:leave-end="opacity-0 max-h-0"
-                                class="p-2 mt-2 space-y-2 overflow-hidden text-sm font-medium text-gray-500 rounded-md shadow-inner bg-gray-50 dark:text-gray-400 dark:bg-gray-900"
-                                aria-label="submenu">
-   
-                                <li
-                                    class="px-2 py-1 transition-colors duration-150 hover:text-gray-800 dark:hover:text-gray-200">
-                                    <a class="w-full" href="{{route('admin.tickets.list')}}">
-                                        List
-                                    </a>
-                                </li>
-
-                            </ul>
-                        </template>
+         <li class="relative px-6 py-3">
+                        <a class="inline-flex items-center w-full text-sm font-semibold transition-colors duration-150 hover:text-gray-800 dark:hover:text-gray-200"
+                            href="{{ route('admin.employee.list') }}">
+                            <svg class="w-5 h-5" aria-hidden="true" fill="none" stroke-linecap="round"
+                                stroke-linejoin="round" stroke-width="2" viewBox="0 0 24 24" stroke="currentColor">
+                                <path
+                                    d="M19 11H5m14 0a2 2 0 012 2v6a2 2 0 01-2 2H5a2 2 0 01-2-2v-6a2 2 0 012-2m14 0V9a2 2 0 00-2-2M5 11V9a2 2 0 012-2m0 0V5a2 2 0 012-2h6a2 2 0 012 2v2M7 7h10">
+                                </path>
+                            </svg>
+                            <span class="ml-4">Employees</span>
+                        </a>
+                    </li>
                     </li>
                     <li class="relative px-6 py-3">
                         <a class="inline-flex items-center w-full text-sm font-semibold transition-colors duration-150 hover:text-gray-800 dark:hover:text-gray-200"
-                            href="{{route('admin.employee.list')}}">
+                            href="{{ route('admin.employee.list') }}">
                             <svg class="w-5 h-5" aria-hidden="true" fill="none" stroke-linecap="round"
                                 stroke-linejoin="round" stroke-width="2" viewBox="0 0 24 24" stroke="currentColor">
                                 <path
@@ -213,7 +208,7 @@
                         </a>
                     </li>
 
- 
+
                 </ul>
 
             </div>
@@ -234,8 +229,8 @@
                     <!-- Search input -->
                     <div class="flex justify-center flex-1 lg:mr-32">
                         <div class="relative w-full max-w-xl mr-6 focus-within:text-purple-500">
-                          
-                            
+
+
                         </div>
                     </div>
                     <ul class="flex items-center flex-shrink-0 space-x-6">
@@ -312,7 +307,8 @@
                             <button class="align-middle rounded-full focus:shadow-outline-purple focus:outline-none"
                                 @click="toggleProfileMenu" @keydown.escape="closeProfileMenu" aria-label="Account"
                                 aria-haspopup="true">
-                                <svg class="w-8 h-8 rounded-full text-gray-700 dark:text-gray-300" viewBox="0 0 24 24" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+                                <svg class="w-8 h-8 rounded-full text-gray-700 dark:text-gray-300" viewBox="0 0 24 24"
+                                    fill="currentColor" xmlns="http://www.w3.org/2000/svg">
                                     <circle cx="12" cy="8" r="4" />
                                     <path d="M4 20c0-4 4-6 8-6s8 2 8 6" />
                                 </svg>
@@ -325,7 +321,7 @@
                                     aria-label="submenu">
                                     <li class="flex">
                                         <a class="inline-flex items-center w-full px-2 py-1 text-sm font-semibold transition-colors duration-150 rounded-md hover:bg-gray-100 hover:text-gray-800 dark:hover:bg-gray-800 dark:hover:text-gray-200"
-                                            href="{{route('admin.profile.show',['id' => auth::user()->id])}}">
+                                            href="{{ route('admin.profile.show', ['id' => auth::user()->id]) }}">
                                             <svg class="w-4 h-4 mr-3" aria-hidden="true" fill="none"
                                                 stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
                                                 viewBox="0 0 24 24" stroke="currentColor">
@@ -333,12 +329,12 @@
                                                     d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z">
                                                 </path>
                                             </svg>
-                                            <span>Profile</span>
+                                            <span> @lang('messages.profile')</span>
                                         </a>
                                     </li>
                                     <li class="flex">
                                         <a class="inline-flex items-center w-full px-2 py-1 text-sm font-semibold transition-colors duration-150 rounded-md hover:bg-gray-100 hover:text-gray-800 dark:hover:bg-gray-800 dark:hover:text-gray-200"
-                                            href="{{route('admin.employee.editemployee',['id'=> auth::user()->id])}}">
+                                            href="{{ route('admin.employee.editemployee', ['id' => auth::user()->id]) }}">
                                             <svg class="w-4 h-4 mr-3" aria-hidden="true" fill="none"
                                                 stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
                                                 viewBox="0 0 24 24" stroke="currentColor">
@@ -347,23 +343,24 @@
                                                 </path>
                                                 <path d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"></path>
                                             </svg>
-                                            <span>Settings</span>
+                                            <span> @lang('messages.settings')</span>
                                         </a>
                                     </li>
                                     <li class="flex">
-                                    <form method="POST" action="{{ route('logout') }}">
-    @csrf
-    <button type="submit"
-        class="inline-flex items-center w-full px-2 py-1 text-sm font-semibold transition-colors duration-150 rounded-md hover:bg-gray-100 hover:text-gray-800 dark:hover:bg-gray-800 dark:hover:text-gray-200">
-        <svg class="w-4 h-4 mr-3" aria-hidden="true" fill="none" stroke-linecap="round"
-            stroke-linejoin="round" stroke-width="2" viewBox="0 0 24 24"
-            stroke="currentColor">
-            <path d="M11 16l-4-4m0 0l4-4m-4 4h14m-5 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h7a3 3 0 013 3v1">
-            </path>
-        </svg>
-        <span>@lang('messages.logout')</span>
-    </button>
-</form>
+                                        <form method="POST" action="{{ route('logout') }}">
+                                            @csrf
+                                            <button type="submit"
+                                                class="inline-flex items-center w-full px-2 py-1 text-sm font-semibold transition-colors duration-150 rounded-md hover:bg-gray-100 hover:text-gray-800 dark:hover:bg-gray-800 dark:hover:text-gray-200">
+                                                <svg class="w-4 h-4 mr-3" aria-hidden="true" fill="none"
+                                                    stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                                    viewBox="0 0 24 24" stroke="currentColor">
+                                                    <path
+                                                        d="M11 16l-4-4m0 0l4-4m-4 4h14m-5 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h7a3 3 0 013 3v1">
+                                                    </path>
+                                                </svg>
+                                                <span>@lang('messages.logout')</span>
+                                            </button>
+                                        </form>
 
                                     </li>
                                 </ul>
@@ -375,6 +372,43 @@
 
             <main class="h-full overflow-y-auto">
                 <div class="container px-6 mx-auto grid">
+                    <nav class="text-sm text-gray-500 dark:text-gray-400 py-3 px-4 bg-gray-100 dark:bg-gray-800 rounded-lg shadow-sm">
+                        <ol class="list-reset flex items-center space-x-2">
+                            <li class="flex items-center">
+                                <a href="{{ route('admin.dashboard') }}" class="text-gray-600 hover:text-gray-900 dark:text-gray-300 dark:hover:text-white flex items-center">
+                                    <svg class="w-5 h-5 mr-1 text-gray-400 dark:text-gray-300" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                                        <path stroke-linecap="round" stroke-linejoin="round" d="M3 9.75L12 3l9 6.75M4.5 10.5V19.5a1.5 1.5 0 001.5 1.5h12a1.5 1.5 0 001.5-1.5V10.5"></path>
+                                    </svg>
+                                    @lang('messages.dashboard')
+                                </a>
+                            </li>
+                            
+                            @php
+                                $segments = request()->segments();
+                                $url = '';
+                            @endphp
+                            
+                            @foreach($segments as $index => $segment)
+                                @php $url .= '/' . $segment; @endphp
+                                <li class="text-gray-400 dark:text-gray-500">›</li>
+                    
+                                @if ($index !== count($segments) - 1)
+                                    <li>
+                                        <a href="{{ url($url) }}" class="text-gray-600 hover:text-gray-900 dark:text-gray-300 dark:hover:text-white capitalize">
+                                            {{ str_replace('-', ' ', $segment) }}
+                                        </a>
+                                    </li>
+                                @else
+                                    <li class="text-black font-semibold dark:text-white capitalize">
+                                        {{ str_replace('-', ' ', $segment) }}
+                                    </li>
+                                @endif
+                            @endforeach
+                        </ol>
+                    </nav>
+                    
+    
+                    
                     @yield('content')
                 </div>
             </main>

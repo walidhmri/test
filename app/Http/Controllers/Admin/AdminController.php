@@ -7,22 +7,29 @@ use App\Models\Teket;
 use Illuminate\Auth\Events\Registered;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Validation\Rules;
-use Illuminate\View\View;
 
 
 class AdminController extends Controller
 {
     function index(){
-        $tickets = Teket::get();
+        $tickets = Teket::orderBy('created_at','desc')->get();
         $employees = User::get();
         return view('admin.dashboard',compact('employees', 'tickets'));
     }
-    function employee(){
-        $employees = User::paginate(10);
+    function employee(Request $request){
+
+        $search = $request->input('search'); // Get the search parameter
+        $employees = User::when($search, function ($query, $search) {
+            return $query->where('name', 'LIKE', "%{$search}%")
+                         ->orWhere('role', 'LIKE', "%{$search}%");
+        })->orderBy('created_at','desc')->paginate(10); // Use pagination
         return view('admin.employee.list',compact('employees'));
+    }
+    function ingenieur(){
+        $employees = User::where('role', 'ingenieur')->paginate(10);
+        return view('admin.ingenieur.list',compact('employees'));
     }
     function addEmployee(){
         return view('admin.employee.ajouter');
@@ -92,7 +99,7 @@ if ($employee) {
                 'role' => $request->role,
                 'password' => Hash::make($request->password),
             ]);
-            return redirect()->route('admin.profile.show',['id' => $employee->id])->with('success', 'Profile modifier avec succées');
+            return redirect()->back('admin.profile.show',['id' => $employee->id])->with('success', 'Profile modifier avec succées');
         }
 
 
@@ -109,7 +116,7 @@ if ($employee) {
             'email' => $request->email,
             'role' => $request->role,
         ]);
-        return redirect()->route('admin.employee.list')->with('success', 'User updated succeffully');
+        return redirect()->back()->with('success', 'User updated succeffully');
     }
     
     }

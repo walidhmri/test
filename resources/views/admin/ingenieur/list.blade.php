@@ -1,6 +1,6 @@
 @extends('layouts.admin')
 @section('title')
-Liste des employees
+Liste des ingenieurs
 @endsection
 @section('content')
 <div class="w-full overflow-hidden rounded-lg shadow-xs">
@@ -12,10 +12,8 @@ Liste des employees
             </div>
         @endif
         @if(session('success'))
-            <div class="bg-green-100 border border-green-400 text-green-700 px-4 py-3 rounded relative" role="alert">
-                <strong class="font-bold">تم بنجاح!</strong>
-                <span class="block sm:inline">{{ session('success') }}</span>
-            </div>
+        <script>
+            alert('{{ session('success') }}'); </script>
         @endif
         
         <div class="flex justify-end p-4">
@@ -25,34 +23,17 @@ Liste des employees
                         <path fill-rule="evenodd" d="M10 3a1 1 0 00-1 1v5H4a1 1 0 100 2h5v5a1 1 0 102 0v-5h5a1 1 0 100-2h-5V4a1 1 0 00-1-1z" clip-rule="evenodd" />
                     </svg>
                 </a>
-                <p class="text-sm text-gray-500">Ajouter un employee</p>
+                <p class="text-sm text-gray-500">Ajouter un ingenieur</p>
             </div>
         </div>
         
-        <h2 class="my-6 text-2xl font-semibold text-gray-700 dark:text-gray-200"> Liste des employees 
+        <h2 class="my-6 text-2xl font-semibold text-gray-700 dark:text-gray-200"> Liste des ingenieurs
         </h2>
-        <form action="{{ route('admin.employee.list') }}" method="GET" class="flex items-center space-x-2 bg-white dark:bg-gray-800 p-2 rounded-lg shadow-md">
-            <input 
-                type="text" 
-                name="search" 
-                placeholder="Search employee by name or role..." 
-                value="{{ request()->search }}"
-                class="w-full px-4 py-2 text-gray-900 dark:text-white bg-gray-100 dark:bg-gray-700 border border-gray-300 dark:border-gray-600 rounded-lg focus:ring-2 focus:ring-blue-500 focus:outline-none"
-            >
-            
-            <button 
-                type="submit" 
-                class="px-4 py-2 bg-blue-500 dark:bg-blue-600 text-white font-semibold rounded-lg hover:bg-blue-600 dark:hover:bg-blue-700 transition"
-            >
-                Search
-            </button>
-        </form>
-        
         <table class="w-full whitespace-no-wrap">
             <thead>
                 <tr
                     class="text-xs font-semibold tracking-wide text-left text-gray-500 uppercase border-b dark:border-gray-700 bg-gray-50 dark:text-gray-400 dark:bg-gray-800">
-                    <th class="px-4 py-3">Employee</th>
+                    <th class="px-4 py-3">Ingenieur</th>
                     <th class="px-4 py-3">Id </th>
                     <th class="px-4 py-3">Status</th>
                     <th class="px-4 py-3">Date</th>
@@ -60,6 +41,7 @@ Liste des employees
                 </tr>
             </thead>
             <tbody class="bg-white divide-y dark:divide-gray-700 dark:bg-gray-800">
+                
                 @foreach($employees as $employee)
                 <tr class="text-gray-700 dark:text-gray-400">
                     <td class="px-4 py-3">
