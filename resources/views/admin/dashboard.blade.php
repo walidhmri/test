@@ -45,7 +45,7 @@ Admin Dashboard
             </div>
             <div>
                 <p class="mb-2 text-sm font-medium text-gray-600 dark:text-gray-400">
-                    Total Employees
+                    @lang('messages.total_employees')
                 </p>
                 <p class="text-lg font-semibold text-gray-700 dark:text-gray-200">
                     {{ $employees->where('role' ,'user')->count() }}
@@ -61,7 +61,7 @@ Admin Dashboard
             </div>
             <div>
                 <p class="mb-2 text-sm font-medium text-gray-600 dark:text-gray-400">
-                    Total Ingenieurs
+                    @lang('messages.total_ingenieurs')
                 </p>
                 <p class="text-lg font-semibold text-gray-700 dark:text-gray-200">
                     {{ $employees->where('role' ,'ingenieur')->count() }}
@@ -77,7 +77,7 @@ Admin Dashboard
             </div>
             <div>
                 <p class="mb-2 text-sm font-medium text-gray-600 dark:text-gray-400">
-                    Total Tickets
+                    @lang('messages.total_tickets')
                 </p>
                 <p id="tickets" class="text-lg font-semibold text-gray-700 dark:text-gray-200" value="{{$tickets->count()}}">
                     {{$tickets->count()}}
@@ -93,7 +93,7 @@ Admin Dashboard
             </div>
             <div>
                 <p class="mb-2 text-sm font-medium text-gray-600 dark:text-gray-400">
-                    Tickets solved
+                    @lang('messages.tickets_solved')
                 </p>
                 <p class="text-lg font-semibold text-gray-700 dark:text-gray-200">
                     {{$tickets->where('status' ,'solved')->count()}}
@@ -105,7 +105,7 @@ Admin Dashboard
     <div class="grid gap-6 mb-8 md:grid-cols-2">
             <div class="min-w-0 p-4 bg-white rounded-lg shadow-xs dark:bg-gray-800">
               <h4 class="mb-4 font-semibold text-gray-800 dark:text-gray-300">
-                Priority
+                @lang('messages.priority')
               </h4>
               <canvas id="pie"></canvas>
               

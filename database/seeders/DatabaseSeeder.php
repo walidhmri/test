@@ -2,10 +2,10 @@
 
 namespace Database\Seeders;
 
+use App\Models\Faq;
 use App\Models\Teket;
 use App\Models\User;
 use Illuminate\Database\Seeder;
-use Illuminate\Support\Str;
 use Faker\Factory as Faker;
 
 class DatabaseSeeder extends Seeder
@@ -18,7 +18,7 @@ class DatabaseSeeder extends Seeder
         $faker = Faker::create();
         User::create(
             [
-                'name' => 'Admin',
+                'name' => 'Admin Oualid',
                 'email' => 12345,
                 'password' => bcrypt('password'),
                 'role' => 'admin'
@@ -26,7 +26,7 @@ class DatabaseSeeder extends Seeder
             );
         User::create(
             [
-                'name' => 'Employee',
+                'name' => 'Employee Test',
                 'email' => 12,
                 'password' => bcrypt('password'),
                 'role' => 'user'
@@ -34,7 +34,7 @@ class DatabaseSeeder extends Seeder
             );
         User::create(
             [
-                'name' => 'Ingenieur',
+                'name' => 'Ingenieur Test',
                 'email' => 1234,
                 'password' => bcrypt('password'),
                 'role' => 'ingenieur'
@@ -43,38 +43,53 @@ class DatabaseSeeder extends Seeder
 
         for ($i = 0; $i < 10; $i++) {
             User::create([
-                'name' => $faker->name,  // اسم عشوائي
-                'email' => (string) Str::uuid(), // تحويل UUID إلى نص ليكون كـ user_id
-                'password' => bcrypt('password'), // تشفير كلمة المرور
+                'name' => $faker->name,  
+                'email' => fake()->unique()->randomNumber(9, true),
+                'password' => bcrypt('password'), 
                 'role' => 'user'
                 
             ]);
         }
         for ($i = 0; $i < 10; $i++) {
+            User::create([
+                'name' => $faker->name,  
+                'email' => fake()->unique()->randomNumber(9, true),
+                'password' => bcrypt('password'), 
+                'role' => 'ingenieur'
+                    
+            ]);
+        }
+        for ($i = 0; $i < 10; $i++) {
             Teket::create([
-                'title' => $faker->title ,  // اسم عشوائي
-                'description' => $faker->paragraph, // تحويل UUID إلى نص ليكون كـ user_id
-                'status' => 'pending', // تشفير كلمة المرور
+                'title' => $faker->sentence,  // small title
+                'description' => $faker->paragraph, 
+                'status' => 'pending', 
                 'priority' => 'low',
                 'user_id' => 2
             ]);
         }
         for ($i = 0; $i < 10; $i++) {
             Teket::create([
-                'title' => $faker->paragraph ,  // اسم عشوائي
-                'description' => $faker->paragraph, // تحويل UUID إلى نص ليكون كـ user_id
-                'status' => 'solved', // تشفير كلمة المرور
+                'title' => $faker->sentence ,  
+                'description' => $faker->paragraph, 
+                'status' => 'solved', 
                 'priority' => 'medium',
                 'user_id' => 2
             ]);
         }
         for ($i = 0; $i < 10; $i++) {
             Teket::create([
-                'title' => $faker->paragraph ,  // اسم عشوائي
-                'description' => $faker->paragraph, // تحويل UUID إلى نص ليكون كـ user_id
-                'status' => 'closed', // تشفير كلمة المرور
+                'title' => $faker->sentence ,  
+                'description' => $faker->paragraph, 
+                'status' => 'closed', 
                 'priority' => 'high',
                 'user_id' => 2
+            ]);
+        }
+        for ($i = 0; $i < 10; $i++) {
+            Faq::create([
+                'question' => $faker->paragraph ,  
+                'answer' => $faker->paragraph, 
             ]);
         }
     }

@@ -40,10 +40,12 @@
         $isTicketsActive = Str::startsWith(request()->route()->getName(), 'admin.tickets');
         $isEmployeesActive = Str::startsWith(request()->route()->getName(), 'admin.employee');
         $isIngenActive = Str::startsWith(request()->route()->getName(), 'admin.ingenieur');
+        $isFaqsActive = Str::startsWith(request()->route()->getName(), '');
 
     @endphp
     
-    <aside class="z-20 hidden w-64 overflow-y-auto bg-white dark:bg-gray-800 md:block flex-shrink-0">
+    
+    <aside id="deskbar" class="z-20 hidden w-64 overflow-y-auto bg-white dark:bg-gray-800 md:block flex-shrink-0">
         <div class="py-4 text-gray-500 dark:text-gray-400">
             <a class="ml-6 text-lg font-bold text-gray-800 dark:text-gray-200" href="{{ route('admin.dashboard') }}">
                 @lang('messages.title')
@@ -115,6 +117,21 @@
                            <path d="M12 6v6m0 0v6m0-6h6m-6 0H6"></path>
                        </svg>
                         <span class="ml-4"> @lang('messages.ingenieurs')</span>
+                    </a>
+                </li>
+                <li class="relative px-6 py-3">
+                    @if($isFaqsActive)
+                    <span class="absolute inset-y-0 left-0 w-1 bg-purple-600 rounded-tr-lg rounded-br-lg" aria-hidden="true"></span>
+                    @endif
+                    <a class="inline-flex items-center w-full text-sm font-semibold transition-colors duration-150 hover:text-gray-800 dark:hover:text-gray-200 {{ $isFaqsActive ? 'text-gray-800 dark:text-gray-100' : '' }}" 
+                       href="{{ route('admin.ingenieurs.list') }}">
+                       
+                       <!-- Plus Icon -->
+                       <svg class="w-5 h-5" aria-hidden="true" fill="none" stroke-linecap="round"
+                           stroke-linejoin="round" stroke-width="2" viewBox="0 0 24 24" stroke="currentColor">
+                           <path d="M9 18a2 2 0 01-2-2V8a2 2 0 012-2h6a2 2 0 012 2v8a2 2 0 01-2 2h-6zm0 0V8h6v8h-6z"></path>
+                       </svg>
+                        <span class="ml-4"> @lang('messages.faqs')</span>
                     </a>
                 </li>
             </ul>
@@ -227,12 +244,25 @@
                         </svg>
                     </button>
                     <!-- Search input -->
-                    <div class="flex justify-center flex-1 lg:mr-32">
-                        <div class="relative w-full max-w-xl mr-6 focus-within:text-purple-500">
-
-
-                        </div>
+                    <div class="flex flex-1 lg:mr-32 items-center space-x-4">
+                        <!-- زر إظهار الشريط الجانبي -->
+                        <button id="toggleDeskbar" class="p-2 rounded-md focus:outline-none focus:shadow-outline-purple hidden md:block"
+                            @click="toggleDeskbar" aria-label="Toggle Deskbar">
+                            <svg class="w-6 h-6 text-gray-700 dark:text-gray-200" aria-hidden="true" fill="currentColor" viewBox="0 0 20 20">
+                                <path fill-rule="evenodd" d="M4 6a1 1 0 011-1h10a1 1 0 110 2H5a1 1 0 01-1-1zM4 11a1 1 0 011-1h10a1 1 0 110 2H5a1 1 0 01-1-1zM4 16a1 1 0 011-1h10a1 1 0 110 2H5a1 1 0 01-1-1z" clip-rule="evenodd"></path>
+                            </svg>
+                        </button>
+                    
+                        <!-- زر الدردشة يفتح في نافذة جديدة -->
+                        <a href="https://dashboard.tawk.to/#/chat" target="_blank" rel="noopener noreferrer"
+                            class="p-2 rounded-md focus:outline-none focus:shadow-outline-purple hidden md:block">
+                            <svg class="w-6 h-6 text-gray-700 dark:text-gray-200" aria-hidden="true" fill="currentColor" viewBox="0 0 24 24">
+                                <path d="M12 3C6.48 3 2 6.92 2 12c0 2.14.72 4.12 1.93 5.75L2 21l3.26-1.48C7.14 20.5 9.47 21 12 21c5.52 0 10-3.92 10-9s-4.48-9-10-9zm0 16c-2.43 0-4.64-.79-6.43-2.14L4 17.5l.43-1.86C3.52 13.92 3 12.49 3 12c0-4.07 4.03-7 9-7s9 2.93 9 7-4.03 7-9 7zm-1-10h2v2h-2zm0 4h2v2h-2z"></path>
+                            </svg>
+                        </a>
                     </div>
+                    
+                    
                     <ul class="flex items-center flex-shrink-0 space-x-6">
                         <!-- Theme toggler -->
                         <li class="flex">
@@ -410,10 +440,46 @@
     
                     
                     @yield('content')
+                    <footer class="px-6 py-2 text-gray-700 dark:text-gray-400">
+                        <div class="container mx-auto flex justify-end">
+                            <p class="text-right text-sm">
+                                @lang('messages.copyrights') 
+                                <strong>Béjaia</strong>
+                            </p>
+                           
+                        </div>
+                    </footer>
+                    
                 </div>
             </main>
+   
         </div>
+        
     </div>
+    
+    <script>
+        document.getElementById('toggleDeskbar').addEventListener('click', function() {
+            var deskbar = document.getElementById('deskbar');
+            if (deskbar.style.display === 'none') {
+                deskbar.style.display = 'block';
+                localStorage.setItem('deskbarState', 'visible');
+            } else {
+                deskbar.style.display = 'none';
+                localStorage.setItem('deskbarState', 'hidden');
+            }
+        });
+
+        // Retrieve deskbar state from local storage on page load
+        document.addEventListener('DOMContentLoaded', function() {
+            var deskbarState = localStorage.getItem('deskbarState');
+            var deskbar = document.getElementById('deskbar');
+            if (deskbarState === 'visible') {
+                deskbar.style.display = 'block';
+            } else {
+                deskbar.style.display = 'none';
+            }
+        });
+    </script>
 </body>
 
 </html>

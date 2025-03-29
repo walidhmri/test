@@ -1,15 +1,14 @@
 <?php
 
-use App\Http\Controllers\ProfileController;
+use App\Models\Faq;
 use Illuminate\Support\Facades\Route;
-use App\Http\Middleware\AdminMiddleware;
-use App\Http\Middleware\UserMiddleware;
+
 use App\Http\Controllers\LocaleController;
-use App\Http\Controllers\ModelAiController;
 
 
 Route::get('/', function () {
-    return view('index');
+    $faqs=Faq::orderBy('created_at','desc')->paginate(5);
+    return view('index',compact('faqs'));
 });
 Route::get('locale/{language}', [LocaleController::class ,'setlocale']);
 

@@ -18,19 +18,36 @@ class AdminController extends Controller
         $employees = User::get();
         return view('admin.dashboard',compact('employees', 'tickets'));
     }
-    function employee(Request $request){
+    function employee(Request $request) {
+        $search = $request->input('search'); // الحصول على مدخل البحث
+    
+        $employees = User::whereIn('role', ['user', 'admin'])
+            ->when($search, function ($query, $search) {
+                return $query->where(function ($query) use ($search) {
+                    $query->where('name', 'LIKE', "%{$search}%")
+                          ->orWhere('role', 'LIKE', "%{$search}%");
+                });
+            })
+            ->orderBy('created_at', 'desc')
+            ->paginate(10); // التصفح بالصفحات
+    
+        return view('admin.employee.list', compact('employees'));
+    }
+    
+    function ingenieur(Request $request) {
+        $search = $request->input('search');
+    
+        $employees = User::where('role', 'ingenieur')
+            ->when($search, function ($query, $search) {
+                return $query->where('name', 'LIKE', "%{$search}%");
+            })
+            ->orderBy('created_at', 'desc')
+            ->paginate(10); // التصفح بالصفحات
+    
+        return view('admin.ingenieur.list', compact('employees'));
+    }
+    
 
-        $search = $request->input('search'); // Get the search parameter
-        $employees = User::when($search, function ($query, $search) {
-            return $query->where('name', 'LIKE', "%{$search}%")
-                         ->orWhere('role', 'LIKE', "%{$search}%");
-        })->orderBy('created_at','desc')->paginate(10); // Use pagination
-        return view('admin.employee.list',compact('employees'));
-    }
-    function ingenieur(){
-        $employees = User::where('role', 'ingenieur')->paginate(10);
-        return view('admin.ingenieur.list',compact('employees'));
-    }
     function addEmployee(){
         return view('admin.employee.ajouter');
     }

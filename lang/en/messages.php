@@ -50,10 +50,30 @@ return [
 
     'document_title' => 'Tickets A Signé',
     'reference_number' => 'Reference No.: GSR-:id-:year',
-    
+    'looged_in_as'=> 'Logged in as',
 
     'request_details' => 'Request Details',
     'applicant_information' => 'Applicant Information',
+    'profile'=>'profile',
+    'settings'=>'settings',
+    'employees'=> 'Workers',
+    'ingenieurs' => 'Engineers',
+    'faqs'=> 'FAQs',
+    'add_employee'=> 'Add Employee',
+    'list_employees'=> 'List Employees',
+    'list_ingenieurs'=> 'List Engineers',
+    'list_faqs'=> 'List FAQs',
+    'add_faq'=> 'Add FAQ',
+    'edit_faq'=> 'Edit FAQ',
+    'add_ingenieur'=> 'Add Engineer',
+    'total_employees'=>'Total Employees',
+    'total_ingenieurs'=>'Total Engineers',
+    'total_faqs'=>'Total FAQs',
+    'total_tickets'=>'Total Tickets',
+    'tickets_solved'=>'Tickets solved',
+    'priority'=> 'Priority',
+    'last_created_tickets'=>'Last Created Tickets',
+    'traffic'=>'Traffic',
     
 
     'service_type' => 'Service Type:',

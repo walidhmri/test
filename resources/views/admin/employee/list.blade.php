@@ -1,6 +1,6 @@
 @extends('layouts.admin')
 @section('title')
-Liste des employees
+@lang('messages.list_employees')
 @endsection
 @section('content')
 <div class="w-full overflow-hidden rounded-lg shadow-xs">
@@ -25,11 +25,11 @@ Liste des employees
                         <path fill-rule="evenodd" d="M10 3a1 1 0 00-1 1v5H4a1 1 0 100 2h5v5a1 1 0 102 0v-5h5a1 1 0 100-2h-5V4a1 1 0 00-1-1z" clip-rule="evenodd" />
                     </svg>
                 </a>
-                <p class="text-sm text-gray-500">Ajouter un employee</p>
+                <p class="text-sm text-gray-500">@lang('messages.add_employee')</p>
             </div>
         </div>
         
-        <h2 class="my-6 text-2xl font-semibold text-gray-700 dark:text-gray-200"> Liste des employees 
+        <h2 class="my-6 text-2xl font-semibold text-gray-700 dark:text-gray-200"> @lang('messages.list_employees') 
         </h2>
         <form action="{{ route('admin.employee.list') }}" method="GET" class="flex items-center space-x-2 bg-white dark:bg-gray-800 p-2 rounded-lg shadow-md">
             <input 
@@ -40,12 +40,12 @@ Liste des employees
                 class="w-full px-4 py-2 text-gray-900 dark:text-white bg-gray-100 dark:bg-gray-700 border border-gray-300 dark:border-gray-600 rounded-lg focus:ring-2 focus:ring-blue-500 focus:outline-none"
             >
             
-            <button 
-                type="submit" 
-                class="px-4 py-2 bg-blue-500 dark:bg-blue-600 text-white font-semibold rounded-lg hover:bg-blue-600 dark:hover:bg-blue-700 transition"
-            >
-                Search
+            <button type="submit" class="px-4 py-2 rounded-lg hover:bg-gray-200 dark:hover:bg-gray-700 transition">
+                <svg class="w-6 h-6 text-gray-900 dark:text-gray-200" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 4a6 6 0 014.472 9.528l4.75 4.75a1 1 0 11-1.414 1.414l-4.75-4.75A6 6 0 1110 4z" />
+                </svg>
             </button>
+            
         </form>
         
         <table class="w-full whitespace-no-wrap">
@@ -81,7 +81,7 @@ Liste des employees
                         </div>
                     </td>
                     <td class="px-4 py-3 text-sm">
-                       {{$employee->id}}
+                       {{$employee->email}}
                     </td>
                     <td class="px-4 py-3 text-xs">
                         <span

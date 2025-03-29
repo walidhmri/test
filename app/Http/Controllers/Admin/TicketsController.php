@@ -8,12 +8,34 @@ use Illuminate\Http\Request;
 
 class TicketsController extends Controller
 {
-    public function index()
+    public function index(Request $request)
     {
-        $tickets = Teket::orderBy('updated_at', 'desc')->paginate(10);
         $employees = User::where('role', 'user')->get();
-        return view('admin.ticket.list',compact('tickets','employees'));
+        $query = Teket::query(); 
+        if ($request->filled('month')) {
+            $selectedDate = strtotime($request->month);
+            $query->whereYear('created_at', date('Y', $selectedDate))
+                  ->whereMonth('created_at', date('m', $selectedDate));
+        }
+        $orderedby='desc';
+        if ($request->filled('order')) {
+            $orderedby =$request->order;
+        }
+    
+        if ($request->filled('priority')) {
+            $query->where('priority', $request->priority);
+        }
+        if ($request->filled('employee_id')) {
+            $query->where('user_id', $request->employee_id);
+        }
+        if ($request->filled('status')) {
+            $query->where('status', $request->status);
+        }
+        $tickets = $query->orderBy('created_at',$orderedby)->paginate(10);
+        return view('admin.ticket.list', compact('tickets', 'employees'));
     }
+
+
     function destroy(Request $request)
     {
         $ticket=Teket::find($request->id);
@@ -39,34 +61,9 @@ class TicketsController extends Controller
         $ticket->save();
         return redirect()->back()->with('success', 'تم تحديث حالة التذكرة بنجاح.');
     }
-    public function filter(Request $request)
+function idfill($id)
 {
-    $employees = User::where('role', 'user')->get();
-
-    if (!$request->filled('priority') && !$request->filled('employee_id') && !$request->filled('status') && !$request->filled('month')) {
-        return redirect()->route('admin.tickets.list');
-    }
-
-    $query = Teket::query();
-    if ($request->filled(key: 'month')) {
-        $selectedDate = strtotime($request->month); // تحويل إلى Timestamp
-        $query->whereYear('created_at', date('Y', $selectedDate))
-              ->whereMonth('created_at', date('m', $selectedDate));
-    }
-    if ($request->filled('priority')) {
-        $query->where('priority', $request->priority);
-    }
-    if ($request->filled('employee_id')) {
-        $query->where('user_id', $request->employee_id); // يجب أن يكون الحقل مطابقًا لهيكل قاعدة البيانات
-    }
-    if ($request->filled('status')) {
-        $query->where('status', $request->status);
-    }
-
-    // تنفيذ البحث مع التصفح
-    $tickets = $query->orderBy('updated_at', 'desc')->get()->appends($request->query());
-
-    return view('admin.ticket.list', compact('tickets', 'employees'));
+    return redirect()->route('admin.profile.show' , ['id' => $id]);
 }
 
 }

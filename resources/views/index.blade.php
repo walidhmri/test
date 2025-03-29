@@ -555,9 +555,11 @@
                     <h1 class="display-4 fw-bold mb-3">@lang('messages.integrated_solution')</h1>
                     <p class="lead mb-4">@lang('messages.description')</p>
                     <div class="d-flex flex-wrap gap-3">
-                        <a href="#" class="btn btn-brand fw-semibold px-5 py-3 fs-5">
+                        @guest
+                        <a href="{{route('login')}}" class="btn btn-brand fw-semibold px-5 py-3 fs-5">
                             <i class="bi bi-rocket me-1"></i> @lang('messages.get_started')
                         </a>
+                        @endguest
                         <a href="#faq" class="btn btn-light text-green fw-semibold px-5 py-3 fs-5">
                             <i class="bi bi-info-circle me-1"></i> @lang('messages.learn_more')
                         </a>
@@ -612,58 +614,22 @@
             <div class="row justify-content-center">
                 <div class="col-lg-8" data-aos="fade-up" data-aos-delay="200">
                     <div class="accordion" id="faqAccordion">
-                        <div class="accordion-item">
-                            <h2 class="accordion-header" id="headingOne">
-                                <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
-                                    @lang('messages.register_question')
-                                </button>
-                            </h2>
-                            <div id="collapseOne" class="accordion-collapse collapse show" aria-labelledby="headingOne" data-bs-parent="#faqAccordion">
-                                <div class="accordion-body">
-                                    @lang('messages.register_answer')
+                        @foreach($faqs as $faq)
+                            <div class="accordion-item">
+                                <h2 class="accordion-header" id="heading{{ $faq['id'] }}">
+                                    <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapse{{ $faq['id'] }}" aria-expanded="false" aria-controls="collapse{{ $faq['id'] }}">
+                                        {{ $faq['question'] }}
+                                    </button>
+                                </h2>
+                                <div id="collapse{{ $faq['id'] }}" class="accordion-collapse collapse" aria-labelledby="heading{{ $faq['id'] }}" data-bs-parent="#faqAccordion">
+                                    <div class="accordion-body">
+                                        {{ $faq['answer'] }}
+                                    </div>
                                 </div>
                             </div>
-                        </div>
-
-                        <div class="accordion-item">
-                            <h2 class="accordion-header" id="headingTwo">
-                                <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
-                                    @lang('messages.payment_methods_question')
-                                </button>
-                            </h2>
-                            <div id="collapseTwo" class="accordion-collapse collapse" aria-labelledby="headingTwo" data-bs-parent="#faqAccordion">
-                                <div class="accordion-body">
-                                    @lang('messages.payment_methods_answer')
-                                </div>
-                            </div>
-                        </div>
-
-                        <div class="accordion-item">
-                            <h2 class="accordion-header" id="headingThree">
-                                <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseThree" aria-expanded="false" aria-controls="collapseThree">
-                                    @lang('messages.delivery_time_question')
-                                </button>
-                            </h2>
-                            <div id="collapseThree" class="accordion-collapse collapse" aria-labelledby="headingThree" data-bs-parent="#faqAccordion">
-                                <div class="accordion-body">
-                                    @lang('messages.delivery_time_answer')
-                                </div>
-                            </div>
-                        </div>
-
-                        <div class="accordion-item">
-                            <h2 class="accordion-header" id="headingFour">
-                                <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseFour" aria-expanded="false" aria-controls="collapseFour">
-                                    @lang('messages.cancel_order_question')
-                                </button>
-                            </h2>
-                            <div id="collapseFour" class="accordion-collapse collapse" aria-labelledby="headingFour" data-bs-parent="#faqAccordion">
-                                <div class="accordion-body">
-                                    @lang('messages.cancel_order_answer')
-                                </div>
-                            </div>
-                        </div>
+                        @endforeach
                     </div>
+            
                 </div>
             </div>
         </div>
