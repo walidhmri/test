@@ -63,6 +63,16 @@ return [
     'list_employees'=> 'List Employees',
     'list_ingenieurs'=> 'List Engineers',
     'list_faqs'=> 'List FAQs',
+    'editpassword'=>'Edit Password',
+    'edit_employee'=> 'Edit Employee',
+    'ticket_title'=> 'Tickets',
+    'employee'=> 'Employee',
+    'ingenieur'=> 'Engineer',
+    'faq'=> 'FAQ',
+    'status'=> 'Status',
+    'id'=>'User Id',
+    'date'=> 'Date',
+    'actions'=> 'Actions',
     'add_faq'=> 'Add FAQ',
     'edit_faq'=> 'Edit FAQ',
     'add_ingenieur'=> 'Add Engineer',
@@ -75,6 +85,7 @@ return [
     'last_created_tickets'=>'Last Created Tickets',
     'traffic'=>'Traffic',
     
+
 
     'service_type' => 'Service Type:',
     'current_status' => 'Current Status:',

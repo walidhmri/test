@@ -103,25 +103,6 @@ if ($employee) {
         if (!$employee) {
             return redirect()->route('admin.employee.list')->with('error', 'User not found');
         }
-        if($employee->role == 'admin'){
-            $request->validate([
-                'name' => ['required', 'string', 'max:255'],
-                'email' => ['required', 'string', 'lowercase', 'max:255'],
-                'role' => ['required', 'in:admin,ingenieur,user'], 
-                'password' => ['required']
-            ]);
-            $employee->update([
-                'name' => $request->name,
-                'email' => $request->email,
-                'role' => $request->role,
-                'password' => Hash::make($request->password),
-            ]);
-            return redirect()->back('admin.profile.show',['id' => $employee->id])->with('success', 'Profile modifier avec succées');
-        }
-
-
-        
-        else{
         $request->validate([
             'name' => ['required', 'string', 'max:255'],
             'email' => ['required', 'string', 'lowercase', 'max:255'],
@@ -133,8 +114,8 @@ if ($employee) {
             'email' => $request->email,
             'role' => $request->role,
         ]);
-        return redirect()->back()->with('success', 'User updated succeffully');
-    }
+        return redirect()->route('admin.profile.show',['id' => $employee->id])->with('success', 'Profile modifier avec succées');
+    
     
     }
     

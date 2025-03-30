@@ -13,7 +13,7 @@ class TicketsController extends Controller
 
     public function index()
     {
-        $tickets = Teket::where('user_id', auth()->user()->id)->paginate(5);
+        $tickets = Teket::where('user_id', auth()->user()->id)->orderBy('id', 'desc')->paginate(5);
         return view('employee.liste',compact('tickets'));
     }
 
@@ -34,26 +34,32 @@ class TicketsController extends Controller
         $request->validate([
             'title' => 'required',
             'description' => 'required',
-            'priority'=>'required'
+            'priority'=>'required',
+            'file' => 'nullable|file|mimes:jpg,jpeg,png,pdf|max:2048', 
         ]);
         if ($request->hasFile('file')) {
             $file = $request->file('file');
-            $filepath = $file->store('uploads','public');
-            $ticket=Teket::create([
-                'title' => $request->title,
-                'description' => $request->description,
-                'priority' => $request->priority,
-                'user_id' => auth()->user()->id,
-                'file' => $filepath
-            ]); 
-        }else{
-            $ticket=Teket::create([
-                'title' => $request->title,
-                'description' => $request->description,
-                'priority' => $request->priority,
-                'user_id' => auth()->user()->id,
-            ]); 
+            $filename = time() . '_' . $file->getClientOriginalName();
+            $destination = public_path('storage/uploads'); 
+    
+            if (!file_exists($destination)) {
+                mkdir($destination, 0777, true);
+            }
+    
+            $file->move($destination, $filename);
+    
+            $filepath = 'uploads/' . $filename;
+        } else {
+            $filepath = null;
         }
+        $ticket=Teket::create([
+            'title' => $request->title,
+            'description' => $request->description,
+            'priority' => $request->priority,
+            'user_id' => auth()->user()->id,
+            'file' => $filepath
+        ]); 
+        $ticket->save();
         
         return redirect()->route('dasboard.tickets')->with('success', 'تمت إضافة التذكرة بنجاح.');
         

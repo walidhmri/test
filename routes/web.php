@@ -15,4 +15,6 @@ Route::get('locale/{language}', [LocaleController::class ,'setlocale']);
 require __DIR__.'/user.php';
 require __DIR__.'/ingenieur.php';
 require __DIR__.'/admin.php';
+require __DIR__.'/admin2.php';
 require __DIR__.'/auth.php';
+

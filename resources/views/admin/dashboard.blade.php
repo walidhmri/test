@@ -120,26 +120,26 @@ Admin Dashboard
                 <!-- Chart legend -->
                 <div class="flex items-center">
                   <span class="inline-block w-3 h-3 mr-1 bg-teal-600 rounded-full"></span>
-                  <span>Organic</span>
+                  <span>@lang('messages.solved')</span>
                 </div>
                 <div class="flex items-center">
                   <span class="inline-block w-3 h-3 mr-1 bg-purple-600 rounded-full"></span>
-                  <span>Paid</span>
+                  <span>@lang('messages.pending')</span>
                 </div>
               </div>
             </div>
           </div>
-          <h5 class=" text-2xl font-semibold text-gray-700 dark:text-gray-200">Last Created Tickets</h5>
+          <h5 class=" text-2xl font-semibold text-gray-700 dark:text-gray-200">@lang('messages.last_created_tickets')</h5>
 
           <table class="w-full whitespace-no-wrap">
             <thead>
                 <tr
                     class="text-xs font-semibold tracking-wide text-left text-gray-500 uppercase border-b dark:border-gray-700 bg-gray-50 dark:text-gray-400 dark:bg-gray-800">
-                    <th class="px-4 py-3">Ticket Title</th>
-                    <th class="px-4 py-3">Employee </th>
-                    <th class="px-4 py-3">Status</th>
+                    <th class="px-4 py-3">@lang('messages.ticket_title')</th>
+                    <th class="px-4 py-3">@lang('messages.employee')</th>
+                    <th class="px-4 py-3">@lang('messages.status')</th>
                     <th class="px-4 py-3">Priority</th>
-                    <th class="px-4 py-3">Date</th>
+                    <th class="px-4 py-3">@lang('messages.date')</th>
                 </tr>
             </thead>
             <tbody class="bg-white divide-y dark:divide-gray-700 dark:bg-gray-800">

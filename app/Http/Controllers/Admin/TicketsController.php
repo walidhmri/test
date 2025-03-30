@@ -1,6 +1,7 @@
 <?php
 
 namespace App\Http\Controllers\Admin;
+use App\Models\Solution;
 use App\Models\Teket;
 use App\Http\Controllers\Controller;
 use App\Models\User;
@@ -12,41 +13,52 @@ class TicketsController extends Controller
     {
         $employees = User::where('role', 'user')->get();
         $query = Teket::query(); 
+    
         if ($request->filled('month')) {
-            $selectedDate = strtotime($request->month);
-            $query->whereYear('created_at', date('Y', $selectedDate))
-                  ->whereMonth('created_at', date('m', $selectedDate));
+            try {
+                $selectedDate = \Carbon\Carbon::parse($request->month);
+                $query->whereYear('created_at', $selectedDate->year)
+                      ->whereMonth('created_at', $selectedDate->month);
+            } catch (\Exception $e) {
+            }
         }
-        $orderedby='desc';
-        if ($request->filled('order')) {
-            $orderedby =$request->order;
+        if (in_array($request->order, ['asc', 'desc'])) {
+            $query->orderBy('created_at', $request->order);
+        } else {
+            $query->orderBy('created_at', 'desc');
         }
     
         if ($request->filled('priority')) {
             $query->where('priority', $request->priority);
         }
+    
         if ($request->filled('employee_id')) {
             $query->where('user_id', $request->employee_id);
         }
+    
         if ($request->filled('status')) {
             $query->where('status', $request->status);
         }
-        $tickets = $query->orderBy('created_at',$orderedby)->paginate(10);
+    
+        $tickets = $query->paginate(10);
+        
         return view('admin.ticket.list', compact('tickets', 'employees'));
     }
+    
 
 
     function destroy(Request $request)
     {
         $ticket=Teket::find($request->id);
         $ticket->delete();
-        return redirect()->route('admin.tickets.list')->with('success', 'تم حذف التذكرة بنجاح.');
+        return redirect()->back()->with('success', 'تم حذف التذكرة بنجاح.');
     }
     function show(Request $request)
     {
         $employee = User::find($request->user_id);
         $ticket=Teket::find($request->id);
-        return view('admin.ticket.show',compact('ticket','employee'));
+        $solutions =Solution::where('teket_id',$ticket->id)->get();
+        return view('admin.ticket.show',compact('ticket','employee','solutions'));
     }
     public function update(Request $request)
     {

@@ -15,7 +15,18 @@ edit {{$employee->name}}
     </div>
 @endif
     <h2 class="my-6 text-2xl font-semibold text-gray-700 dark:text-gray-200">
-        Edit Profile Information
+        Edit Profile Information 
+
+        <button type="button" onclick="window.location='{{ route('admin.profile.password', ['id' => $employee->id]) }}'"
+            class="flex items-center px-2 py-2 text-sm font-medium leading-5 text-purple-600 rounded-lg dark:text-gray-400 focus:outline-none focus:shadow-outline-gray"
+            aria-label="Edit Password">
+            <svg class="w-5 h-5 mr-2" aria-hidden="true" fill="currentColor" viewBox="0 0 24 24">
+                <path d="M12 2C8.13 2 5 5.13 5 9v2H4a2 2 0 00-2 2v8a2 2 0 002 2h16a2 2 0 002-2v-8a2 2 0 00-2-2h-1V9c0-3.87-3.13-7-7-7zm-3 9V9a3 3 0 016 0v2H9zm10 2v8H5v-8h14z" />
+            </svg>
+            <span>@lang('messages.editpassword')</span>
+        </button>
+        
+
     </h2>
     <div class="mt-4 text-gray-500 dark:text-gray-300 flex items-center">
         <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 mr-2" viewBox="0 0 20 20" fill="currentColor">
@@ -49,13 +60,7 @@ edit {{$employee->name}}
                 <input name="email" type="string" value="{{ $employee->email }}" required class="block w-full mt-1 text-gray-400 text-sm dark:border-gray-600 dark:bg-gray-700 form-input" placeholder="مثال: user@example.com" />
                 @error('email') <p class="text-red-500 text-xs italic">{{ $message }}</p> @enderror
             </label>
-            @if($employee->role == 'admin')
-            <label class="block mt-4 text-sm">
-                <span class="text-gray-700 dark:text-gray-400"> Password</span>
-                <input name="password" type="password" placeholder="*******" required class="block w-full mt-1 text-gray-400 text-sm dark:border-gray-600 dark:bg-gray-700 form-input" placeholder="مثال: user@example.com" />
-                
-            </label>
-            @endif
+            
             <label class="block mt-4 text-sm">
                 <span class="text-gray-700 dark:text-gray-400">الدور (Role)</span>
                 <select name="role" required class="block w-full mt-1 text-gray-400 text-sm dark:border-gray-600 dark:bg-gray-700 form-select">
@@ -66,9 +71,16 @@ edit {{$employee->name}}
                 @error('role') <p class="text-red-500 text-xs italic">{{ $message }}</p> @enderror
             </label>
         
-            <button type="submit" class="block w-full px-4 py-2 mt-4 text-sm font-medium text-white bg-purple-600 rounded-lg hover:bg-purple-700">
-                تعديل البيانات
-            </button>
+            <button type="submit"
+            class="flex items-center justify-center w-full px-4 py-2 mt-4 text-sm font-medium text-gray-900 dark:text-white border border-blue-600 dark:border-blue-400 rounded-lg hover:bg-blue-100 dark:hover:bg-blue-900 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500 dark:focus:ring-offset-gray-900 transition ease-in-out duration-150">
+            
+            <!-- أيقونة النشر -->
+            <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 fill-current text-gray-900 dark:text-white" viewBox="0 0 20 20">
+                <path d="M10.707 2.293a1 1 0 00-1.414 0l-7 7A1 1 0 003 11h4v5a1 1 0 001 1h4a1 1 0 001-1v-5h4a1 1 0 00.707-1.707l-7-7z"/>
+            </svg>
+    
+            <span class="ml-2">Save Changes</span>
+        </button>
         </form>
         
     </div>

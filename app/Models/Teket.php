@@ -14,5 +14,8 @@ class Teket extends Model
         'priority',
         'file'
     ];
-   
+    public function user()
+    {
+        return $this->belongsTo(User::class);
+    }
 }

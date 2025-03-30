@@ -14,7 +14,7 @@
                         d="M13.586 3.586a2 2 0 112.828 2.828l-.793.793-2.828-2.828.793-.793zM11.379 5.793L3 14.172V17h2.828l8.38-8.379-2.83-2.828z">
                     </path>
                 </svg>
-            </button></h2>
+            </button> </h2>
 
         </div>
         @if (session('success'))
@@ -61,11 +61,11 @@
             <thead>
                 <tr
                     class="text-xs font-semibold tracking-wide text-left text-gray-500 uppercase border-b dark:border-gray-700 bg-gray-50 dark:text-gray-400 dark:bg-gray-800">
-                    <th class="px-4 py-3">Ticket Title</th>
-                    <th class="px-4 py-3">Status</th>
+                    <th class="px-4 py-3">@lang('messages.ticket_title')</th>
+                    <th class="px-4 py-3">@lang('messages.status')</th>
                     <th class="px-4 py-3">Priority</th>
-                    <th class="px-4 py-3">Date</th>
-                    <th class="px-4 py-3">Actions</th>
+                    <th class="px-4 py-3">@lang('messages.date')</th>
+                    <th class="px-4 py-3">@lang('messages.actions')</th>
                 </tr>
             </thead>
             <tbody class="bg-white divide-y dark:divide-gray-700 dark:bg-gray-800">
@@ -148,10 +148,8 @@
         @endif
     
     </div>
-    @elseif($employee->role == 'ingenieur')
-    <div class="px-6 py-4">
-        <h2 class="text-2xl font-semibold text-gray-800 dark:text-white">Enginner solutions</h2>
-    </div>
+    @elseif($employee->role == 'ingenieur' or $employee->role == 'admin')
+    @include('admin.partials.display_solutions',['solutions'=>$solutions])
     @endif
 
 </div>

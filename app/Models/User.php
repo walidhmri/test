@@ -25,6 +25,7 @@ class User extends Authenticatable
         'email',
         'password',
         'role',
+        'verified',
        
     ];
 
@@ -50,24 +51,17 @@ class User extends Authenticatable
             'password' => 'hashed',
         ];
     }
-    public function chatSessions(): HasMany
-    {
-        return $this->hasMany(ChatSession::class);
-    }
+
 
     /**
      * Get the chat messages for the user.
      */
-    public function chatMessages(): HasMany
+    public function tickets()
     {
-        return $this->hasMany(ChatMessage::class);
+        return $this->hasMany(Teket::class);
     }
 
     /**
      * Check if the user is an admin.
      */
-    public function isAdmin(): bool
-    {
-        return $this->role === 'admin';
-    }
 }

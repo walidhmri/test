@@ -17,6 +17,8 @@ Route::middleware(['auth', 'adminMiddleware'])->group(function () {
     Route::get('/admin/tickets', [TicketsController::class, 'index'])->name('admin.tickets.list');
     Route::get('/admin/employee/edit/{id}', [AdminController::class, 'editEmployee'])->name('admin.employee.editemployee');
     Route::get('admin/profile/{id}', [ProfileController::class, 'index'])->name('admin.profile.show');
+    Route::get('admin/profile/{id}/password-update', [ProfileController::class, 'indexpass'])->name('admin.profile.password');
+
     Route::get('/admin/tickets', [TicketsController::class, 'index'])->name('admin.tickets.list');
     Route::get('/admin/employee', [AdminController::class, 'employee'])->name('admin.employee.list');
     Route::get('/admin/employee/edit/{id}', [AdminController::class, 'editEmployee'])->name('admin.employee.editemployee');
@@ -37,6 +39,7 @@ Route::middleware(['auth', 'adminMiddleware'])->group(function () {
     Route::patch('/admin/tickets/update', [TicketsController::class, 'update'])->name('admin.tickets.update');
     Route::patch('/admin/employee/update/{id}', [AdminController::class, 'updateEmployee'])->name('admin.employee.edit');
     Route::patch('/admin/faqs/update/{id}', [FaqsController::class, 'update'])->name('admin.faq.update');
+    Route::patch('/admin/profile/{id}/password-update', [ProfileController::class, 'password'])->name('admin.profile.passwordupdate');
 
 
 
@@ -55,3 +58,4 @@ Route::middleware(['auth', 'adminMiddleware'])->group(function () {
 
 
 });
+

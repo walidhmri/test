@@ -65,8 +65,8 @@
                         class="border rounded-md px-4 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500 
                               bg-white text-gray-900 dark:bg-gray-800 dark:text-gray-200 dark:border-gray-600"
                         name="order">
-                        <option value="" {{ request('order') == '' ? 'selected' : '' }}>Last created</option>
-                        <option value="asc" {{ request('order') == 'inc' ? 'selected' : '' }}>First Created</option>
+                        <option value="desc" {{ request('order') == 'desc' ? 'selected' : '' }}>Last created</option>
+                        <option value="asc" {{ request('order') == 'asc' ? 'selected' : '' }}>First Created</option>
                     </select>
                     <button type="submit"
                         class="bg-green-600 hover:bg-green-800 text-white font-bold py-2 px-4 rounded transition duration-200
@@ -88,12 +88,12 @@
                 <thead>
                     <tr
                         class="text-xs font-semibold tracking-wide text-left text-gray-500 uppercase border-b dark:border-gray-700 bg-gray-50 dark:text-gray-400 dark:bg-gray-800">
-                        <th class="px-4 py-3">Ticket Title</th>
-                        <th class="px-4 py-3">Employee </th>
-                        <th class="px-4 py-3">Status</th>
+                        <th class="px-4 py-3">@lang('messages.ticket_title')</th>
+                        <th class="px-4 py-3">@lang('messages.employee')</th>
+                        <th class="px-4 py-3">@lang('messages.status')</th>
                         <th class="px-4 py-3">Priority</th>
-                        <th class="px-4 py-3">Date</th>
-                        <th class="px-4 py-3">Actions</th>
+                        <th class="px-4 py-3">@lang('messages.date')</th>
+                        <th class="px-4 py-3">@lang('messages.actions')</th>
                     </tr>
                 </thead>
                 <tbody class="bg-white divide-y dark:divide-gray-700 dark:bg-gray-800">
