@@ -134,6 +134,26 @@
                         <span class="ml-4"> @lang('messages.faqs')</span>
                     </a>
                 </li>
+
+
+                <li class="relative px-6 py-3">
+                    @if($isEmployeesActive)
+                    <span class="absolute inset-y-0 left-0 w-1 bg-purple-600 rounded-tr-lg rounded-br-lg" aria-hidden="true"></span>
+                    @endif
+                    <a class="inline-flex items-center w-full text-sm font-semibold transition-colors duration-150 hover:text-gray-800 dark:hover:text-gray-200 {{ $isEmployeesActive ? 'text-gray-800 dark:text-gray-100' : '' }}" 
+                       href="{{ route('admin.employee.list') }}">
+    
+                       <!-- New SVG Icon for Employees -->
+                       <svg class="w-5 h-5" aria-hidden="true" fill="none" stroke-linecap="round"
+                           stroke-linejoin="round" stroke-width="2" viewBox="0 0 24 24" stroke="currentColor">
+                           <path d="M5.5 21a1.5 1.5 0 01-1.5-1.5V17a4 4 0 014-4h8a4 4 0 014 4v2.5a1.5 1.5 0 01-1.5 1.5H5.5z"></path>
+                           <path d="M12 11a4 4 0 100-8 4 4 0 000 8z"></path>
+                       </svg>
+    
+                        <span class="ml-4"> @lang('messages.assignments')</span>
+                    </a>
+                </li>
+            
             </ul>
     
             <div class="px-6 my-6">
