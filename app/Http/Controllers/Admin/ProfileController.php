@@ -6,14 +6,14 @@ use App\Http\Controllers\Controller;
 use App\Models\Solution;
 use Illuminate\Http\Request;
 use App\Models\User;
-use App\Models\Teket;
+use App\Models\ticket;
 use Illuminate\Support\Facades\Hash;
 
 class ProfileController extends Controller
 {
     public function index(Request $request)
     {
-        $tickets = Teket::where('user_id', $request->id)->get();
+        $tickets = ticket::where('user_id', $request->id)->get();
         $solutions=Solution::where('user_id', $request->id)->get();
         $employee = User::find($request->id);
         return view('admin.profile.show', compact('employee', 'tickets', 'solutions'));

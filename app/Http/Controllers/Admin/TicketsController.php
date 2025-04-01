@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers\Admin;
 use App\Models\Solution;
-use App\Models\Teket;
+use App\Models\ticket;
 use App\Http\Controllers\Controller;
 use App\Models\User;
 use Illuminate\Http\Request;
@@ -11,9 +11,10 @@ class TicketsController extends Controller
 {
     public function index(Request $request)
     {
+        $solutions=Solution::get();
         $employees = User::where('role', 'user')->get();
-        $query = Teket::query(); 
-    
+        $query = ticket::query(); 
+
         if ($request->filled('month')) {
             try {
                 $selectedDate = \Carbon\Carbon::parse($request->month);
@@ -42,22 +43,22 @@ class TicketsController extends Controller
     
         $tickets = $query->paginate(10);
         
-        return view('admin.ticket.list', compact('tickets', 'employees'));
+        return view('admin.ticket.list', compact('tickets', 'employees','solutions'));
     }
     
 
 
     function destroy(Request $request)
     {
-        $ticket=Teket::find($request->id);
+        $ticket=ticket::find($request->id);
         $ticket->delete();
         return redirect()->back()->with('success', 'تم حذف التذكرة بنجاح.');
     }
     function show(Request $request)
     {
         $employee = User::find($request->user_id);
-        $ticket=Teket::find($request->id);
-        $solutions =Solution::where('teket_id',$ticket->id)->get();
+        $ticket=ticket::find($request->id);
+        $solutions =Solution::where('ticket_id',$ticket->id)->get();
         return view('admin.ticket.show',compact('ticket','employee','solutions'));
     }
     public function update(Request $request)
@@ -67,11 +68,11 @@ class TicketsController extends Controller
                 'status' => 'required',
                 'priority' => 'required',
             ]);
-        $ticket=Teket::find($request->id);
+        $ticket=ticket::find($request->id);
         $ticket->status=$request->status;
         $ticket->priority=$request->priority;
         $ticket->save();
-        return redirect()->back()->with('success', 'تم تحديث حالة التذكرة بنجاح.');
+        return redirect()->route('admin.tickets.list')->with(['success' => "تم تحديث حالة التذكرة $ticket->id بنجاح."]);
     }
 function idfill($id)
 {

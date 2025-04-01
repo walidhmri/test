@@ -2,7 +2,7 @@
 namespace App\Jobs;
 
 use App\Models\Solution;
-use App\Models\Teket;
+use App\Models\ticket;
 use Illuminate\Bus\Queueable;
 use Illuminate\Contracts\Queue\ShouldBeUnique;
 use Illuminate\Contracts\Queue\ShouldQueue;
@@ -21,7 +21,7 @@ class GenerateAISolution implements ShouldQueue
     /**
      * Create a new job instance.
      */
-    public function __construct(Teket $ticket)
+    public function __construct(ticket $ticket)
     {
         $this->ticket = $ticket;
     }
@@ -36,17 +36,17 @@ class GenerateAISolution implements ShouldQueue
 
         $response = Http::post("{$apiUrl}?key={$apiKey}", [
             "contents" => [
-                ["parts" => [["text" => "A user submitted a support ticket:\n\nTitle: {$this->ticket->title}\nDescription: {$this->ticket->description}  \n\nProvide a detailed technical solution in 30 word."]]]
+                ["parts" => [["text" => "A user submitted a support ticket:\n\nTitle: {$this->ticket->title}\nDescription: {$this->ticket->description}  \n\nProvide a detailed technical solution in a small paragraph."]]]
             ]
         ]);
 
         $aiResponse = $response->json()['candidates'][0]['content']['parts'][0]['text'] ?? "No AI solution available.";
         Log::info('Gemini API Response:', ['response' => $response->body()]);
 
-        // ✅ Sauvegarde de la solution
+        //  eneregestrer la solution
         Solution::create([
-            'teket_id' => $this->ticket->id,
-            'user_id' => 1, // Toujours 1
+            'ticket_id' => $this->ticket->id,
+            'user_id' => 1, 
             'title' => 'Bot',
             'description' => $aiResponse,
         ]);

@@ -7,11 +7,11 @@ use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\Auth;
-use App\Models\Teket;
+use App\Models\ticket;
 class UserController extends Controller
 {
     public function index(){
-        $tickets = Teket::where('user_id', auth()->user()->id)->get();
+        $tickets = ticket::where('user_id', auth()->user()->id)->get();
         return view('employee.dashboard', compact('tickets'));
     }
     public function editProfile()

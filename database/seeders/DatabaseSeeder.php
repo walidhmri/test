@@ -3,7 +3,8 @@
 namespace Database\Seeders;
 
 use App\Models\Faq;
-use App\Models\Teket;
+use App\Models\Solution;
+use App\Models\ticket;
 use App\Models\User;
 use Illuminate\Database\Seeder;
 use Faker\Factory as Faker;
@@ -60,7 +61,7 @@ class DatabaseSeeder extends Seeder
             ]);
         }
         for ($i = 0; $i < 10; $i++) {
-            Teket::create([
+            ticket::create([
                 'title' => $faker->sentence,  // small title
                 'description' => $faker->paragraph, 
                 'status' => 'pending', 
@@ -69,20 +70,36 @@ class DatabaseSeeder extends Seeder
             ]);
         }
         for ($i = 0; $i < 10; $i++) {
-            Teket::create([
+            $ticket = ticket::create([
                 'title' => $faker->sentence ,  
                 'description' => $faker->paragraph, 
                 'status' => 'solved', 
                 'priority' => 'medium',
                 'user_id' => 2
             ]);
+
+            $solution= Solution::create([
+                'title' => 'Solution example for solved tickets',
+                'description' => $faker->paragraph,
+                'user_id' => 1,
+                'ticket_id' => $ticket->id
+            ]);
         }
         for ($i = 0; $i < 10; $i++) {
-            Teket::create([
+            ticket::create([
                 'title' => $faker->sentence ,  
                 'description' => $faker->paragraph, 
                 'status' => 'closed', 
                 'priority' => 'high',
+                'user_id' => 2
+            ]);
+        }
+        for ($i = 0; $i < 10; $i++) {
+            ticket::create([
+                'title' => $faker->sentence ,  
+                'description' => $faker->paragraph, 
+                'status' => 'closed', 
+                'priority' => 'urgent',
                 'user_id' => 2
             ]);
         }

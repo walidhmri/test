@@ -3,7 +3,7 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Teket;
+use App\Models\ticket;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Facades\Auth;
@@ -12,7 +12,7 @@ class ApiTicketController extends Controller
 {
     public function index()
     {
-        $tickets = Teket::where('user_id', Auth::id())->with('user')->orderBy('created_at', 'desc')->get();
+        $tickets = ticket::where('user_id', Auth::id())->with('user')->orderBy('created_at', 'desc')->get();
         return response()->json($tickets);
     }
 
@@ -29,7 +29,7 @@ class ApiTicketController extends Controller
             return response()->json(['errors' => $validator->errors()], 422);
         }
 
-        $ticket = new Teket();
+        $ticket = new ticket();
         $ticket->title = $request->title;
         $ticket->description = $request->description;
         $ticket->priority = $request->priority;
@@ -50,13 +50,13 @@ class ApiTicketController extends Controller
 
     public function show($id)
     {
-        $ticket = Teket::where('user_id', Auth::id())->with('user')->findOrFail($id);
+        $ticket = ticket::where('user_id', Auth::id())->with('user')->findOrFail($id);
         return response()->json($ticket);
     }
 
     public function update(Request $request, $id)
     {
-        $ticket = Teket::findOrFail($id);
+        $ticket = ticket::findOrFail($id);
 
         $validator = Validator::make($request->all(), [
             'title' => 'required|string|max:255',
@@ -85,7 +85,7 @@ class ApiTicketController extends Controller
 
     public function destroy($id)
     {
-        $ticket = Teket::findOrFail($id);
+        $ticket = ticket::findOrFail($id);
         $ticket->delete();
 
         return response()->json([
@@ -96,31 +96,31 @@ class ApiTicketController extends Controller
     public function dashboard()
     {
         // Get total tickets count
-        $totalTickets = Teket::where('user_id', Auth::id())->count();
+        $totalTickets = ticket::where('user_id', Auth::id())->count();
         
         // Get tickets by status
-        $pendingTickets = Teket::where('status', 'pending')
+        $pendingTickets = ticket::where('status', 'pending')
             ->where('user_id', Auth::id())
             ->count();
         
-        $resolvedTickets = Teket::where('status', 'resolved')
+        $resolvedTickets = ticket::where('status', 'resolved')
         ->where('user_id', Auth::id())
         ->count();
         
         // Get urgent tickets
-        $urgentTickets = Teket::where('priority', 'urgent')
+        $urgentTickets = ticket::where('priority', 'urgent')
         ->where('user_id', Auth::id())
         ->count();
         
         // Get ticket counts by priority
         $priorityCounts = [
-            'low' => Teket::where('priority', 'low')
+            'low' => ticket::where('priority', 'low')
             ->where('user_id', Auth::id())
             ->count(),
-            'medium' => Teket::where('priority', 'medium')
+            'medium' => ticket::where('priority', 'medium')
             ->where('user_id', Auth::id())
             ->count(),
-            'high' => Teket::where('priority', 'high')
+            'high' => ticket::where('priority', 'high')
             ->where('user_id', Auth::id())
             ->count(),
             'urgent' => $urgentTickets,
@@ -129,17 +129,17 @@ class ApiTicketController extends Controller
         // Get ticket counts by status
         $statusCounts = [
             'pending' => $pendingTickets,
-            'in-progress' => Teket::where('status', 'in-progress')
+            'in-progress' => ticket::where('status', 'in-progress')
             ->where('user_id', Auth::id())
             ->count(),
             'resolved' => $resolvedTickets,
-            'closed' => Teket::where('status', 'closed')
+            'closed' => ticket::where('status', 'closed')
             ->where('user_id', Auth::id())
             ->count(),
         ];
         
         // Get recent tickets
-        $recentTickets = Teket::with('user')
+        $recentTickets = ticket::with('user')
                               ->where('user_id', Auth::id())
                               ->orderBy('created_at', 'desc')
                               ->limit(5)

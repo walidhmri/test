@@ -90,6 +90,8 @@
                         class="text-xs font-semibold tracking-wide text-left text-gray-500 uppercase border-b dark:border-gray-700 bg-gray-50 dark:text-gray-400 dark:bg-gray-800">
                         <th class="px-4 py-3">@lang('messages.ticket_title')</th>
                         <th class="px-4 py-3">@lang('messages.employee')</th>
+                        <th class="px-4 py-3">id</th>
+                        <th class="px-4 py-3">@lang('messages.solutions')</th>
                         <th class="px-4 py-3">@lang('messages.status')</th>
                         <th class="px-4 py-3">Priority</th>
                         <th class="px-4 py-3">@lang('messages.date')</th>
@@ -109,11 +111,43 @@
                                     </div>
                                 </div>
                             </td>
+                            @push('styles')
+                            <style>
+                            .emp{
+                                text-decoration:underline; 
+                            
+                            }
+                            .emp:hover{
+                                color:rgb(128, 0, 255);
+                                text-decoration:none;
+                            }
+                            </style>
+                             
+                            @endpush
+                            <!-- employee ici-->
+                            <td style="" class="px-4 py-3 text-sm">
+                               <a class="emp" href="{{route('admin.profile.show', ['id'=>$ticket->user_id])}}"> {{ $employees->where('id', $ticket->user_id)->first()->name }}</a>
+                            </td>
                             <td class="px-4 py-3 text-sm">
-                                {{ $employees->where('id', $ticket->user_id)->first()->name }}
+                                {{ $ticket->id }}
+                            </td>
+                            <td class="px-4 py-3 text-sm">
+
+                                {{ $solutions->where('ticket_id', $ticket->id)->count() }}
+
+                            </td>
                             <td class="px-4 py-3 text-xs">
 
-                                <span
+
+                                <span   style="@if($ticket->status=='pending') 
+                                   border:2px solid yellow;
+                                   @elseif($ticket->status=='solved')
+                                   border:2px solid green;
+                                   @elseif($ticket->status=='closed')
+                                      border:2px solid violet;
+                                   @endif
+                                   " 
+
                                     class="px-2 py-1 font-semibold leading-tight rounded-full 
                     
                              text-gray-700  dark:bg-gray-700 dark:text-gray-100
@@ -131,13 +165,25 @@
                             </td>
                             <td class="px-4 py-3 text-xs">
 
-                                <span
-                                    class="px-2 py-1 font-semibold leading-tight rounded-full 
+                                <span  @if($ticket->priority=='medium')
+                                style=" border:2px solid orange;" 
+                                @elseif($ticket->priority=='low')
+                                style=" border:2px solid green;" 
+                                @elseif($ticket->priority=='high')
+                                style=" border:2px solid rgba(255, 0, 0, 0.6);                                ;"
+                                @elseif($ticket->priority=='urgent')
+                                style=" border:2px solid red;"
+                                @endif
+                               
+                                class="px-2 py-1 font-semibold leading-tight rounded-full 
+                    
+                                text-gray-700  dark:bg-gray-700 dark:text-gray-100
+                                
                         @switch($ticket->priority)
                             @case('low') text-green-700 bg-green-100  dark:bg-green-700 dark:text-orange-100 @break
-                            @case('medium') text-orange-700 bg-yellow-100 dark:bg-orange-700 dark:text-orange-100 @break
-                            @case('high') text-dark-700 bg-orange-100 dark:bg-orange-700 dark:text-dark-700 @break
+                            @case('high') text-white-100 dark:text-white-100  @break
                             @case('urgent') text-red-700 bg-red-100 dark:bg-red-700 dark:text-red-100 @break
+                            @case('medium') text-orange-700 bg-orange-100 dark:bg-orange-700 dark:text-dark-100 @break
                             @default text-gray-700 bg-gray-100 dark:bg-gray-700 dark:text-gray-100
                         @endswitch">
                                     {{ $ticket->priority }}

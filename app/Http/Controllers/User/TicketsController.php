@@ -5,7 +5,7 @@ namespace App\Http\Controllers\User;
 use App\Http\Controllers\Controller;
 use App\Models\Solution;
 use Illuminate\Http\Request;
-use App\Models\Teket;
+use App\Models\ticket;
 use App\Models\User;
 use App\Jobs\GenerateAISolution; 
 use Illuminate\Support\Facades\Http;
@@ -16,7 +16,7 @@ class TicketsController extends Controller
 
     public function index()
     {
-        $tickets = Teket::where('user_id', auth()->user()->id)->orderBy('id', 'desc')->paginate(5);
+        $tickets = ticket::where('user_id', auth()->user()->id)->orderBy('id', 'desc')->paginate(5);
         return view('employee.liste',compact('tickets'));
     }
 
@@ -58,7 +58,7 @@ public function store(Request $request)
         $filepath = null;
     }
 
-    $ticket=Teket::create([
+    $ticket=ticket::create([
         'title' => $request->title,
         'description' => $request->description,
         'priority' => $request->priority,
@@ -89,7 +89,7 @@ public function store(Request $request)
      */
     public function edit(string $id)
     {
-        $ticket = Teket::findOrFail($id); // Get a single model instance
+        $ticket = ticket::findOrFail($id); // Get a single model instance
         return view('employee.update', compact('ticket')); // Adjust view name as needed
     }
 
@@ -104,7 +104,7 @@ public function store(Request $request)
             'priority' => 'required|in:low,medium,high,urgent', 
             'file' => 'nullable|file|mimes:jpg,jpeg,png,pdf|max:2048', 
         ]);
-        $ticket=Teket::find($request->id);
+        $ticket=ticket::find($request->id);
         $ticket->title=$request->title;
         $ticket->description=$request->description;
         $ticket->priority=$request->priority;
@@ -119,7 +119,7 @@ public function store(Request $request)
     public function destroy(Request $request)
     {
       
-         $ticket=Teket::find($request->id);
+         $ticket=ticket::find($request->id);
          if(!$ticket){
             return redirect()->route('employee.tickets')->with('error', 'Ticket not found');
          }

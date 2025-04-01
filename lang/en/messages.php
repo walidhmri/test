@@ -92,8 +92,8 @@ return [
     'submission_date' => 'Submission Date:',
     'full_name' => 'Full Name:',
     'assigned_department' => 'Assigned Department:',
-    
 
+    'assignments'=> 'Assignments',
     'pending_assignment' => 'Pending Assignment',
     'closed' => 'CLOSED',
     'solved' => 'SOLVED',

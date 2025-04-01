@@ -6,15 +6,15 @@ use Illuminate\Database\Eloquent\Model;
 
 class Solution extends Model
 {
-    protected $fillable = ['user_id', 'teket_id', 'title', 'description', 'file'];
+    protected $fillable = ['user_id', 'ticket_id', 'title', 'description', 'file'];
 
     public function user()
     {
         return $this->belongsTo(User::class);
     }
 
-    public function teket()
+    public function ticket()
     {
-        return $this->belongsTo(Teket::class);
+        return $this->belongsTo(ticket::class);
     }
 }

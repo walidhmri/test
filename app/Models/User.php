@@ -26,6 +26,8 @@ class User extends Authenticatable
         'password',
         'role',
         'verified',
+        'department',
+        'position',
        
     ];
 
@@ -58,7 +60,7 @@ class User extends Authenticatable
      */
     public function tickets()
     {
-        return $this->hasMany(Teket::class);
+        return $this->hasMany(ticket::class);
     }
 
     /**

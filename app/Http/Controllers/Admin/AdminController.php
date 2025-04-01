@@ -3,7 +3,7 @@
 namespace App\Http\Controllers\Admin;
 use App\Http\Controllers\Controller;
 use App\Models\User;
-use App\Models\Teket;
+use App\Models\ticket;
 use Illuminate\Auth\Events\Registered;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
@@ -14,7 +14,7 @@ use Illuminate\Validation\Rules;
 class AdminController extends Controller
 {
     function index(){
-        $tickets = Teket::orderBy('created_at','desc')->get();
+        $tickets = ticket::orderBy('created_at','desc')->get();
         $employees = User::get();
         return view('admin.dashboard',compact('employees', 'tickets'));
     }

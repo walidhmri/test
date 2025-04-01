@@ -20,10 +20,10 @@ Route::middleware('auth:sanctum')->group(function () {
     // Update your routes to use the new controller name
     // ...
     Route::get('/dashboard', [ApiTicketController::class, 'dashboard']);
-    Route::get('/tekets', [ApiTicketController::class, 'index']);
-    Route::post('/tekets', [ApiTicketController::class, 'store']);
-    Route::get('/tekets/{id}', [ApiTicketController::class, 'show']);
-    Route::put('/tekets/{id}', [ApiTicketController::class, 'update']);
-    Route::delete('/tekets/{id}', [ApiTicketController::class, 'destroy']);
+    Route::get('/tickets', [ApiTicketController::class, 'index']);
+    Route::post('/tickets', [ApiTicketController::class, 'store']);
+    Route::get('/tickets/{id}', [ApiTicketController::class, 'show']);
+    Route::put('/tickets/{id}', [ApiTicketController::class, 'update']);
+    Route::delete('/tickets/{id}', [ApiTicketController::class, 'destroy']);
 
 });
