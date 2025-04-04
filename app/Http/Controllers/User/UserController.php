@@ -8,10 +8,13 @@ use Illuminate\Http\Response;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\Auth;
 use App\Models\ticket;
+use Illuminate\Support\Facades\Hash;
 class UserController extends Controller
 {
     public function index(){
-        $tickets = ticket::where('user_id', auth()->user()->id)->get();
+        $tickets = ticket::where('user_id', auth()->user()->id)
+        ->orderBy('id','desc')
+        ->get();
         return view('employee.dashboard', compact('tickets'));
     }
     public function editProfile()
@@ -26,7 +29,6 @@ class UserController extends Controller
     {
         $request->validate([
             'name' => 'required'
-            
         ]);
 
         Auth::user()->update([
@@ -36,4 +38,22 @@ class UserController extends Controller
 
         return redirect()->route('employee.profile.edit')->with('success', 'Profile updated successfully!');
     }
+    public function updatePassword(Request $request)
+    {
+        $request->validate([
+            'current_password' => 'required',
+            'new_password' => 'required|min:8|confirmed',
+        ]);
+    
+        if (!Hash::check($request->current_password, Auth::user()->password)) {
+            return redirect()->back()->with('error', 'Current password is incorrect.');
+        }
+    
+        Auth::user()->update([
+            'password' => Hash::make($request->new_password),
+        ]);
+    
+        return redirect()->route('employee.profile.edit')->with('success', 'Password updated successfully!');
+    }
+    
 }

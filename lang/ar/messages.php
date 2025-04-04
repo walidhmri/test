@@ -1,68 +1,78 @@
 <?php
 
 return [
-    'dir' => 'rtl',
-    'title' => 'مكتب مساعدة نفطال',
+    'dir' => 'rtl', // Right-to-Left direction for Arabic
+    'title' => 'مكتب مساعدة نافطال',
     'dashboard' => 'لوحة التحكم',
-    'langualge' => 'العربية',
-    'platform_title' => 'نفطال',
-    'platform_subtitle' => 'منصة الشكاوى المتعلقة بالمعدات',
+    'langualge' => 'الإنجليزية', // Or العربية if this represents the *current* language name
+    'platform_title' => 'نافطال',
+    'platform_subtitle' => 'منصة لشكاوى المعدات',
     'integrated_solution' => 'الحل المتكامل لإدارة خدماتك البترولية',
-    'description' => 'توفر منصة نفطال حلولًا مبتكرة لإدارة وتوزيع المنتجات البترولية بكفاءة، مما يضمن الشفافية، الأمان، والموثوقية في جميع معاملاتك.',
+    'description' => 'منصة نافطال تقدم حلولاً مبتكرة لإدارة وتوزيع المنتجات البترولية بكفاءة، مما يضمن الشفافية والأمان والموثوقية في جميع معاملاتك.',
 
-    'clients_active' => '5000+ عميل نشط',
+    'clients_active' => '+5000 عميل نشط',
     'get_started' => 'ابدأ الآن',
-    'learn_more' => 'تعرف على المزيد',
-    'fuel_stations' => '150+ محطة وقود',
+    'learn_more' => 'تعلم المزيد',
+    'fuel_stations' => '+150 محطة وقود',
     'customer_satisfaction' => '99% رضا العملاء',
-    'years_of_experience' => '25+ سنة من الخبرة',
+    'years_of_experience' => '+25 سنة خبرة',
 
     'faq_title' => 'الأسئلة الشائعة',
-    'faq_description' => 'إجابات عن أكثر الأسئلة شيوعًا حول خدماتنا',
+    'faq_description' => 'إجابات على الأسئلة الأكثر شيوعاً حول خدماتنا',
 
     'how_to_register' => 'كيف يمكنني التسجيل في المنصة؟',
-    'how_to_register_answer' => 'يمكنك التسجيل بسهولة في المنصة عبر النقر على زر "إنشاء حساب" أعلى الصفحة، ثم إدخال بياناتك الشخصية ومعلومات الاتصال. بعد إكمال عملية التسجيل، يمكنك الوصول إلى لوحة التحكم الخاصة بك واستخدام جميع الخدمات المتاحة.',
+    'how_to_register_answer' => 'يمكنك التسجيل بسهولة في المنصة عبر الضغط على زر "إنشاء حساب" أعلى الصفحة، ثم إدخال بياناتك الشخصية ومعلومات الاتصال. بعد إتمام عملية التسجيل، ستتمكن من الوصول إلى لوحة التحكم الخاصة بك واستخدام جميع الخدمات المتاحة.',
 
     'payment_methods' => 'ما هي طرق الدفع المتاحة؟',
-    'fuel_delivery_time' => 'كم يستغرق توصيل الوقود؟',
+    'fuel_delivery_time' => 'كم تستغرق عملية توصيل الوقود؟',
     'cancel_order' => 'هل يمكنني إلغاء الطلب بعد تأكيده؟',
 
-    'company_description' => 'نفطال هي شركة رائدة في مجال تسويق وخدمات الطاقة، وتسعى دائمًا إلى توفير حلول مبتكرة تلبي احتياجات عملائها بأعلى معايير الجودة والسلامة.',
+    'company_description' => 'نافطال شركة رائدة في مجال التسويق والخدمات الطاقوية، تسعى دائماً لتقديم حلول مبتكرة تلبي احتياجات عملائها بأعلى معايير الجودة والسلامة.',
 
-    'footer' => 'شركة نفطال لخدمات البترول. جميع الحقوق محفوظة.',
-    'developper_walid' => 'صفحات وليد حمري',
+    'footer' => 'شركة نافطال للخدمات البترولية. جميع الحقوق محفوظة.',
+    'developper_walid' => 'صفحات وليد حمري', // Assuming Oualid Hamri is the name
     'logout' => 'تسجيل الخروج',
     'login' => 'تسجيل الدخول',
-    'welcome_back'=> 'مرحبًا بعودتك',
+    'welcome_back'=> 'مرحباً بعودتك',
     'secure_login'=>'تسجيل دخول آمن',
     'home'=>'الرئيسية',
-    'signin_text'=>'قم بتسجيل الدخول للوصول إلى لوحة تحكم حسابك في نفطال',
+    'signin_text'=>'سجل الدخول للوصول إلى لوحة تحكم حساب نافطال الخاص بك',
     'userid'=>'معرف المستخدم',
-    'Password'=>'كلمة المرور',
+    'Password'=>'كلمة المرور', // Key has capital P
     'remember_me'=>'تذكرني',
     'system'=> 'معلومات النظام',
     'access'=>'وصول سريع',
     'last_update'=>'آخر تحديث:',
     'support'=> 'الدعم',
-    'tickets'=> 'التذاكر',
-    'copyrights' => '© 2025 نفطال. جميع الحقوق محفوظة.',
-    'password'=>'كلمة المرور',
+    'tickets'=> 'التذاكر', // Support tickets
+    'copyrights' => '2025 نافطال. جميع الحقوق محفوظة.',
+    'password'=>'كلمة المرور', // Key has lowercase p
 
-    'document_title' => 'التذاكر الموقعة',
+    'document_title' => 'تذاكر للتوقيع', // Or 'وثيقة التذاكر' depending on exact context
     'reference_number' => 'رقم المرجع: GSR-:id-:year',
-    'looged_in_as'=> 'تم تسجيل الدخول كـ:',
+    'looged_in_as'=> 'تم تسجيل الدخول باسم', // Note: key 'looged' is misspelled in original
 
     'request_details' => 'تفاصيل الطلب',
     'applicant_information' => 'معلومات مقدم الطلب',
     'profile'=>'الملف الشخصي',
     'settings'=>'الإعدادات',
-    'employees'=> 'الموظفون',
-    'ingenieurs' => 'المهندسون',
+    'employees'=> 'الموظفون', // Or العمال if more appropriate
+    'ingenieurs' => 'المهندسون', // Key is in French
     'faqs'=> 'الأسئلة الشائعة',
     'add_employee'=> 'إضافة موظف',
     'list_employees'=> 'قائمة الموظفين',
     'list_ingenieurs'=> 'قائمة المهندسين',
     'list_faqs'=> 'قائمة الأسئلة الشائعة',
+    'editpassword'=>'تعديل كلمة المرور',
+    'edit_employee'=> 'تعديل موظف',
+    'ticket_title'=> 'التذاكر', // Could also be 'عنوان التذكرة' if it's a title field
+    'employee'=> 'موظف',
+    'ingenieur'=> 'مهندس', // Key is in French
+    'faq'=> 'سؤال شائع',
+    'status'=> 'الحالة',
+    'id'=>'معرف المستخدم', // Or just 'المعرف' if context is clear
+    'date'=> 'التاريخ',
+    'actions'=> 'الإجراءات',
     'add_faq'=> 'إضافة سؤال شائع',
     'edit_faq'=> 'تعديل سؤال شائع',
     'add_ingenieur'=> 'إضافة مهندس',
@@ -70,29 +80,38 @@ return [
     'total_ingenieurs'=>'إجمالي المهندسين',
     'total_faqs'=>'إجمالي الأسئلة الشائعة',
     'total_tickets'=>'إجمالي التذاكر',
-    'tickets_solved'=>'التذاكر المحلولة',
+    'tickets_solved'=>'التذاكر التي تم حلها',
     'priority'=> 'الأولوية',
-    'last_created_tickets'=>'آخر التذاكر المضافة',
-    'traffic'=>'حركة المرور',
+    'last_created_tickets'=>'آخر التذاكر التي تم إنشاؤها',
+    'traffic'=>'حركة المرور', // Usually web traffic, can mean general activity
+
 
     'service_type' => 'نوع الخدمة:',
     'current_status' => 'الحالة الحالية:',
     'submission_date' => 'تاريخ التقديم:',
     'full_name' => 'الاسم الكامل:',
-    'assigned_department' => 'القسم المكلف:',
+    'assigned_department' => 'القسم المسند إليه:',
+    'departments' => 'الأقسام',
+    'reviews' => 'المراجعات',
+    'posts' => 'المنشورات',
+    'comments' => 'التعليقات',
 
-    'pending_assignment' => 'في انتظار التخصيص',
+
+    'assignments'=> 'المهام', // Or 'التعيينات'
+    'pending_assignment' => 'مهمة قيد الانتظار', // Or 'مهمة معلقة'
     'closed' => 'مغلق',
     'solved' => 'تم الحل',
     'pending' => 'قيد الانتظار',
+    'assigned'=> 'مسندة', // Or 'تم الإسناد'
 
     'footer_line1' => 'تم إنشاء هذا المستند تلقائيًا بواسطة نظام الخدمات الحكومية الرسمي',
     'footer_line2' => 'جميع الحقوق محفوظة © إدارة الخدمات الحكومية :year',
+
 
     'official_seal' => 'الختم الرسمي',
     'government' => 'الحكومة',
 
     'status_processed' => 'تمت المعالجة',
     'status_under_review' => 'قيد المراجعة',
-];
 
+];

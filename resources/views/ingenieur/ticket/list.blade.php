@@ -1,4 +1,4 @@
-@extends('layouts.admin')
+@extends('layouts.ingenieur')
 @section('title', 'Tickets List')
 @section('content')
     <div class="w-full overflow-hidden rounded-lg shadow-xs">
@@ -94,13 +94,13 @@
             <table class="w-full whitespace-no-wrap">
                 <thead>
                     <tr
-                        class="text-xs font-semibold tracking-wide text-gray-500 uppercase border-b dark:border-gray-700 bg-gray-50 dark:text-gray-400 dark:bg-gray-800">
+                        class="text-xs font-semibold tracking-wide  text-gray-500 uppercase border-b dark:border-gray-700 bg-gray-50 dark:text-gray-400 dark:bg-gray-800">
                         <th class="px-4 py-3">@lang('messages.ticket_title')</th>
                         <th class="px-4 py-3">@lang('messages.employee')</th>
                         <th class="px-4 py-3">id</th>
                         <th class="px-4 py-3">@lang('messages.assigned')</th>
                         <th class="px-4 py-3">@lang('messages.status')</th>
-                        <th class="px-4 py-3">Priority</th>
+                        <th class="px-4 py-3">@lang('messages.priority')</th>
                         <th class="px-4 py-3">@lang('messages.date')</th>
                         <th class="px-4 py-3">@lang('messages.actions')</th>
                     </tr>

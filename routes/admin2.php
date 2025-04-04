@@ -22,7 +22,7 @@ Route::middleware(['auth', 'adminMiddleware'])->group(function () {
  Route::post('admin/departments/store', [DepartmentController::class, 'store'])->name('admin.department.store');
  Route::post('admin/departments/{id}/update', [DepartmentController::class, 'update'])->name('admin.department.update');
  Route::delete('admin/departments/{id}/delete', [DepartmentController::class, 'destroy'])->name('admin.department.delete');
-
+Route::delete('admin/tickets/solution/{id}/delete', [SolutionsController::class, 'destroy'])->name('admin.ticket.solve.delete');
 
 
  Route::post('/admin/ticket/{id}/solve', [SolutionsController::class, 'store'])->name('admin.ticket.solution.store');

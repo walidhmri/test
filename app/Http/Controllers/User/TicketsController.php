@@ -14,10 +14,34 @@ use Illuminate\Support\Facades\Http;
 class TicketsController extends Controller
 {
 
-    public function index()
+    public function index(Request $request)
     {
-        $tickets = ticket::where('user_id', auth()->user()->id)->orderBy('id', 'desc')->paginate(5);
-        return view('employee.liste',compact('tickets'));
+        $query = ticket::where('user_id', auth()->user()->id);
+        
+        // Filter by status
+        if ($request->has('status') && $request->status != 'all') {
+            $query->where('status', $request->status);
+        }
+        
+        // Filter by priority
+        if ($request->has('priority') && $request->priority != 'all') {
+            $query->where('priority', $request->priority);
+        }
+        
+        // Search by title
+        if ($request->has('search') && !empty($request->search)) {
+            $query->where('title', 'like', '%' . $request->search . '%');
+        }
+        
+        // Sort order
+        $sortField = $request->has('sort_field') ? $request->sort_field : 'id';
+        $sortOrder = $request->has('sort_order') ? $request->sort_order : 'desc';
+        
+        $query->orderBy($sortField, $sortOrder);
+        
+        $tickets = $query->paginate(10)->appends($request->except('page'));
+        
+        return view('employee.liste', compact('tickets'));
     }
 
     /**
@@ -70,7 +94,7 @@ public function store(Request $request)
     // ✅ Lancer le Job pour générer la solution en arrière-plan
     GenerateAISolution::dispatch($ticket);
 
-    return redirect()->route('dasboard.tickets')->with('success', 'تمت إضافة التذكرة بنجاح. سيتم إنشاء الحل قريبًا.');
+    return redirect()->route('employee.tickets.list')->with('success', 'تمت إضافة التذكرة بنجاح. سيتم إنشاء الحل قريبًا.');
 }
 
 
@@ -110,7 +134,7 @@ public function store(Request $request)
         $ticket->priority=$request->priority;
         $ticket->save();
     
-        return redirect()->back()->with('success', 'Ticket mis à jour avec succès.');
+        return redirect()->route('employee.tickets.list')->with('success', 'Ticket mis à jour avec succès.');
     }
 
     /**
@@ -121,10 +145,10 @@ public function store(Request $request)
       
          $ticket=ticket::find($request->id);
          if(!$ticket){
-            return redirect()->route('employee.tickets')->with('error', 'Ticket not found');
+            return redirect()->route('employee.tickets.list')->with('error', 'Ticket not found');
          }
          $ticket->delete();
-        return redirect()->route('dasboard.tickets')->with('success', 'Ticket supprimé avec succès');
+        return redirect()->route('employee.tickets.list')->with('success', 'Ticket supprimé avec succès');
     }
 
 }

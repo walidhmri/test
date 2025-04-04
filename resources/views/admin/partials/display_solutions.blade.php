@@ -1,155 +1,152 @@
+<div class="mt-8">
+    <h3 class="text-xl font-bold text-gray-900 dark:text-white mb-4 flex items-center">
+        <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 mr-2 text-indigo-500" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 8h10M7 12h4m1 8l-4-4H5a2 2 0 01-2-2V6a2 2 0 012-2h14a2 2 0 012 2v8a2 2 0 01-2 2h-3l-4 4z" />
+        </svg>
+        Solutions ({{ isset($solutions) && is_countable($solutions) ? count($solutions) : 0 }})
+    </h3>
 
-<div class="bg-gray-50 dark:bg-gray-800 rounded-lg p-4 mb-4">
-    <h3 class="text-xl font-bold text-gray-900 dark:text-gray-100 mb-2">Solutions Found <strong>"{{$solutions->count()}}"</strong> </h3>
-</div>
-<div class="p-4 space-y-4 w-full relative">
-    @foreach ($solutions as $solution)
-        <div
-            class="p-5 rounded-xl shadow-lg bg-white dark:bg-gray-900 border border-gray-300 dark:border-gray-700 w-full">
-            <!-- Header with Timestamp and Action Buttons -->
-            <div class="flex items-center justify-between mb-4 border-b border-gray-200 dark:border-gray-700 pb-3">
-                <div>
-                    <h3 class="text-sm font-semibold text-gray-900 dark:text-gray-100">
-                        {{ $solution->user->name ?? 'Unknown User' }}
+    @if(isset($solutions) && is_countable($solutions) && count($solutions) > 0)
+        <div class="space-y-4" id="solutions-container">
+            @foreach($solutions as $solution)
+                <div class="bg-white dark:bg-gray-800 rounded-lg shadow-md overflow-hidden border border-gray-200 dark:border-gray-700 solution-item" id="solution-{{ $solution->id }}">
+                    <!-- Solution Header -->
+                    <div class="bg-gray-50 dark:bg-gray-700 px-4 py-3 flex items-center justify-between border-b border-gray-200 dark:border-gray-700">
+                        <div class="flex items-center space-x-3">
+                            <!-- Engineer Avatar -->
+                            <div class="h-10 w-10 rounded-full bg-indigo-100 dark:bg-indigo-900 flex items-center justify-center text-indigo-500 dark:text-indigo-400 overflow-hidden">
+                                @if(isset($solution->user) && $solution->user->profile_photo_path)
+                                    <img src="{{ asset('storage/'.$solution->user->profile_photo_path) }}" alt="{{ $solution->user->name }}" class="h-full w-full object-cover">
+                                @else
+                                    <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z" />
+                                    </svg>
+                                @endif
+                            </div>
+                            
+                            <!-- Engineer Info -->
+                            <div>
+                                <h4 class="font-medium text-gray-900 dark:text-white">
+                                    {{ isset($solution->user) ? $solution->user->name : 'Unknown Engineer' }}
+                                </h4>
+                                <p class="text-xs text-gray-500 dark:text-gray-400">
+                                    {{ $solution->created_at->format('M j, Y • g:i A') }} 
+                                    @if($solution->created_at != $solution->updated_at)
+                                        <span class="italic">(edited)</span>
+                                    @endif
+                                </p>
+                            </div>
+                        </div>
                         
-                    </h3>
-                    <p class="text-xs text-gray-500 dark:text-gray-400">{{ now()->diffForHumans() }}</p>
+                        <!-- Action Buttons -->
+                        <div class="flex space-x-2">
+                            <a href="" 
+                               class="text-gray-500 hover:text-indigo-600 dark:text-gray-400 dark:hover:text-indigo-400 p-1 rounded-full hover:bg-gray-100 dark:hover:bg-gray-600">
+                                <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z" />
+                                </svg>
+                            </a>
+                            <form method="post" action="{{route('admin.ticket.solution.delete',['id'=>$solution->id])}}">
+                                @method('DELETE')
+                                @csrf
+                            <button type="submit" 
+                                    class="delete-solution-btn text-gray-500 hover:text-red-600 dark:text-gray-400 dark:hover:text-red-400 p-1 rounded-full hover:bg-gray-100 dark:hover:bg-gray-600"
+                                    onclick="confirm('Are you sure deleting This solution?')">
+                                <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16" />
+                                </svg>
+                            </button>
+                        </form>
+                        </div>
+                    </div>
+                    
+                    <!-- Solution Content -->
+                    <div class="px-4 py-4 bg-white dark:bg-gray-800 text-gray-800 dark:text-gray-200">
+                        <!-- Solution Title -->
+                        @if(isset($solution->title) && !empty($solution->title))
+                            <h3 class="text-lg font-semibold text-gray-900 dark:text-white mb-2">{{ $solution->title }}</h3>
+                        @endif
+                        
+                        <!-- Solution Description -->
+                        @if(isset($solution->description) && !empty($solution->description))
+                            <div class="text-sm text-gray-600 dark:text-gray-300 mb-3">
+                                {{ $solution->description }}
+                            </div>
+                        @endif
+                        
+                        <!-- Solution File (if available) -->
+                        @if(isset($solution->file) && !empty($solution->file))
+                            <div class="mt-3 p-3 bg-gray-50 dark:bg-gray-700 rounded-md">
+                                <div class="flex items-start space-x-3">
+                                    <div class="flex-shrink-0 w-8 h-8 bg-indigo-100 dark:bg-indigo-900 rounded border border-indigo-200 dark:border-indigo-800 flex items-center justify-center text-indigo-500 dark:text-indigo-400">
+                                        <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
+                                        </svg>
+                                    </div>
+                                    <div class="flex-grow">
+                                        <p class="text-sm font-medium text-gray-800 dark:text-gray-200">
+                                            {{ basename($solution->file) }}
+                                        </p>
+                                        <div class="flex mt-1 space-x-3">
+                                            <a href="{{ asset('storage/' . $solution->file) }}" download class="text-xs text-indigo-600 dark:text-indigo-400 hover:underline">
+                                                Download
+                                            </a>
+                                            <a href="{{ asset('storage/' . $solution->file) }}" target="_blank" class="text-xs text-gray-600 dark:text-gray-400 hover:underline">
+                                                View
+                                            </a>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        @endif
+                    </div>
+                    
+                    <!-- Solution Footer -->
+                    <div class="bg-gray-50 dark:bg-gray-700 px-4 py-2 border-t border-gray-200 dark:border-gray-700">
+                        <div class="flex items-center text-sm text-gray-500 dark:text-gray-400">
+                            <!-- Upvote/Downvote (Optional) -->
+                            <div class="flex items-center space-x-2 mr-4">
+                                <button type="button" class="upvote-btn flex items-center hover:text-indigo-600 dark:hover:text-indigo-400">
+                                    <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 15l7-7 7 7" />
+                                    </svg>
+                                    <span class="ml-1">{{ rand(0, 15) }}</span>
+                                </button>
+                            </div>
+                            
+                            <!-- Solution Tags -->
+                            @if(isset($solution->tags) && !empty($solution->tags))
+                                <div class="flex flex-wrap gap-1">
+                                    @foreach(explode(',', $solution->tags) as $tag)
+                                        <span class="inline-flex items-center px-2 py-0.5 rounded text-xs font-medium bg-indigo-100 text-indigo-800 dark:bg-indigo-900 dark:text-indigo-300">
+                                            {{ trim($tag) }}
+                                        </span>
+                                    @endforeach
+                                </div>
+                            @endif
+                        </div>
+                    </div>
                 </div>
-                <div class="flex space-x-2">
-                    <button
-                        onclick="showUpdateModal('{{ $solution->id }}', '{{ $solution->title }}', '{{ $solution->description }}', '{{ $solution->ticket_id }}')"
-                        class="px-3 py-1.5 text-xs font-medium text-white bg-blue-600 rounded-lg hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500">
-                        Edit
-                    </button>
-                    <form method="post" action="{{ route('admin.ticket.solution.delete', ['id' => $solution->id]) }}">
-                        @csrf
-                        @method('delete') <button type="submit" onclick="confirm('Are you sure? to delte')"
-                            class="px-3 py-1.5 text-xs font-medium text-white bg-red-600 rounded-lg hover:bg-red-700 focus:outline-none focus:ring-2 focus:ring-red-500">
-                            Delete
-                        </button>
-                    </form>
-
-                </div>
-            </div>
-
-            <!-- Post Content -->
-            <div class="bg-gray-50 dark:bg-gray-800 rounded-lg p-4 mb-4">
-                <h5 class="text-xl font-bold text-gray-900 dark:text-gray-100 mb-2">{{ $solution->title }}</h5>
-                <p class="text-gray-700 dark:text-gray-300">{{ $solution->description }}</p>
-            </div>
-
-            <!-- File Button -->
-            @if (!empty($solution->file))
-                <div class="flex">
-                    <button onclick="showFileModal('{{ asset('storage/' . $solution->file) }}')"
-                        class="px-5 py-2 text-sm font-medium text-white bg-blue-600 rounded-lg hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500 flex items-center">
-                        <span class="mr-2">📂</span> View Attachment
-                    </button>
-                </div>
-            @endif
+            @endforeach
         </div>
-    @endforeach
-
-    @if ($solutions->isEmpty())
-        <div
-            class="bg-white dark:bg-gray-900 p-6 rounded-xl shadow border border-gray-300 dark:border-gray-700 text-center">
-            <p class="text-gray-500 dark:text-gray-400">No solutions available.</p>
+    @else
+        <div class="bg-white dark:bg-gray-800 rounded-lg shadow-md p-6 text-center border border-gray-200 dark:border-gray-700">
+            <svg xmlns="http://www.w3.org/2000/svg" class="h-12 w-12 mx-auto text-gray-400 dark:text-gray-500 mb-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 8h10M7 12h4m1 8l-4-4H5a2 2 0 01-2-2V6a2 2 0 012-2h14a2 2 0 012 2v8a2 2 0 01-2 2h-3l-4 4z" />
+            </svg>
+            <h4 class="text-lg font-medium text-gray-900 dark:text-white mb-2">No solutions yet</h4>
+            <p class="text-gray-500 dark:text-gray-400 mb-4">Be the first to provide a solution for this ticket.</p>
+            <a href="{{ route('admin.tickets.solve', ['id' => $ticket->id, 'user_id' => $ticket->user_id]) }}" 
+                class="inline-flex items-center px-4 py-2 border border-indigo-500 dark:border-indigo-700 rounded-md shadow-sm text-sm font-medium 
+                       text-black dark:text-white bg-indigo-500 hover:bg-indigo-600 dark:bg-indigo-700 dark:hover:bg-indigo-800 
+                       focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 dark:focus:ring-offset-gray-900">
+                 <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 mr-2" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6v6m0 0v6m0-6h6m-6 0H6" />
+                 </svg>
+                 Add Solution
+             </a>
+             
+             
         </div>
     @endif
-
-    <!-- Update Modal - Using absolute positioning within the container -->
-    <div id="updateModal" class="hidden absolute inset-0 flex items-center justify-center">
-        <!-- Backdrop -->
-        <div class="absolute inset-0 bg-gray-900 bg-opacity-50"></div>
-        <!-- Modal Content -->
-        <div class="bg-white dark:bg-gray-800 p-6 rounded-lg shadow-lg max-w-lg w-full mx-4 z-10">
-            <h3 class="text-lg font-semibold text-gray-900 dark:text-gray-100 mb-4">Update Solution</h3>
-            <form id="updateForm" method="POST" enctype="multipart/form-data">
-                @csrf
-                @method('PATCH')
-                <input type="hidden" id="update_solution_id" name="solution_id">
-                <input type="hidden" id="update_ticket_id" name="ticket_id">
-
-                <div class="mb-4">
-                    <label for="update_title"
-                        class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">Title</label>
-                    <input type="text" id="update_title" name="title"
-                        class="w-full px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 dark:bg-gray-700 dark:text-white">
-                </div>
-
-                <div class="mb-4">
-                    <label for="update_description"
-                        class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">Description</label>
-                    <textarea id="update_description" name="description" rows="4"
-                        class="w-full px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 dark:bg-gray-700 dark:text-white"></textarea>
-                </div>
-
-                <div class="mb-4">
-                    <label for="update_file"
-                        class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">File (Optional)</label>
-                    <input type="file" id="update_file" name="file"
-                        class="w-full px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 dark:bg-gray-700 dark:text-white">
-                    <p class="text-xs text-gray-500 mt-1">Leave empty to keep current file</p>
-                </div>
-
-                <div class="flex justify-end space-x-3 mt-4">
-                    <button type="button" onclick="closeUpdateModal()"
-                        class="px-4 py-2 text-sm font-medium text-gray-700 bg-gray-200 rounded-lg hover:bg-gray-300 focus:outline-none focus:ring-2 focus:ring-gray-400 dark:text-white">
-                        Cancel
-                    </button>
-                    <button type="submit"
-                        class="px-4 py-2 text-sm font-medium text-white bg-blue-600 rounded-lg hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500">
-                        Update
-                    </button>
-                </div>
-            </form>
-        </div>
-    </div>
 </div>
-
-<!-- File Preview Modal - Kept at document level -->
-<div id="fileModal" class="hidden fixed inset-0 bg-gray-900 bg-opacity-50 flex items-center justify-center z-50">
-    <div class="bg-white dark:bg-gray-800 p-6 rounded-lg shadow-lg max-w-lg w-full mx-4">
-        <h3 class="text-lg font-semibold text-gray-900 dark:text-gray-100 mb-4">File Preview</h3>
-        <iframe id="fileViewer" class="w-full h-72 border border-gray-300 rounded"></iframe>
-        <div class="flex justify-end mt-4">
-            <button onclick="closeFileModal()"
-                class="px-4 py-2 text-sm font-medium text-white bg-red-600 rounded-lg hover:bg-red-700">
-                Close
-            </button>
-        </div>
-    </div>
-</div>
-
-
-
-<script>
-    // File Modal Functions
-    function showFileModal(fileUrl) {
-        document.getElementById('fileViewer').src = fileUrl;
-        document.getElementById('fileModal').classList.remove('hidden');
-    }
-
-    function closeFileModal() {
-        document.getElementById('fileModal').classList.add('hidden');
-    }
-
-    // Update Modal Functions
-    function showUpdateModal(id, title, description, ticketId) {
-        document.getElementById('update_solution_id').value = id;
-        document.getElementById('update_ticket_id').value = ticketId;
-        document.getElementById('update_title').value = title;
-        document.getElementById('update_description').value = description;
-        document.getElementById('updateForm').action = "".replace(':id', id);
-        document.getElementById('updateModal').classList.remove('hidden');
-    }
-
-    function closeUpdateModal() {
-        document.getElementById('updateModal').classList.add('hidden');
-    }
-
-
-    function closeDeleteModal() {
-        document.getElementById('deleteModal').classList.add('hidden');
-    }
-</script>
