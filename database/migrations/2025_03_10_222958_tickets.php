@@ -18,7 +18,7 @@ return new class extends Migration
             $table->foreignId('user_id')->constrained()->onDelete('cascade');
             $table->text('description')->nullable();
             $table->text('priority')->default('low');
-            $table->string('signedToEnG')->nullable();
+            $table->string('assign')->nullable();
             $table->string('file')->nullable();
             $table->timestamp('last_used_at')->nullable();
             $table->string('status')->default('pending');

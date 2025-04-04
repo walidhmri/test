@@ -105,8 +105,8 @@ class DatabaseSeeder extends Seeder
         }
         for ($i = 0; $i < 10; $i++) {
             Faq::create([
-                'question' => $faker->paragraph ,  
-                'answer' => $faker->paragraph, 
+                'question' => $faker->sentence ,  
+                'answer' => $faker->sentence, 
             ]);
         }
     }

@@ -10,7 +10,7 @@ Route::get('/', function () {
     $faqs=Faq::orderBy('created_at','desc')->paginate(5);
     return view('index',compact('faqs'));
 });
-Route::get('locale/{language}', [LocaleController::class ,'setlocale']);
+Route::get('locale/{language}', [LocaleController::class ,'setlocale'])->name('locale');
 
 require __DIR__.'/user.php';
 require __DIR__.'/ingenieur.php';

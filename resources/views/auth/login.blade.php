@@ -8,7 +8,7 @@
 <title>Naftal - Secure Login</title>
 
 <!-- Bootstrap CSS -->
-<link href="{{asset('css/bootstrap.min.css')}}" rel="stylesheet">
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
 
 <!-- Font Awesome -->
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
@@ -386,7 +386,7 @@
 <nav class="navbar navbar-expand-lg">
     <div class="container">
         <a class="navbar-brand" href="/">
-            <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/c/ce/LogoNAFTAL.svg/1280px-LogoNAFTAL.svg.png" alt="Naftal Logo" class="rounded">
+            <img src="http://localhost:8000/assets/logo.png" alt="Naftal Logo" class="rounded">
             <div>
                 <span class="fw-bold fs-4">@lang('messages.platform_title')</span>
                 <small class="d-block fs-6 text-white-50">@lang('messages.platform_subtitle')</small>

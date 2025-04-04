@@ -42,7 +42,14 @@
                         <option value="pending" {{ request('status') == 'pending' ? 'selected' : '' }}>Pending</option>
                         <option value="solved" {{ request('status') == 'solved' ? 'selected' : '' }}>Solved</option>
                     </select>
-
+                <select
+                    class="border rounded-md px-4 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500 
+                           bg-white text-gray-900 dark:bg-gray-800 dark:text-gray-200 dark:border-gray-600"
+                    name="assign">
+                    <option value="" {{ request('assign') == '' ? 'selected' : '' }}>All</option>
+                    <option value="true" {{ request('assign') == 'true' ? 'selected' : '' }}>Assigned</option>
+                    <option value="false" {{ request('assign') == 'false' ? 'selected' : '' }}>Not Assigned</option>
+                </select>
                     <select
                         class="border rounded-md px-4 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500 
                                bg-white text-gray-900 dark:bg-gray-800 dark:text-gray-200 dark:border-gray-600"
@@ -91,7 +98,7 @@
                         <th class="px-4 py-3">@lang('messages.ticket_title')</th>
                         <th class="px-4 py-3">@lang('messages.employee')</th>
                         <th class="px-4 py-3">id</th>
-                        <th class="px-4 py-3">@lang('messages.solutions')</th>
+                        <th class="px-4 py-3">@lang('messages.assigned')</th>
                         <th class="px-4 py-3">@lang('messages.status')</th>
                         <th class="px-4 py-3">Priority</th>
                         <th class="px-4 py-3">@lang('messages.date')</th>
@@ -133,7 +140,14 @@
                             </td>
                             <td class="px-4 py-3 text-sm">
 
-                                {{ $solutions->where('ticket_id', $ticket->id)->count() }}
+                                @php
+                                 if($ticket->assign != null){
+                                    echo 'Assigned';
+                                 } 
+                                 else{
+                                    echo 'Not Assigned';
+                                 }
+                                @endphp
 
                             </td>
                             <td class="px-4 py-3 text-xs">

@@ -32,6 +32,13 @@ class TicketsController extends Controller
         if ($request->filled('priority')) {
             $query->where('priority', $request->priority);
         }
+        if ($request->filled('assign')) {
+            if($request->assign=='true'){
+                $query->whereNotNull('assign');
+            }elseif($request->assign=='false'){
+                $query->whereNull('assign');
+            }
+        }
     
         if ($request->filled('employee_id')) {
             $query->where('user_id', $request->employee_id);
@@ -57,9 +64,10 @@ class TicketsController extends Controller
     function show(Request $request)
     {
         $employee = User::find($request->user_id);
+        $ingenieurs = User::where('role', 'ingenieur')->get();
         $ticket=ticket::find($request->id);
         $solutions =Solution::where('ticket_id',$ticket->id)->get();
-        return view('admin.ticket.show',compact('ticket','employee','solutions'));
+        return view('admin.ticket.show',compact('ticket','employee','solutions','ingenieurs'));
     }
     public function update(Request $request)
     {
@@ -67,9 +75,11 @@ class TicketsController extends Controller
             [
                 'status' => 'required',
                 'priority' => 'required',
+                'assign'=> 'nullable',
             ]);
         $ticket=ticket::find($request->id);
         $ticket->status=$request->status;
+        $ticket->assign=$request->assign;
         $ticket->priority=$request->priority;
         $ticket->save();
         return redirect()->route('admin.tickets.list')->with(['success' => "تم تحديث حالة التذكرة $ticket->id بنجاح."]);

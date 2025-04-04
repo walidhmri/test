@@ -21,7 +21,6 @@ return new class extends Migration
             $table->integer('position')->nullable();
             $table->rememberToken();
             $table->timestamps();
-        
         });
 
         Schema::create('password_reset_tokens', function (Blueprint $table) {

@@ -41,6 +41,7 @@
             $isEmployeesActive = Str::startsWith(request()->route()->getName(), 'admin.employee');
             $isIngenActive = Str::startsWith(request()->route()->getName(), 'admin.ingenieur');
             $isFaqsActive = Str::startsWith(request()->route()->getName(), 'admin.faqs');
+            $isDepartmentsActive=Str::startsWith(request()->route()->getName(), 'admin.department');
 
         @endphp
 
@@ -151,12 +152,12 @@
 
 
                     <li class="relative px-6 py-3">
-                        @if ($isEmployeesActive)
+                        @if ($isDepartmentsActive)
                             <span class="absolute inset-y-0 left-0 w-1 bg-purple-600 rounded-tr-lg rounded-br-lg"
                                 aria-hidden="true"></span>
                         @endif
-                        <a class="inline-flex items-center w-full text-sm font-semibold transition-colors duration-150 hover:text-gray-800 dark:hover:text-gray-200 {{ $isEmployeesActive ? 'text-gray-800 dark:text-gray-100' : '' }}"
-                            href="{{ route('admin.employee.list') }}">
+                        <a class="inline-flex items-center w-full text-sm font-semibold transition-colors duration-150 hover:text-gray-800 dark:hover:text-gray-200 {{ $isDepartmentsActive ? 'text-gray-800 dark:text-gray-100' : '' }}"
+                            href="{{ route('admin.department.list') }}">
 
                             <!-- New SVG Icon for Employees -->
                             <svg class="w-5 h-5" aria-hidden="true" fill="none" stroke-linecap="round"
@@ -167,7 +168,7 @@
                                 <path d="M12 11a4 4 0 100-8 4 4 0 000 8z"></path>
                             </svg>
 
-                            <span class="ml-4"> @lang('messages.assignments')</span>
+                            <span class="ml-4"> @lang('messages.departments')</span>
                         </a>
                     </li>
 

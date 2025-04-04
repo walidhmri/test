@@ -76,6 +76,25 @@
                     </dd>
                 </div>
 
+                <div class="px-6 py-4 grid grid-cols-1 md:grid-cols-3 gap-x-4 gap-y-2 items-center">
+                    <dt class="text-sm font-medium text-gray-500 dark:text-gray-400">
+                        <label for="status">@lang('messages.Assign')</label>
+                    </dt>
+                    <dd class="md:col-span-2">
+                        <select id="status" name="assign" 
+                        class="block w-full max-w-xs rounded-md border-gray-300 dark:border-gray-600 py-2 px-3 shadow-sm focus:border-indigo-500 focus:ring focus:ring-indigo-200 focus:ring-opacity-50 dark:bg-gray-700 dark:text-gray-200 sm:text-sm">
+                    
+                        <option value="" @if(old('assign', $ingenieur->assign ?? '') == '') selected @endif>Unassigned</option>
+                    
+                        @foreach ($ingenieurs as $ingenieur)
+                            <option value="{{ $ingenieur->id }}" @selected(old('assign', $ticket->assign) == $ingenieur->id)>{{ $ingenieur->name }}</option>
+                        @endforeach
+                    
+                    </select>
+                    </dd>
+                </div>
+
+
                 {{-- Status Row (Editable) --}}
                 <div class="px-6 py-4 grid grid-cols-1 md:grid-cols-3 gap-x-4 gap-y-2 items-center">
                     <dt class="text-sm font-medium text-gray-500 dark:text-gray-400">
