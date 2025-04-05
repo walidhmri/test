@@ -1,761 +1,943 @@
 <!DOCTYPE html>
-<html lang="{{ str_replace('_', '-', app()->getLocale()) }}" dir="@lang('messages.dir')">
-
+<html lang="{{ str_replace('_', '-', app()->getLocale()) }}" class="{{ session('dark_mode', false) ? 'dark-mode' : '' }}" dir="@lang('messages.dir')">
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <meta name="description" content="منصة نافطال - الحل المتكامل لإدارة خدماتك البترولية بكل سهولة وأمان">
-    <title>@lang('messages.title')</title>
+    <meta name="csrf-token" content="{{ csrf_token() }}">
 
-    <!-- Bootstrap CSS -->
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.rtl.min.css" rel="stylesheet" id="rtl-stylesheet" disabled>
-
+    <title>{{ config('app.name', 'Naftal') }} - @yield('title', 'Helpdesk')</title>
+    
+    <!-- Favicon -->
+    <link rel="icon" href="{{ asset('favicon.svg') }}" type="image/x-icon">
+    
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    
     <!-- Bootstrap Icons -->
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.2/font/bootstrap-icons.min.css">
-
-    <!-- Google Fonts - Tajawal -->
-    <link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@300;400;500;700;800&display=swap" rel="stylesheet">
-
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.0/font/bootstrap-icons.css">
+    
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    
     <!-- AOS Animation Library -->
-    <link href="https://unpkg.com/aos@2.3.4/dist/aos.css" rel="stylesheet">
-
+    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+    
+    <!-- Custom Styles -->
     <style>
+        /* Base Variables */
         :root {
+            /* Colors */
             --primary: #f39c12;
             --primary-dark: #e67e22;
+            --primary-light: rgba(243, 156, 18, 0.1);
             --secondary: #2c3e50;
-            --light: #f8f9fa;
-            --dark: #1a252f;
             --success: #2ecc71;
-            --danger: #e74c3c;
             --info: #3498db;
             --warning: #f1c40f;
-            --dark-card: #253341;
+            --danger: #e74c3c;
+            --light: #f8f9fa;
+            --dark: #343a40;
+            
+            /* Theme Colors */
+            --body-bg: #ffffff;
+            --card-bg: #ffffff;
+            --header-bg: #ffffff;
+            --footer-bg: #f8f9fa;
+            --text-color: #333333;
+            --text-muted: #6c757d;
+            --border-color: rgba(0, 0, 0, 0.1);
+            --input-bg: #f8f9fa;
+            --shadow-sm: 0 .125rem .25rem rgba(0, 0, 0, .075);
+            --shadow: 0 .5rem 1rem rgba(0, 0, 0, .15);
+            --icon-color: #333333;
+            --btn-text: #333333;
+            
+            /* Typography */
+            --font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+            
+            /* Spacing */
+            --header-height: 80px;
+            --section-spacing: 5rem;
         }
-
+        
+        /* Dark Mode Variables */
+        .dark-mode {
+            --primary: #f39c12;
+            --primary-dark: #e67e22;
+            --primary-light: rgba(243, 156, 18, 0.15);
+            --secondary: #4a6785;
+            --body-bg: #121212;
+            --card-bg: #1e1e1e;
+            --header-bg: #1a1a1a;
+            --footer-bg: #1a1a1a;
+            --text-color: #e0e0e0;
+            --text-muted: #adb5bd;
+            --border-color: rgba(255, 255, 255, 0.1);
+            --input-bg: rgba(255, 255, 255, 0.05);
+            --shadow-sm: 0 .125rem .25rem rgba(0, 0, 0, .3);
+            --shadow: 0 .5rem 1rem rgba(0, 0, 0, .5);
+            --icon-color: #e0e0e0;
+            --btn-text: #e0e0e0;
+        }
+        
         /* Base Styles */
         body {
-            font-family: 'Tajawal', sans-serif;
-            overflow-x: hidden;
-            position: relative;
+            font-family: var(--font-family);
+            background-color: var(--body-bg);
+            color: var(--text-color);
+            transition: background-color 0.3s ease, color 0.3s ease;
             min-height: 100vh;
             display: flex;
             flex-direction: column;
+            padding-top: var(--header-height);
         }
-
-        /* RTL Support */
-        [dir="rtl"] .ms-auto {
-            margin-right: auto !important;
-            margin-left: 0 !important;
+        
+        main {
+            flex: 1;
         }
-
-        [dir="rtl"] .me-1, [dir="rtl"] .me-2, [dir="rtl"] .me-3 {
-            margin-left: 0.25rem !important;
-            margin-right: 0 !important;
+        
+        /* Typography */
+        h1, h2, h3, h4, h5, h6 {
+            font-weight: 700;
         }
-
-        /* Navbar Styles - IMPROVED */
-        .navbar {
-            padding: 0.75rem 0;
-            transition: all 0.3s ease;
-            background: linear-gradient(135deg, var(--secondary), #1a1a2e) !important;
-        }
-
-        .navbar.scrolled {
-            padding: 0.5rem 0;
-            background: linear-gradient(135deg, var(--secondary), #1a1a2e) !important;
-            box-shadow: 0 5px 20px rgba(0, 0, 0, 0.2);
-        }
-
-        .navbar-brand {
-            display: flex;
-            align-items: center;
-            gap: 0.75rem;
-        }
-
-        .navbar-brand img {
-            width: 50px;
-            height: 50px;
-            object-fit: contain;
-            transition: transform 0.3s ease;
-            filter: drop-shadow(0 0 5px rgba(255, 255, 255, 0.3));
-        }
-
-        .navbar.scrolled .navbar-brand img {
-            transform: scale(0.9);
-        }
-
-        .navbar-brand span, .navbar-brand small {
-            color: white !important;
-        }
-
-        .navbar-toggler {
-            border-color: rgba(255, 255, 255, 0.3);
-            color: white;
-        }
-
-        .navbar-toggler-icon {
-            filter: invert(1);
-        }
-
-        .nav-link {
+        
+        .section-title {
             position: relative;
+            margin-bottom: 2rem;
+            font-weight: 700;
+        }
+        
+        .section-title:after {
+            content: '';
+            position: absolute;
+            left: 50%;
+            bottom: -0.75rem;
+            transform: translateX(-50%);
+            width: 50px;
+            height: 3px;
+            background-color: var(--primary);
+            border-radius: 3px;
+        }
+        
+        /* Header */
+        .navbar {
+            background-color: var(--header-bg);
+            box-shadow: var(--shadow-sm);
+            min-height: var(--header-height);
+            transition: all 0.3s ease;
+        }
+        
+        .navbar-brand img {
+            height: 40px;
+            transition: all 0.3s ease;
+        }
+        
+        .navbar-nav .nav-link {
             font-weight: 500;
             padding: 0.5rem 1rem;
+            color: var(--text-color);
             transition: all 0.3s ease;
-            color: rgba(255, 255, 255, 0.8) !important;
+            position: relative;
         }
-
-        .nav-link:hover {
-            color: white !important;
+        
+        .navbar-nav .nav-link:hover,
+        .navbar-nav .nav-link.active {
+            color: var(--primary);
         }
-
-        .nav-link::after {
+        
+        .navbar-nav .nav-link.active:after {
             content: '';
             position: absolute;
-            width: 0;
+            left: 1rem;
+            right: 1rem;
+            bottom: 0.25rem;
             height: 2px;
-            bottom: 0;
-            left: 50%;
             background-color: var(--primary);
-            transition: all 0.3s ease;
+            border-radius: 2px;
         }
-
-        .nav-link:hover::after, 
-        .nav-link.active::after {
-            width: 80%;
-            left: 10%;
-        }
-
-        /* Button Styles - IMPROVED */
-        .btn-brand {
-            background: linear-gradient(135deg, var(--primary), var(--primary-dark));
-            color: white;
+        
+        .navbar-toggler {
             border: none;
-            font-weight: 600;
+            padding: 0.5rem;
+            color: var(--text-color);
+        }
+        
+        .navbar-toggler:focus {
+            box-shadow: none;
+        }
+        
+        /* Buttons */
+        .btn {
+            font-weight: 500;
+            padding: 0.5rem 1.5rem;
+            border-radius: 0.5rem;
             transition: all 0.3s ease;
-            box-shadow: 0 4px 15px rgba(243, 156, 18, 0.3);
-            border-radius: 30px;
-            position: relative;
-            z-index: 1;
-            overflow: hidden;
         }
-
-        .btn-brand::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: -100%;
-            width: 100%;
-            height: 100%;
-            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
-            transition: all 0.6s ease;
-            z-index: -1;
-        }
-
-        .btn-brand:hover::before {
-            left: 100%;
-        }
-
-        .btn-brand:hover {
-            background: linear-gradient(135deg, var(--primary-dark), var(--primary));
-            transform: translateY(-3px);
-            box-shadow: 0 10px 20px rgba(243, 156, 18, 0.4);
-        }
-
-        .btn-outline-brand {
-            background: transparent;
+        
+        .btn-brand {
+            background-color: var(--primary);
+            border-color: var(--primary);
             color: white;
-            border: 2px solid var(--primary);
-            font-weight: 600;
-            transition: all 0.3s ease;
-            border-radius: 30px;
-            position: relative;
-            overflow: hidden;
-            z-index: 1;
         }
-
-        .btn-outline-brand::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 0%;
-            height: 100%;
-            background: linear-gradient(135deg, var(--primary), var(--primary-dark));
-            transition: all 0.3s ease;
-            z-index: -1;
-        }
-
-        .btn-outline-brand:hover::before {
-            width: 100%;
-        }
-
-        .btn-outline-brand:hover {
+        
+        .btn-brand:hover,
+        .btn-brand:focus {
+            background-color: var(--primary-dark);
+            border-color: var(--primary-dark);
             color: white;
-            border-color: transparent;
             transform: translateY(-2px);
-            box-shadow: 0 8px 15px rgba(243, 156, 18, 0.3);
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
         }
-
+        
+        .btn-outline-brand {
+            border-color: var(--primary);
+            color: var(--primary);
+        }
+        
+        .btn-outline-brand:hover,
+        .btn-outline-brand:focus {
+            background-color: var(--primary);
+            color: white;
+            transform: translateY(-2px);
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        }
+        
+        /* Cards */
+        .card {
+            background-color: var(--card-bg);
+            border: none;
+            border-radius: 1rem;
+            box-shadow: var(--shadow-sm);
+            transition: all 0.3s ease;
+        }
+        
+        .card:hover {
+            transform: translateY(-5px);
+            box-shadow: var(--shadow);
+        }
+        
+        /* Forms */
+        .form-control,
+        .form-select {
+            padding: 0.75rem 1rem;
+            border-radius: 0.5rem;
+            border: 1px solid var(--border-color);
+            background-color: var(--input-bg);
+            color: var(--text-color);
+            transition: all 0.3s ease;
+        }
+        
+        .form-control:focus,
+        .form-select:focus {
+            border-color: var(--primary);
+            box-shadow: 0 0 0 0.25rem rgba(243, 156, 18, 0.25);
+        }
+        
         /* Hero Section */
         .hero-section {
-            background: linear-gradient(rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.6)),
-                url('http://localhost:8000/assets/nftl.jpg');
-            background-position: center;
-            background-size: cover;
-            background-attachment: fixed;
-            min-height: 90vh;
-            color: white;
-            display: flex;
-            align-items: center;
             position: relative;
+            background: linear-gradient(135deg, var(--primary), var(--primary-dark));
+            color: white;
+            padding: 6rem 0;
             overflow: hidden;
         }
-
-        .hero-section::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            right: 0;
-            bottom: 0;
-            background: linear-gradient(135deg, rgba(243, 156, 18, 0.3), rgba(44, 62, 80, 0.6));
-            z-index: 1;
-            animation: gradientShift 15s ease infinite;
-        }
-
-        @keyframes gradientShift {
-            0% { background-position: 0% 50%; }
-            50% { background-position: 100% 50%; }
-            100% { background-position: 0% 50%; }
-        }
-
+        
         .hero-content {
             position: relative;
             z-index: 2;
         }
-
-        /* Stats Section */
-        .stat-card {
-            padding: 2.5rem 1.5rem;
-            border-radius: 16px;
-            background-color: white;
-            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.05);
-            text-align: center;
+        
+        /* Footer */
+        .footer {
+            background-color: var(--footer-bg);
+            padding: 4rem 0 2rem;
             position: relative;
-            overflow: hidden;
-            transition: all 0.4s ease;
-            height: 100%;
         }
-
-        .stat-card::before {
-            content: '';
-            position: absolute;
-            top: -10px;
-            left: -10px;
-            right: -10px;
-            bottom: -10px;
-            background: linear-gradient(135deg, rgba(243, 156, 18, 0.1), rgba(44, 62, 80, 0.05));
-            z-index: 0;
-            transform: scale(0);
-            border-radius: 16px;
-            transition: all 0.4s ease;
-        }
-
-        .stat-card:hover::before {
-            transform: scale(1);
-        }
-
-        .stat-card:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.1);
-        }
-
-        .stat-card .number {
+        
+        .footer-title {
+            font-weight: 700;
+            margin-bottom: 1.5rem;
             position: relative;
-            z-index: 1;
-            font-size: 3rem;
-            font-weight: 800;
-            background: linear-gradient(135deg, var(--primary), var(--primary-dark));
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
             display: inline-block;
-            margin-bottom: 0.5rem;
         }
-
-        .stat-card p {
-            position: relative;
-            z-index: 1;
-        }
-
-        /* Section Titles */
-        .section-title {
-            position: relative;
-            margin-bottom: 3.5rem;
-            font-weight: 800;
-        }
-
-        .section-title::after {
+        
+        .footer-title:after {
             content: '';
             position: absolute;
-            width: 60px;
-            height: 4px;
-            background: linear-gradient(to right, var(--primary), var(--primary-dark));
-            bottom: -15px;
-            left: 50%;
-            transform: translateX(-50%);
+            left: 0;
+            bottom: -0.5rem;
+            width: 30px;
+            height: 2px;
+            background-color: var(--primary);
             border-radius: 2px;
         }
-
-        /* FAQ Section */
-        .accordion-item {
-            border: none;
-            margin-bottom: 1rem;
-            border-radius: 12px !important;
-            overflow: hidden;
-            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+        
+        .footer-links {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+        }
+        
+        .footer-links li {
+            margin-bottom: 0.75rem;
+        }
+        
+        .footer-links a {
+            color: var(--text-muted);
+            text-decoration: none;
             transition: all 0.3s ease;
-        }
-
-        .accordion-item:hover {
-            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.1);
-        }
-
-        .accordion-button {
-            padding: 1.2rem 1.5rem;
-            font-weight: 600;
-            background-color: white;
-            transition: all 0.3s ease;
-        }
-
-        .accordion-button:not(.collapsed) {
-            color: var(--primary);
-            background-color: rgba(243, 156, 18, 0.05);
-        }
-
-        .accordion-button:focus {
-            box-shadow: none;
-            border-color: rgba(243, 156, 18, 0.25);
-        }
-
-        .accordion-body {
-            padding: 1.5rem;
-            color: #666;
-        }
-
-        /* Footer */
-        footer {
-            position: relative;
-            margin-top: auto;
-        }
-
-        footer::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 5px;
-            background: linear-gradient(to right, var(--primary), var(--secondary));
-        }
-
-        /* Back to Top Button */
-        .back-to-top {
-            width: 50px;
-            height: 50px;
-            position: fixed;
-            bottom: 30px;
-            right: 30px;
-            display: flex;
-            justify-content: center;
+            display: inline-flex;
             align-items: center;
-            background: linear-gradient(135deg, var(--primary), var(--primary-dark));
-            color: white;
-            border-radius: 50%;
-            z-index: 99;
-            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.15);
-            animation: pulse 2s infinite;
         }
-
-        @keyframes pulse {
-            0% { box-shadow: 0 0 0 0 rgba(243, 156, 18, 0.7); }
-            70% { box-shadow: 0 0 0 10px rgba(243, 156, 18, 0); }
-            100% { box-shadow: 0 0 0 0 rgba(243, 156, 18, 0); }
+        
+        .footer-links a:hover {
+            color: var(--primary);
+            transform: translateX(5px);
         }
-
-        /* Responsive Styles */
-        @media (max-width: 992px) {
-            .hero-section {
-                min-height: 80vh;
-            }
+        
+        .footer-links a i {
+            margin-right: 0.5rem;
+            font-size: 0.75rem;
         }
-
-        @media (max-width: 768px) {
-            .hero-section {
-                min-height: 70vh;
-            }
-            
-            .hero-section h1 {
-                font-size: 2.5rem;
-            }
-            
-            .stat-card .number {
-                font-size: 2.5rem;
-            }
-
-            .navbar-brand img {
-                width: 40px;
-                height: 40px;
-            }
+        
+        .social-links {
+            display: flex;
+            gap: 0.75rem;
         }
-
-        @media (max-width: 576px) {
-            .hero-section h1 {
-                font-size: 2rem;
-            }
-
-            .stat-card {
-                padding: 1.5rem 1rem;
-            }
-
-            .stat-card .number {
-                font-size: 2rem;
-            }
-        }
-
-        /* Dark Mode Toggle */
-        .dark-mode-toggle {
+        
+        .social-links a {
+            display: flex;
+            align-items: center;
+            justify-content: center;
             width: 40px;
             height: 40px;
             border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
+            background-color: var(--primary-light);
+            color: var(--primary);
+            transition: all 0.3s ease;
+        }
+        
+        .social-links a:hover {
+            background-color: var(--primary);
+            color: white;
+            transform: translateY(-3px);
+        }
+        
+        .copyright {
+            padding-top: 2rem;
+            margin-top: 2rem;
+            border-top: 1px solid var(--border-color);
+            color: var(--text-muted);
+            font-size: 0.875rem;
+        }
+        
+        /* Dark Mode Toggle */
+        .dark-mode-toggle {
+            width: 50px;
+            height: 26px;
+            border-radius: 13px;
+            background-color: var(--card-bg);
+            border: 1px solid var(--border-color);
+            position: relative;
             cursor: pointer;
             transition: all 0.3s ease;
-            color: white;
         }
         
-        .dark-mode-toggle:hover {
-            background-color: rgba(255, 255, 255, 0.2);
+        .dark-mode-toggle:after {
+            content: '';
+            position: absolute;
+            top: 2px;
+            left: 2px;
+            width: 20px;
+            height: 20px;
+            border-radius: 50%;
+            background-color: var(--primary);
+            transition: all 0.3s ease;
         }
         
-        body.dark-mode {
-            background-color: var(--dark);
-            color: #fff;
+        .dark-mode .dark-mode-toggle:after {
+            left: calc(100% - 22px);
         }
         
-        .dark-mode .navbar,
-        .dark-mode .footer {
-            background: var(--dark-card) !important;
-            box-shadow: 0 2px 15px rgba(0, 0, 0, 0.3);
+        /* Language Switcher */
+        .language-switcher {
+            position: relative;
         }
         
-        .dark-mode .text-muted {
-            color: rgba(255, 255, 255, 0.6) !important;
+        .language-switcher .dropdown-menu {
+            min-width: 100px;
+            border: none;
+            border-radius: 0.5rem;
+            box-shadow: var(--shadow);
+            background-color: var(--card-bg);
+            padding: 0.5rem;
         }
         
-        .dark-mode .text-dark {
-            color: white !important;
+        .language-switcher .dropdown-item {
+            color: var(--text-color);
+            border-radius: 0.25rem;
+            padding: 0.5rem 1rem;
         }
         
-        .dark-mode .card,
-        .dark-mode .accordion-item {
-            background-color: var(--dark-card);
-            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
-        }
-        
-        .dark-mode .bg-light {
-            background-color: var(--dark) !important;
-        }
-        
-        .dark-mode .accordion-button {
-            background-color: var(--dark-card);
-            color: white;
-        }
-        
-        .dark-mode .accordion-button:not(.collapsed) {
+        .language-switcher .dropdown-item:hover {
+            background-color: var(--primary-light);
             color: var(--primary);
-            background-color: rgba(243, 156, 18, 0.1);
+        }
+        
+        .language-switcher .dropdown-item.active {
+            background-color: var(--primary);
+            color: white;
+        }
+        
+        /* Utilities */
+        .bg-gradient-primary {
+            background: linear-gradient(135deg, var(--primary), var(--primary-dark));
+        }
+        
+        .text-white-75 {
+            color: rgba(255, 255, 255, 0.75);
+        }
+        
+        .rounded-4 {
+            border-radius: 1rem !important;
+        }
+        
+        .z-1 { z-index: 1; }
+        .z-2 { z-index: 2; }
+        .z-3 { z-index: 3; }
+        
+        /* Responsive Adjustments */
+        @media (max-width: 991.98px) {
+            :root {
+                --header-height: 70px;
+            }
+            
+            .navbar-collapse {
+                background-color: var(--card-bg);
+                border-radius: 1rem;
+                box-shadow: var(--shadow);
+                padding: 1rem;
+                margin-top: 1rem;
+            }
+            
+            .navbar-nav .nav-link.active:after {
+                left: 0;
+                right: 0;
+                bottom: 0;
+            }
+        }
+        
+        @media (max-width: 767.98px) {
+            .hero-section {
+                padding: 4rem 0;
+            }
+            
+            .section-title:after {
+                width: 40px;
+            }
+        }
+        
+        /* Back to Top Button */
+        .back-to-top {
+            position: fixed;
+            right: 30px;
+            bottom: 30px;
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            background-color: var(--primary);
+            color: white;
+            opacity: 0;
+            visibility: hidden;
+            transition: all 0.3s ease;
+            z-index: 99;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+        }
+        
+        .back-to-top.active {
+            opacity: 1;
+            visibility: visible;
+        }
+        
+        .back-to-top:hover {
+            background-color: var(--primary-dark);
+            transform: translateY(-5px);
+        }
+        
+        /* Navbar Scrolled Effect */
+        .navbar-scrolled {
+            box-shadow: var(--shadow);
+            padding-top: 0.5rem;
+            padding-bottom: 0.5rem;
+        }
+        
+        .navbar-scrolled .navbar-brand img {
+            height: 35px;
+        }
+        
+        /* Dark mode improvements for dropdown menus */
+        .dark-mode .dropdown-menu {
+            background-color: var(--card-bg);
+            border-color: var(--border-color);
+        }
+
+        .dark-mode .dropdown-item {
+            color: var(--text-color);
+        }
+
+        .dark-mode .dropdown-item:hover, 
+        .dark-mode .dropdown-item:focus {
+            background-color: var(--primary-light);
+            color: var(--primary);
+        }
+
+        .dark-mode .dropdown-divider {
+            border-color: var(--border-color);
+        }
+
+        /* Fix for dark mode buttons */
+        .btn-link {
+            color: var(--icon-color) !important;
+        }
+
+        .text-body {
+            color: var(--text-color) !important;
+        }
+
+        .dark-mode .btn-link,
+        .dark-mode .text-body {
+            color: var(--icon-color) !important;
+        }
+
+        .language-dropdown-text {
+            color: var(--btn-text);
+        }
+
+        /* RTL Support */
+        [dir="rtl"] .navbar-nav .nav-link.active:after {
+            right: 1rem;
+            left: 1rem;
+        }
+
+        [dir="rtl"] .footer-title:after {
+            right: 0;
+            left: auto;
+        }
+
+        [dir="rtl"] .footer-links a i {
+            margin-right: 0;
+            margin-left: 0.5rem;
+        }
+
+        [dir="rtl"] .footer-links a:hover {
+            transform: translateX(-5px);
+        }
+
+        /* Footer dark mode improvements */
+        .footer {
+            color: var(--text-color);
+        }
+
+        .dark-mode .footer {
+            color: var(--text-color);
+        }
+
+        .dark-mode .text-body-secondary {
+            color: var(--text-muted) !important;
+        }
+
+        /* Mobile login button */
+        @media (max-width: 991.98px) {
+            .mobile-login-btn {
+                display: block;
+                margin-top: 1rem;
+                width: 100%;
+            }
         }
     </style>
+    
+    <!-- Additional Styles -->
+    @stack('styles')
 </head>
-
 <body>
-    <!-- Navbar - IMPROVED -->
-    <nav class="navbar navbar-expand-lg sticky-top">
-        <div class="container">
-            <a class="navbar-brand" href="{{ url('/') }}">
-                <img src="http://localhost:8000/assets/logo.png" alt="Naftal Logo" class="rounded">
-                <div>
-                    <span class="fw-bold fs-4">@lang('messages.platform_title')</span>
-                    <small class="d-block fs-6 text-white-50">@lang('messages.platform_subtitle')</small>
-                </div>
-            </a>
-    
-            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent"
-                    aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-                <span class="navbar-toggler-icon"></span>
-            </button>
-    
-            <div class="collapse navbar-collapse" id="navbarSupportedContent">
-                <ul class="navbar-nav mx-auto mb-2 mb-lg-0 align-items-center"> <!-- Centered Menu Items -->
-                    <li class="nav-item">
-                        <a class="nav-link" href="#faqs">@lang('messages.faqs')</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="#testimonials">@lang('messages.testmotionals')</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="#contact">@lang('messages.contact')</a>
-                    </li>
-                </ul>
-    
-                <ul class="navbar-nav ms-auto mb-2 mb-lg-0 align-items-center"> <!-- Right-Aligned Items -->
-                    @if (Route::has('login'))
-                        @auth
-                            <li class="nav-item">
-                                <a class="btn btn-brand px-4 mx-2" href="@if(Auth::user()->role === 'admin')
-                                    {{ route('admin.dashboard') }}
-                                    @elseif(Auth::user()->role === 'ingenieur')
-                                    {{ route('ingenieur.dashboard') }}
-                                    @else
-                                    {{ route('dashboard') }}
-                                    @endif">
-                                    <i class="bi bi-speedometer2 me-1"></i> @lang('messages.dashboard')
-                                </a>
-                            </li>
-                        @else
-                            <li class="nav-item">
-                                <a class="btn btn-outline-brand px-4 mx-2" href="{{ route('login') }}">
-                                    <i class="bi bi-box-arrow-in-right me-1"></i> @lang('messages.login')
-                                </a>
-                            </li>
-                        @endauth
-                    @endif
-    
-                    <!-- Language Dropdown -->
-                    <li class="nav-item dropdown">
-                        <button class="btn btn-outline-brand px-4 mx-2 dropdown-toggle" data-bs-toggle="dropdown"
-                                aria-expanded="false">
-                            <i class="bi bi-translate me-1"></i> @lang('messages.langualge')
+    <!-- Header -->
+    <header class="header fixed-top">
+        <nav class="navbar navbar-expand-lg">
+            <div class="container">
+                <!-- Logo -->
+                <a class="navbar-brand" href="{{ url('/') }}">
+                    <img src="{{ asset('assets/logo.png') }}" alt="{{ config('app.name', 'Naftal') }}" class="logo">
+                </a>
+                
+                <!-- Mobile Toggle -->
+                <div class="d-flex align-items-center gap-3">
+                    <!-- Dark Mode Toggle (Mobile) -->
+                    <div class="d-lg-none">
+                        <button class="btn btn-sm btn-link p-0" id="darkModeMobile">
+                            <i class="bi bi-moon-fill fs-5" id="darkIconMobile"></i>
                         </button>
-                        <ul class="dropdown-menu dropdown-menu-end shadow-sm border-0">
-                            <li><a class="dropdown-item" href="locale/fr">Français</a></li>
-                            <li><a class="dropdown-item" href="locale/en">English</a></li>
-                            <li><a class="dropdown-item" href="locale/ar">العربية</a></li>
-                            <li><a class="dropdown-item" href="locale/tm">Kabyle</a></li>
+                    </div>
+                    
+                    <!-- Language Switcher (Mobile) -->
+                    <div class="dropdown d-lg-none">
+                        <button class="btn btn-sm btn-link p-0 dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
+                            <i class="bi bi-globe fs-5"></i>
+                        </button>
+                        <ul class="dropdown-menu dropdown-menu-end">
+                            <li><a class="dropdown-item" href="{{ url('locale/fr') }}">Français</a></li>
+                            <li><a class="dropdown-item" href="{{ url('locale/en') }}">English</a></li>
+                            <li><a class="dropdown-item" href="{{ url('locale/ar') }}">العربية</a></li>
+                            <li><a class="dropdown-item" href="{{ url('locale/tm') }}">Kabyle</a></li>
                         </ul>
-                    </li>
-    
-                    <!-- Dark Mode Toggle -->
-                    <li class="nav-item ms-2">
-                        <div class="dark-mode-toggle" id="darkModeToggle">
-                            <i class="bi bi-moon"></i>
-                        </div>
-                    </li>
-                </ul>
-            </div>
-        </div>
-    </nav>
-    <!-- Hero Section -->
-@yield('content')
+                    </div>
+                    
+                    <!-- Navbar Toggler -->
+                    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                        <i class="bi bi-list fs-4"></i>
+                    </button>
+                </div>
+                
+                <!-- Navigation -->
+                <div class="collapse navbar-collapse" id="navbarNav">
+                    <ul class="navbar-nav me-auto">
+                        <li class="nav-item">
+                            <a class="nav-link {{ request()->is('/') ? 'active' : '' }}" href="{{ url('/') }}">
+                                @lang('messages.home')
+                            </a>
+                        </li>
 
 
-
-<section id="home" class="hero-section">
-    <div class="container hero-content">
-        <div class="row">
-            <div class="col-lg-7 mb-4 mb-lg-0" data-aos="fade-up" data-aos-delay="100">
-                <h1 class="display-4 fw-bold mb-3">@lang('messages.integrated_solution')</h1>
-                <p class="lead mb-4">@lang('messages.description')</p>
-                <div class="d-flex flex-wrap gap-3">
-                    @guest
-                    <a href="{{route('login')}}" class="btn btn-brand fw-semibold px-5 py-3 fs-5">
-                        <i class="bi bi-rocket me-1"></i> @lang('messages.get_started')
-                    </a>
-                    @endguest
-                    <a href="#faq" class="btn btn-light text-green fw-semibold px-5 py-3 fs-5">
-                        <i class="bi bi-info-circle me-1"></i> @lang('messages.learn_more')
-                    </a>
-                </div>
-            </div>
-            <div class="col-lg-5 d-none d-lg-block" data-aos="fade-left" data-aos-delay="300">
-                <!-- Placeholder for dashboard visualization or illustration -->
-            </div>
-        </div>
-    </div>
-</section>
-
-<!-- Stats Section -->
-<section class="py-5">
-    <div class="container">
-        <div class="row g-4 justify-content-center" data-aos="fade-up">
-            <div class="col-md-3 col-sm-6">
-                <div class="stat-card">
-                    <div class="number" data-value="5000">5000+</div>
-                    <p class="mb-0 text-secondary">@lang('messages.clients_active')</p>
-                </div>
-            </div>
-            <div class="col-md-3 col-sm-6">
-                <div class="stat-card">
-                    <div class="number" data-value="150">150+</div>
-                    <p class="mb-0 text-secondary">@lang('messages.fuel_stations')</p>
-                </div>
-            </div>
-            <div class="col-md-3 col-sm-6">
-                <div class="stat-card">
-                    <div class="number" data-value="99">99%</div>
-                    <p class="mb-0 text-secondary">@lang('messages.customer_satisfaction')</p>
-                </div>
-            </div>
-            <div class="col-md-3 col-sm-6">
-                <div class="stat-card">
-                    <div class="number" data-value="25">25+</div>
-                    <p class="mb-0 text-secondary">@lang('messages.years_of_experience')</p>
-                </div>
-            </div>
-        </div>
-    </div>
-</section>
-
-<!-- FAQ Section -->
-<section id="faq" class="py-5 bg-light">
-    <div class="container">
-        <h2 class="fw-bold section-title text-center" data-aos="fade-up">@lang('messages.faq_title')</h2>
-        <p class="text-muted mb-5 text-center mx-auto" style="max-width: 700px;" data-aos="fade-up" data-aos-delay="100">
-            @lang('messages.faq_description')
-        </p>
-        <div class="row justify-content-center">
-            <div class="col-lg-8" data-aos="fade-up" data-aos-delay="200">
-                <div class="accordion" id="faqAccordion">
-                    @foreach($faqs as $faq)
-                        <div class="accordion-item">
-                            <h2 class="accordion-header" id="heading{{ $faq['id'] }}">
-                                <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapse{{ $faq['id'] }}" aria-expanded="false" aria-controls="collapse{{ $faq['id'] }}">
-                                    {{ $faq['question'] }}
+                        <li class="nav-item">
+                            <a class="nav-link {{ request()->is('posts*') ? 'active' : '' }}" href="{{ url('/posts') }}">
+                                @lang('messages.posts')
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link {{ request()->is('faqs*') ? 'active' : '' }}" href="{{ url('/faqs') }}">
+                                @lang('messages.faqs')
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link {{ request()->is('contact*') ? 'active' : '' }}" href="{{ url('/contact-us') }}">
+                                @lang('messages.contact_us')
+                            </a>
+                        </li>
+                        <li class="nav-item d-lg-none">
+                            @guest
+                            <a href="{{ route('login') }}" class="btn btn-outline-brand  d-lg-none">
+                                @lang('messages.login')
+                            </a>
+                            @else
+                            <div class="dropdown">
+                                <button class="btn btn-outline-brand  d-lg-none" type="button" id="userDropdown" data-bs-toggle="dropdown" aria-expanded="false">
+                                    {{ Auth::user()->name }}
                                 </button>
-                            </h2>
-                            <div id="collapse{{ $faq['id'] }}" class="accordion-collapse collapse" aria-labelledby="heading{{ $faq['id'] }}" data-bs-parent="#faqAccordion">
-                                <div class="accordion-body">
-                                    {{ $faq['answer'] }}
-                                </div>
+                                <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="userDropdown">
+                                    <li><a class="dropdown-item" href="{{ route('employee.profile.edit') }}">@lang('messages.profile')</a></li>
+                                    @if (auth::user()->role=='user')
+                                    <li><a class="dropdown-item" href="{{ route('dashboard') }}">@lang('messages.dashboard')</a></li>
+                                    @elseif (auth::user()->role=='admin')
+                                    <li><a class="dropdown-item" href="{{ route('admin.dashboard') }}">@lang('messages.admin_dashboard')</a></li>
+                                    @elseif(auth::user()->role=='ingenieur')
+                                    <li><a class="dropdown-item" href="{{ route('ingenieur.dashboard') }}">@lang('messages.engineer_dashboard')</a></li>
+                                    @endif
+
+                                    <li><a class="dropdown-item" href="{{ route('logout') }}" onclick="event.preventDefault(); document.getElementById('logout-form').submit();">@lang('messages.logout')</a></li>
+                                    <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
+                                        @csrf
+                                    </form>
+                                </ul>
                             </div>
+                            @endguest
+                        </li>
+                    </ul>
+                    
+                    <div class="d-flex align-items-center gap-3">
+                        <!-- Dark Mode Toggle (Desktop) -->
+                        <div class="d-none d-lg-block">
+                            <button class="btn btn-sm btn-link p-0" id="darkModeDesktop">
+                                <i class="bi bi-moon-fill fs-5" id="darkIconDesktop"></i>
+                            </button>
                         </div>
-                    @endforeach
+                        
+                        <!-- Language Switcher (Desktop) -->
+                        <div class="dropdown language-switcher d-none d-lg-block">
+                            <button class="btn btn-sm btn-link p-0 dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
+                                <i class="bi bi-globe fs-5 me-1"></i>
+                                <span class="language-dropdown-text">{{ strtoupper(app()->getLocale()) }}</span>
+                            </button>
+                            <ul class="dropdown-menu dropdown-menu-end">
+                                <li><a class="dropdown-item {{ app()->getLocale() == 'en' ? 'active' : '' }}" href="{{ route('language.switch', 'en') }}">English</a></li>
+                                <li><a class="dropdown-item {{ app()->getLocale() == 'fr' ? 'active' : '' }}" href="{{ route('language.switch', 'fr') }}">Français</a></li>
+                                <li><a class="dropdown-item {{ app()->getLocale() == 'ar' ? 'active' : '' }}" href="{{ route('language.switch', 'ar') }}">العربية</a></li>
+                                <li><a class="dropdown-item {{ app()->getLocale() == 'tm' ? 'active' : '' }}" href="{{ route('language.switch', 'tm') }}">Taqbaylit</a></li>
+                            </ul>
+                        </div>
+                        
+                        @guest
+                        <a href="{{ route('login') }}" class="btn btn-outline-brand d-none d-lg-block">
+                            @lang('messages.login')
+                        </a>
+                        @else
+                        <div class="dropdown">
+                            <button class="btn btn-outline-brand d-none d-lg-block" type="button" id="userDropdown" data-bs-toggle="dropdown" aria-expanded="false">
+                                {{ Auth::user()->name }}
+                            </button>
+                            <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="userDropdown">
+                                <li><a class="dropdown-item" href="{{ route('employee.profile.edit') }}">@lang('messages.profile')</a></li>
+                                @if (auth::user()->role=='user')
+                                <li><a class="dropdown-item" href="{{ route('dashboard') }}">@lang('messages.dashboard')</a></li>
+                                @elseif (auth::user()->role=='admin')
+                                <li><a class="dropdown-item" href="{{ route('admin.dashboard') }}">@lang('messages.admin_dashboard')</a></li>
+                                @elseif(auth::user()->role=='ingenieur')
+                                <li><a class="dropdown-item" href="{{ route('ingenieur.dashboard') }}">@lang('messages.engineer_dashboard')</a></li>
+                                @endif                                <li><a class="dropdown-item" href="{{ route('logout') }}" onclick="event.preventDefault(); document.getElementById('logout-form').submit();">@lang('messages.logout')</a></li>
+                                <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
+                                    @csrf
+                                </form>
+                            </ul>
+                        </div>
+                        @endguest
+                    </div>
                 </div>
-        
             </div>
-        </div>
-    </div>
-</section>
+        </nav>
+    </header>
+
+    <!-- Main Content -->
+    <main>
+        @yield('content')
+    </main>
+
     <!-- Footer -->
-    <footer class="bg-dark text-white pt-5 pb-3">
+    <footer class="footer">
         <div class="container">
             <div class="row g-4">
+                <!-- Company Info -->
+                <div class="col-lg-4">
+                    <a href="{{ url('/') }}" class="d-inline-block mb-4">
+                        <img src="{{ asset('assets/logo.png') }}" alt="{{ config('app.name', 'Naftal') }}" height="40">
+                    </a>
+                    <p class="text-body-secondary mb-4">@lang('messages.footer_about')</p>
+
+                </div>
+                
+                <!-- Quick Links -->
                 <div class="col-lg-4 col-md-6">
-                    <h3 class="fw-bold text-primary mb-4">@lang('messages.platform_title')</h3>
-                    <p class="text-white-50">
-                        @lang('messages.company_description')
-                    </p>
+                    <h5 class="footer-title">@lang('messages.quick_links')</h5>
+                    <div class="row">
+                        <div class="col-6">
+                            <ul class="footer-links">
+                                <li><a href="{{ url('/') }}"><i class="bi bi-chevron-right"></i> @lang('messages.home')</a></li>
+                            </ul>
+                        </div>
+                        <div class="col-6">
+                            <ul class="footer-links">
+                                <li><a href="{{ url('/posts') }}"><i class="bi bi-chevron-right"></i> @lang('messages.posts')</a></li>
+                                <li><a href="{{ url('/faqs') }}"><i class="bi bi-chevron-right"></i> @lang('messages.faqs')</a></li>
+                                <li><a href="{{ url('/contact-us') }}"><i class="bi bi-chevron-right"></i> @lang('messages.contact_us')</a></li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Contact Info -->
+                <div class="col-lg-4 col-md-6">
+                    <h5 class="footer-title">@lang('messages.contact_info')</h5>
+                    <ul class="footer-links">
+                        <li>
+                            <a href="#" class="d-flex align-items-center">
+                                <div class="icon-circle bg-primary bg-opacity-10 text-primary rounded-circle d-flex align-items-center justify-content-center me-3" style="width: 36px; height: 36px; flex-shrink: 0;">
+                                    <i class="bi bi-geo-alt"></i>
+                                </div>
+                                <span>123 Rue des Hydrocarbures, Alger 16000, Algérie</span>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="tel:+21321XXXXXX" class="d-flex align-items-center">
+                                <div class="icon-circle bg-primary bg-opacity-10 text-primary rounded-circle d-flex align-items-center justify-content-center me-3" style="width: 36px; height: 36px; flex-shrink: 0;">
+                                    <i class="bi bi-telephone"></i>
+                                </div>
+                                <span>+213 (0) 21 XX XX XX</span>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="mailto:contact@naftal.dz" class="d-flex align-items-center">
+                                <div class="icon-circle bg-primary bg-opacity-10 text-primary rounded-circle d-flex align-items-center justify-content-center me-3" style="width: 36px; height: 36px; flex-shrink: 0;">
+                                    <i class="bi bi-envelope"></i>
+                                </div>
+                                <span>contact@naftal.dz</span>
+                            </a>
+                        </li>
+                    </ul>
                 </div>
             </div>
             
-            <hr class="mt-4 mb-3 border-secondary">
-            
-            <div class="row align-items-center justify-content-between text-center text-md-start">
-                <div class="col-md-6 text-center text-md-start">
-                    <p class="mb-0 text-white-50 small fw-bold">
-                        © {{ date('Y') }} @lang('messages.footer')
-                    </p>
-                </div>
-                <div class="col-md-6 text-center text-md-end">
-                    <a href="#" class="text-white-50 text-decoration-none me-3">
-                        @lang('messages.developper_walid') ©
-                    </a>
+            <!-- Copyright -->
+            <div class="copyright text-center">
+                <div class="row">
+                    <div class="col-md-6 text-md-start">
+                        &copy; {{ date('Y') }} {{ config('app.name', 'Naftal') }}. @lang('messages.all_rights_reserved')
+                    </div>
+                    <div class="col-md-6 text-md-end">
+                        <a href="#" class="text-body-secondary text-decoration-none me-3">@lang('messages.privacy_policy')</a>
+                        <a href="#" class="text-body-secondary text-decoration-none">@lang('messages.terms_of_service')</a>
+                    </div>
                 </div>
             </div>
         </div>
     </footer>
 
     <!-- Back to Top Button -->
-    <a href="#" class="back-to-top">
+    <a href="#" class="back-to-top d-flex align-items-center justify-content-center" id="backToTop">
         <i class="bi bi-arrow-up"></i>
     </a>
 
     <!-- Bootstrap JS -->
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
     
     <!-- AOS Animation Library -->
-    <script src="https://unpkg.com/aos@2.3.4/dist/aos.js"></script>
+    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
     
-    <!-- Custom JavaScript -->
+    <!-- Main Script -->
     <script>
-        document.addEventListener('DOMContentLoaded', function () {
-            // Initialize AOS Animation
-            AOS.init({
-                duration: 800,
-                once: true
-            });
-
-            // Navbar scroll effect
-            window.addEventListener('scroll', function () {
-                const navbar = document.querySelector('.navbar');
-                if (window.scrollY > 50) {
-                    navbar.classList.add('scrolled');
-                } else {
-                    navbar.classList.remove('scrolled');
-                }
-            });
-
-            // Number counter animation
-            const countElements = document.querySelectorAll('.number');
-            countElements.forEach(el => {
-                const target = parseInt(el.getAttribute('data-value'));
-                let count = 0;
-                const duration = 2000; // ms
-                const interval = 50; // ms
-                const step = target / (duration / interval);
-
-                const timer = setInterval(() => {
-                    count += step;
-                    if (count >= target) {
-                        count = target;
-                        clearInterval(timer);
-                    }
-                    el.innerText = Math.floor(count) + (el.innerText.includes('%') ? '%' : '+');
-                }, interval);
-            });
+        // Initialize AOS
+        AOS.init({
+            duration: 800,
+            easing: 'ease-in-out',
+            once: true
+        });
+        
+        // Check for dark mode preference in localStorage
+        document.addEventListener('DOMContentLoaded', function() {
+            // Check if dark mode is stored in localStorage
+            const isDarkMode = localStorage.getItem('dark') === 'true';
+            const html = document.documentElement;
             
-            // Dark mode toggle - UPDATED to use the same localStorage key
-            const darkModeToggle = document.getElementById('darkModeToggle');
-            const body = document.body;
-            const icon = darkModeToggle.querySelector('i');
-            
-            // Check for saved dark mode preference using a consistent key
-            if (localStorage.getItem('dark') === 'true') {
-                body.classList.add('dark-mode');
-                icon.classList.remove('bi-moon');
-                icon.classList.add('bi-sun');
+            // Apply dark mode if needed
+            if (isDarkMode) {
+                html.classList.add('dark-mode');
+                updateDarkModeIcons(true);
+            } else {
+                html.classList.remove('dark-mode');
+                updateDarkModeIcons(false);
             }
             
-            // Toggle dark mode
-            darkModeToggle.addEventListener('click', function() {
-                body.classList.toggle('dark-mode');
+            // Dark Mode Toggle
+            const darkModeDesktop = document.getElementById('darkModeDesktop');
+            const darkModeMobile = document.getElementById('darkModeMobile');
+            
+            // Desktop dark mode toggle
+            if (darkModeDesktop) {
+                darkModeDesktop.addEventListener('click', function() {
+                    toggleDarkMode();
+                });
+            }
+            
+            // Mobile dark mode toggle
+            if (darkModeMobile) {
+                darkModeMobile.addEventListener('click', function() {
+                    toggleDarkMode();
+                });
+            }
+            
+            function toggleDarkMode() {
+                const html = document.documentElement;
+                const isDarkMode = html.classList.contains('dark-mode');
                 
-                if (body.classList.contains('dark-mode')) {
-                    icon.classList.remove('bi-moon');
-                    icon.classList.add('bi-sun');
-                    localStorage.setItem('dark', 'true');
-                } else {
-                    icon.classList.remove('bi-sun');
-                    icon.classList.add('bi-moon');
+                // Toggle dark mode class
+                if (isDarkMode) {
+                    html.classList.remove('dark-mode');
+                    updateDarkModeIcons(false);
                     localStorage.setItem('dark', 'false');
+                } else {
+                    html.classList.add('dark-mode');
+                    updateDarkModeIcons(true);
+                    localStorage.setItem('dark', 'true');
+                }
+            }
+            
+            function updateDarkModeIcons(isDarkMode) {
+                const darkIconDesktop = document.getElementById('darkIconDesktop');
+                const darkIconMobile = document.getElementById('darkIconMobile');
+                
+                if (darkIconDesktop) {
+                    darkIconDesktop.className = isDarkMode ? 'bi bi-sun-fill fs-5' : 'bi bi-moon-fill fs-5';
+                }
+                
+                if (darkIconMobile) {
+                    darkIconMobile.className = isDarkMode ? 'bi bi-sun-fill fs-5' : 'bi bi-moon-fill fs-5';
+                }
+            }
+        });
+        
+        // Back to Top Button
+        document.addEventListener('DOMContentLoaded', function() {
+            const backToTopButton = document.getElementById('backToTop');
+            
+            if (backToTopButton) {
+                // Show/hide back to top button based on scroll position
+                window.addEventListener('scroll', function() {
+                    if (window.scrollY > 300) {
+                        backToTopButton.classList.add('active');
+                    } else {
+                        backToTopButton.classList.remove('active');
+                    }
+                });
+                
+                // Scroll to top when clicked
+                backToTopButton.addEventListener('click', function(e) {
+                    e.preventDefault();
+                    window.scrollTo({
+                        top: 0,
+                        behavior: 'smooth'
+                    });
+                });
+            }
+        });
+        
+        // Navbar Scroll Effect
+        document.addEventListener('DOMContentLoaded', function() {
+            const navbar = document.querySelector('.navbar');
+            
+            if (navbar) {
+                window.addEventListener('scroll', function() {
+                    if (window.scrollY > 50) {
+                        navbar.classList.add('navbar-scrolled');
+                    } else {
+                        navbar.classList.remove('navbar-scrolled');
+                    }
+                });
+            }
+        });
+        
+        // Smooth scroll for anchor links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function(e) {
+                const href = this.getAttribute('href');
+                
+                if (href !== '#') {
+                    e.preventDefault();
+                    
+                    const targetElement = document.querySelector(href);
+                    if (targetElement) {
+                        const headerOffset = 100;
+                        const elementPosition = targetElement.getBoundingClientRect().top;
+                        const offsetPosition = elementPosition + window.pageYOffset - headerOffset;
+                        
+                        window.scrollTo({
+                            top: offsetPosition,
+                            behavior: 'smooth'
+                        });
+                    }
                 }
             });
         });
     </script>
+    
+    @stack('scripts')
 </body>
 </html>
+

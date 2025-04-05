@@ -13,6 +13,8 @@
     <link rel="stylesheet" href="{{ asset('assets/css/tailwind.output.css') }}" />
 
     <!-- Alpine.js -->
+    <link rel="icon" type="image/svg+xml" href="{{ asset('favicon.svg') }}">
+
     <script src="https://cdn.jsdelivr.net/gh/alpinejs/alpine@v2.x.x/dist/alpine.min.js" defer></script>
     <script src="{{ asset('assets/js/init-alpine.js') }}"></script>
 

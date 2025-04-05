@@ -259,7 +259,7 @@
 }
 
 .badge-urgent {
-  background-color: rgba(26, 32, 44, 0.1);
+  background-color: rgba(255, 0, 0, 0.795);
   color: var(--text-color);
 }
 
@@ -781,6 +781,7 @@
         <tr>
           <th>Titre</th>
           <th>Priorité</th>
+          <th>Assigned to</th>
           <th>@lang('messages.date')</th>
           <th>Statut</th>
           <th>Action</th>
@@ -791,7 +792,7 @@
           <tr>
             <td data-label="Titre">
               <div class="ticket-info">
-                <div class="ticket-title">{{ \Illuminate\Support\Str::words($ticket->title, 3, '...') }}</div>
+                <div class="ticket-title">{{ \Illuminate\Support\Str::words($ticket->title, 5, '...') }}</div>
                 <div class="ticket-id">ID: #{{ $ticket->id }}</div>
               </div>
             </td>
@@ -800,6 +801,17 @@
                 {{ ucfirst($ticket->priority) }}
               </span>
             </td>
+            <td data-label="Titre">
+              <div class="ticket-info">
+                <div class="ticket-title">
+                  @php
+                  $assignedUser = $ticket->user->find($ticket->assign);
+                  echo $assignedUser ? $assignedUser->name : 'Non assigné';
+              @endphp
+                </div>
+              </div>
+            </td>
+          </td>
             <td data-label="Date">
               <div class="ticket-date">{{ $ticket->created_at->format('d M Y') }}</div>
               <div class="ticket-time">{{ $ticket->created_at->format('H:i') }}</div>
@@ -833,6 +845,9 @@
                 
                 <a href="{{route('employee.tickets.edit', $ticket->id)}}" class="action-btn edit-btn" data-tooltip="Modifier">
                   <i class="material-symbols-rounded">edit</i>
+                </a>
+                <a href="{{ route('employee.tickets.show', $ticket->id) }}" class="action-btn show-btn" data-tooltip="Afficher">
+                  <i class="material-symbols-rounded">visibility</i>
                 </a>
                 
                 <a href="{{route('pdf.ticket',['id'=>$ticket->id])}}" class="action-btn download-btn" data-tooltip="Télécharger">

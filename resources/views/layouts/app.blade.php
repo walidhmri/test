@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html dir="@lang('messages.dir')">
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
@@ -20,6 +20,8 @@
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.3/Chart.min.css" />
   
   <link rel="stylesheet" href="{{asset('css/employee.css')}}">
+  <link rel="icon" type="image/svg+xml" href="{{ asset('favicon.svg') }}">
+
 
   
   @stack('styles')
@@ -56,12 +58,14 @@
               <span class="menu-text">All Tickets</span>
             </a>
           </li>
+
           <li class="menu-item">
             <a href="{{ route('dasboard.tickets') }}" class="menu-link {{ Route::is('dasboard.tickets') ? 'active' : '' }}">
-              <i class="material-symbols-rounded menu-icon">add_circle</i>
+              <i class="material-symbols-rounded menu-icon text-orange-400">add_circle</i>
               <span class="menu-text">Create Ticket</span>
             </a>
           </li>
+
           
           <div class="menu-section">
             <p class="menu-section-text">Account</p>

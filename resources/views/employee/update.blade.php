@@ -289,25 +289,12 @@
           </div>
         </div>
         
-        <div class="col-md-6">
-          <div class="form-group">
-            <label for="status" class="form-label">Statut</label>
-            <select class="form-select @error('status') is-invalid @enderror" id="status" name="status" required>
-              <option value="pending" {{ old('status', $ticket->status) == 'pending' ? 'selected' : '' }}>En attente</option>
-              <option value="in_progress" {{ old('status', $ticket->status) == 'in_progress' ? 'selected' : '' }}>En cours</option>
-              <option value="solved" {{ old('status', $ticket->status) == 'solved' ? 'selected' : '' }}>Résolu</option>
-              <option value="closed" {{ old('status', $ticket->status) == 'closed' ? 'selected' : '' }}>Fermé</option>
-            </select>
-            @error('status')
-              <div class="invalid-feedback">{{ $message }}</div>
-            @enderror
-          </div>
-        </div>
+   
       </div>
     </div>
     
     <div class="form-footer">
-      <a href="{{ route('employee.tickets.list') }}" class="btn btn-secondary">Annuler</a>
+      <a href="{{ url()->previous() ?? route('employee.tickets.list') }}" class="btn btn-secondary">Annuler</a>
       <button type="submit" class="btn btn-primary">
         <i class="material-symbols-rounded">save</i>
         Enregistrer les modifications

@@ -278,7 +278,7 @@
         <h2 class="form-card-title">Informations du ticket</h2>
       </div>
       
-      <form action="{{ route('employee.tickets.store') }}" method="POST">
+      <form action="{{ route('employee.tickets.store') }}" method="POST" enctype="multipart/form-data">
         @csrf
         
         <div class="form-card-body">
@@ -316,7 +316,7 @@
             </div>
             <div class="form-group">
               <label for="title" class="form-label">File</label>
-              <input type="file" class="form-control @error('title') is-invalid @enderror" id="file" name="file" value="{{ old('file') }}">
+              <input type="file" class="form-control"   name="file">
               @error('file')
                 <div class="invalid-feedback">{{ $message }}</div>
               @enderror

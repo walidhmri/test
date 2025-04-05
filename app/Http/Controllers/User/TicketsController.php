@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\User;
 
 use App\Http\Controllers\Controller;
+use App\Models\Comment;
 use App\Models\Solution;
 use Illuminate\Http\Request;
 use App\Models\ticket;
@@ -63,7 +64,7 @@ public function store(Request $request)
         'title' => 'required',
         'description' => 'required',
         'priority'=>'required',
-        'file' => 'nullable|file|mimes:jpg,jpeg,png,pdf|max:2048', 
+        'file' => 'nullable|file|mimes:jpg,jpeg,png,pdf|max:4096', 
     ]);
 
     if ($request->hasFile('file')) {
@@ -100,17 +101,37 @@ public function store(Request $request)
 
     
 
-    /**
-     * Display the specified resource.
-     */
-    public function show(string $id)
-    {
-        //
-    }
+  
+public function show(string $id)
+{
+    $ticket = ticket::findOrFail($id);
+    $solutions = Solution::where('ticket_id', $ticket->id)->get(); // Get all solutions for the ticket
+    $comments = Comment::where('ticket_id', $ticket->id)
+                      ->orderBy('created_at', 'asc')
+                      ->get(); // Get all comments for the ticket
+    
+    return view('employee.show', compact('ticket', 'solutions', 'comments'));
+}
 
-    /**
-     * Show the form for editing the specified resource.
-     */
+public function addComment(Request $request, string $id)
+{
+    $request->validate([
+        'content' => 'required|string'
+    ]);
+    
+    $ticket = ticket::findOrFail($id);
+    
+    $comment = new Comment();
+    $comment->ticket_id = $ticket->id;
+    $comment->user_id = auth()->id();
+    $comment->content = $request->content;
+    $comment->save();
+    
+    return redirect()->back()->with('success', 'Commentaire ajouté avec succès');
+}
+
+ 
+
     public function edit(string $id)
     {
         $ticket = ticket::findOrFail($id); // Get a single model instance

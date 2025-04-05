@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\HomeController;
 use App\Models\Faq;
 use Illuminate\Support\Facades\Route;
 
@@ -10,7 +11,15 @@ Route::get('/', function () {
     $faqs=Faq::orderBy('created_at','desc')->paginate(5);
     return view('index',compact('faqs'));
 });
-Route::get('locale/{language}', [LocaleController::class ,'setlocale'])->name('locale');
+Route::get('/contact-us', function () {
+    return view('contact');
+});
+Route::get('/posts', function () {
+    return view('posts');
+});
+Route::get('/faqs', [HomeController::class, 'home'])->name('faqs');
+
+Route::get('locale/{language}', [LocaleController::class ,'setlocale'])->name('language.switch');
 
 require __DIR__.'/user.php';
 require __DIR__.'/ingenieur.php';

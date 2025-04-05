@@ -1,6 +1,7 @@
 <?php
 
 return [
+    // System & General
     'dir' => 'ltr',
     'title' => 'Naftal Helpdesk',
     'dashboard' => 'Dashboard',
@@ -9,84 +10,185 @@ return [
     'platform_subtitle' => 'Platform for Equipment Complaints',
     'integrated_solution' => 'The integrated solution for managing your petroleum services',
     'description' => 'Naftal platform provides innovative solutions for managing and distributing petroleum products efficiently, ensuring transparency, security, and reliability in all your transactions.',
-
-    'clients_active' => '5000+ Active Clients',
+    'system' => 'System Informations',
+    'last_update' => 'Last Time Updated :',
+    'copyrights' => '2025 Naftal. All rights reserved.',
+    'all_rights_reserved' => 'All rights reserved',
+    
+    // Navigation & Layout
+    'home' => 'Home',
+    'about' => 'About',
+    'services' => 'Services',
+    'posts' => 'Blog',
+    'faqs' => 'FAQs',
+    'contact_us' => 'Contact Us',
+    'contact' => 'Contact Us',
+    'login' => 'Login',
+    'logout' => 'Logout',
+    'profile' => 'profile',
+    'settings' => 'settings',
+    'quick_links' => 'Quick Links',
+    'privacy_policy' => 'Privacy Policy',
+    'terms_of_service' => 'Terms of Service',
+    
+    // Hero Section
+    'welcome_to_naftal' => 'Welcome to Naftal',
     'get_started' => 'Get Started',
     'learn_more' => 'Learn More',
+    
+    // Stats Section
+    'clients_active' => '5000+ Active Clients',
     'fuel_stations' => '150+ Fuel Stations',
     'customer_satisfaction' => '99% Customer Satisfaction',
     'years_of_experience' => '25+ Years of Experience',
-
+    
+    // Dashboard Visualization
+    'analytics' => 'Analytics',
+    'fuel_management' => 'Fuel Management',
+    'station_locator' => 'Gestion de Tickets',
+    
+    // Features Section
+    'our_features' => 'Our Features',
+    'features_description' => 'Discover the powerful features that make our platform the leading solution for fuel management in Algeria.',
+    'feature_1_title' => 'Real-time Monitoring',
+    'feature_1_description' => 'Monitor fuel levels, consumption, and distribution in real-time across all stations.',
+    'feature_2_title' => 'Secure Transactions',
+    'feature_2_description' => 'Ensure all fuel transactions are secure, transparent, and properly recorded.',
+    'feature_3_title' => 'Advanced Analytics',
+    'feature_3_description' => 'Gain valuable insights with comprehensive analytics and reporting tools.',
+    'feature_4_title' => 'Station Locator',
+    'feature_4_description' => 'Find the nearest fuel stations with real-time availability information.',
+    'feature_5_title' => 'Mobile Access',
+    'feature_5_description' => 'Access the platform from anywhere using our mobile-friendly interface.',
+    'feature_6_title' => '24/7 Support',
+    'feature_6_description' => 'Get assistance anytime with our dedicated customer support team.',
+    
+    // FAQ Section
     'faq_title' => 'Frequently Asked Questions',
     'faq_description' => 'Answers to the most frequently asked questions about our services',
-
+    'view_all_faqs' => 'View All FAQs',
     'how_to_register' => 'How can I register on the platform?',
     'how_to_register_answer' => 'You can easily register on the platform by clicking the "Create Account" button at the top of the page, then entering your personal details and contact information. After completing the registration process, you will be able to access your dashboard and use all the available services.',
-
     'payment_methods' => 'What payment methods are available?',
     'fuel_delivery_time' => 'How long does the fuel delivery process take?',
     'cancel_order' => 'Can I cancel the order after confirming it?',
-
-    'company_description' => 'Naftal is a leading company in the field of marketing and energy services, always striving to provide innovative solutions that meet its clients\' needs with the highest standards of quality and safety.',
-
+    
+    // CTA Section
+    'cta_title' => 'Ready to Transform Your Fuel Management?',
+    'cta_description' => 'Contact our team today to learn how Naftal can help optimize your operations and improve efficiency.',
+    
+    // Footer
     'footer' => 'Naftal Petroleum Services Company. All rights reserved.',
-    'developper_walid' => 'Oualid Hamri Pages',
-    'logout' => 'Logout',
-    'login' => 'Login',
-    'welcome_back'=> 'Welcome Back',
-    'secure_login'=>'Secure Login',
-    'home'=>'Home',
-    'signin_text'=>'Sign in to access your Naftal account dashboard',
-    'userid'=>'User Id',
-    'Password'=>'Password',
-    'remember_me'=>'Remember Me',
-    'system'=> 'System Informations',
-    'access'=>'Fast Access',
-    'last_update'=>'Last Time Updated :',
-    'support'=> 'support',
-    'tickets'=> 'Tickets',
-    'copyrights' => '2025 Naftal. All rights reserved.',
-    'password'=>'Password',
-
+    'footer_about' => 'Naftal is the leading national company for the distribution and marketing of petroleum products in Algeria, committed to providing quality services and sustainable energy solutions.',
+    'contact_info' => 'Contact Info',
+    'weekdays' => 'Weekdays',
+    'weekend' => 'Weekend',
+    'closed' => 'CLOSED',
+    
+    // Services
+    'service_1' => 'Fuel Distribution',
+    'service_2' => 'Lubricants',
+    'service_3' => 'Gas Stations',
+    'service_4' => 'Fleet Management',
+    'service_5' => 'Industrial Services',
+    'service_6' => 'Logistics',
+    
+    // Blog
+    'blog' => 'Blog',
+    'posts_subtitle' => 'Latest news, updates and articles from Naftal',
+    'search_posts' => 'Search articles...',
+    'search' => 'Search',
+    'categories' => 'Categories',
+    'all_posts' => 'All Posts',
+    'news' => 'News',
+    'events' => 'Events',
+    'announcements' => 'Announcements',
+    'press_releases' => 'Press Releases',
+    'projects' => 'Projects',
+    'recent_posts' => 'Recent Posts',
+    'featured' => 'Featured',
+    'read_more' => 'Read More',
+    'days_ago' => 'days ago',
+    'april' => 'April',
+    'march' => 'March',
+    'subscribe_newsletter' => 'Subscribe to Our Newsletter',
+    'newsletter_description' => 'Stay updated with our latest news, articles and announcements by subscribing to our newsletter.',
+    'your_email' => 'Your email address',
+    'subscribe' => 'Subscribe',
+    
+    // FAQs Page
+    'help_center' => 'Help Center',
+    'faqs_subtitle' => 'Find answers to frequently asked questions about our services',
+    'search_faqs' => 'Search questions...',
+    'faq_categories' => 'Categories',
+    'general_questions' => 'General Questions',
+    'account_questions' => 'Account Questions',
+    'services_questions' => 'Services Questions',
+    'payment_questions' => 'Payment Questions',
+    'technical_questions' => 'Technical Questions',
+    'need_help' => 'Need More Help?',
+    'cant_find_answer' => 'Can\'t find the answer you\'re looking for? Please contact our friendly support team.',
+    'contact_support' => 'Contact Support',
+    'still_have_questions' => 'Still Have Questions?',
+    'contact_us_description' => 'If you couldn\'t find the answer to your question, our support team is here to help you.',
+    
+    // Contact
+    'get_in_touch' => 'Get In Touch',
+    'contact_subtitle' => 'We\'d love to hear from you. Please fill out the form below or contact us directly.',
+    'send_message' => 'Send Message',
+    'name' => 'Your Name',
+    'email' => 'Your Email',
+    'subject' => 'Subject',
+    'message' => 'Your Message',
+    'phone' => 'Phone Number',
+    'address' => 'Address',
+    'working_hours' => 'Working Hours',
+    
+    // Login
+    'welcome_back' => 'Welcome Back',
+    'secure_login' => 'Secure Login',
+    'signin_text' => 'Sign in to access your Naftal account dashboard',
+    'userid' => 'User Id',
+    'Password' => 'Password',
+    'password' => 'Password',
+    'remember_me' => 'Remember Me',
+    
+    // Dashboard & Admin
+    'access' => 'Fast Access',
+    'support' => 'support',
+    'tickets' => 'Tickets',
     'document_title' => 'Tickets A Signé',
     'reference_number' => 'Reference No.: GSR-:id-:year',
-    'looged_in_as'=> 'Logged in as',
-
+    'looged_in_as' => 'Logged in as',
     'request_details' => 'Request Details',
     'applicant_information' => 'Applicant Information',
-    'profile'=>'profile',
-    'settings'=>'settings',
-    'employees'=> 'Workers',
+    'employees' => 'Workers',
     'ingenieurs' => 'Engineers',
-    'faqs'=> 'FAQs',
-    'add_employee'=> 'Add Employee',
-    'list_employees'=> 'List Employees',
-    'list_ingenieurs'=> 'List Engineers',
-    'list_faqs'=> 'List FAQs',
-    'editpassword'=>'Edit Password',
-    'edit_employee'=> 'Edit Employee',
-    'ticket_title'=> 'Tickets',
-    'employee'=> 'Employee',
-    'ingenieur'=> 'Engineer',
-    'faq'=> 'FAQ',
-    'status'=> 'Status',
-    'id'=>'User Id',
-    'date'=> 'Date',
-    'actions'=> 'Actions',
-    'add_faq'=> 'Add FAQ',
-    'edit_faq'=> 'Edit FAQ',
-    'add_ingenieur'=> 'Add Engineer',
-    'total_employees'=>'Total Employees',
-    'total_ingenieurs'=>'Total Engineers',
-    'total_faqs'=>'Total FAQs',
-    'total_tickets'=>'Total Tickets',
-    'tickets_solved'=>'Tickets solved',
-    'priority'=> 'Priority',
-    'last_created_tickets'=>'Last Created Tickets',
-    'traffic'=>'Traffic',
-    
-
-
+    'add_employee' => 'Add Employee',
+    'list_employees' => 'List Employees',
+    'list_ingenieurs' => 'List Engineers',
+    'list_faqs' => 'List FAQs',
+    'editpassword' => 'Edit Password',
+    'edit_employee' => 'Edit Employee',
+    'ticket_title' => 'Tickets',
+    'employee' => 'Employee',
+    'ingenieur' => 'Engineer',
+    'faq' => 'FAQ',
+    'status' => 'Status',
+    'id' => 'User Id',
+    'date' => 'Date',
+    'actions' => 'Actions',
+    'add_faq' => 'Add FAQ',
+    'edit_faq' => 'Edit FAQ',
+    'add_ingenieur' => 'Add Engineer',
+    'total_employees' => 'Total Employees',
+    'total_ingenieurs' => 'Total Engineers',
+    'total_faqs' => 'Total FAQs',
+    'total_tickets' => 'Total Tickets',
+    'tickets_solved' => 'Tickets solved',
+    'priority' => 'Priority',
+    'last_created_tickets' => 'Last Created Tickets',
+    'traffic' => 'Traffic',
     'service_type' => 'Service Type:',
     'current_status' => 'Current Status:',
     'submission_date' => 'Submission Date:',
@@ -94,26 +196,21 @@ return [
     'assigned_department' => 'Assigned Department:',
     'departments' => 'Departments',
     'reviews' => 'Reviews',
-    'posts' => 'Posts',
     'comments' => 'Comments',
-
-
-
-    'assignments'=> 'Assignments',
+    'assignments' => 'Assignments',
     'pending_assignment' => 'Pending Assignment',
-    'closed' => 'CLOSED',
     'solved' => 'SOLVED',
     'pending' => 'PENDING',
-    'assigned'=> 'Assigned',
-
+    'assigned' => 'Assigned',
+    
+    // Footer & Legal
     'footer_line1' => 'This document is automatically generated by the official government service system',
     'footer_line2' => 'All rights reserved © Government Services Department :year',
-    
-
     'official_seal' => 'OFFICIAL SEAL',
     'government' => 'GOVERNMENT',
-    
     'status_processed' => 'PROCESSED',
     'status_under_review' => 'UNDER REVIEW',
-    
+    'developper_walid' => 'Oualid Hamri Pages',
+    'company_description' => 'Naftal is a leading company in the field of marketing and energy services, always striving to provide innovative solutions that meet its clients\' needs with the highest standards of quality and safety.',
+    'admin_dashboard'=> 'Admin Dashboard',
 ];
