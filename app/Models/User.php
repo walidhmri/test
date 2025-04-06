@@ -28,6 +28,10 @@ class User extends Authenticatable
         'verified',
         'department',
         'position',
+        'phone',
+        'adress',
+        'avatar',
+        'localization',
        
     ];
 

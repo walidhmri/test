@@ -40,10 +40,9 @@ class GenerateAISolution implements ShouldQueue
             ]
         ]);
 
-        $aiResponse = $response->json()['candidates'][0]['content']['parts'][0]['text'] ?? "No AI solution available.";
+        $aiResponse = $response->json()['candidates'][0]['content']['parts'][0]['text'] ?? "No AI solution available, repond with same language as in title and description";
         Log::info('Gemini API Response:', ['response' => $response->body()]);
 
-        //  eneregestrer la solution
         Solution::create([
             'ticket_id' => $this->ticket->id,
             'user_id' => 1, 

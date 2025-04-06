@@ -557,7 +557,7 @@
                         <div class="container mx-auto flex justify-end">
                             <p class="text-right text-sm">
                                 @lang('messages.copyrights')
-                                <strong>Béjaia</strong>
+                                <strong>Béjaia (Akbou)</strong>
                             </p>
 
                         </div>

@@ -14,13 +14,21 @@
     
     <!-- Overlay -->
     <div class="hero-overlay"></div>
-    
+
     <div class="container hero-content position-relative z-3">
         <div class="row align-items-center min-vh-75">
             <div class="col-lg-7 mb-4 mb-lg-0" data-aos="fade-up" data-aos-delay="100">
               
-                <h1 class="display-4 fw-bold mb-3 text-white">@lang('messages.integrated_solution')</h1>
-                <p class="lead mb-4 text-white-75">@lang('messages.description')</p>
+                <h1 class="display-4 fw-bold mb-3 text-red">@lang('messages.integrated_solution')</h1>
+            
+            <p style="color: var(--text-color);
+                 font-weight: 700;
+                 background-color:var(--background-new);
+                 
+                 display:flex;
+                 
+                                  text-align:center;             
+                " class="lead mb-4 text-dark-75">@lang('messages.description')</p>
                 <div class="d-flex flex-wrap gap-3">
                     @guest
                     <a href="{{route('login')}}" class="btn btn-brand fw-semibold px-5 py-3 fs-5 btn-hover-scale">
@@ -349,7 +357,9 @@
         left: 0;
         width: 100%;
         height: 100%;
-        background: rgba(0, 0, 0, 0.3);
+        background-image: url({{asset('assets/nftl.jpg')}});
+        background-repeat: no-repeat;
+        background-size:cover;
     }
     
     /* Wave Separator */

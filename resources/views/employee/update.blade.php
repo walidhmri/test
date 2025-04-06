@@ -254,7 +254,7 @@
   
   <form action="{{ route('employee.tickets.update', $ticket->id) }}" method="POST">
     @csrf
-    @method('PUT')
+    @method('patch')
     
     <div class="form-card-body">
       <div class="form-group">

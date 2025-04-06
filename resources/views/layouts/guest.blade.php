@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="csrf-token" content="{{ csrf_token() }}">
 
-    <title>{{ config('app.name', 'Naftal') }} - @yield('title', 'Helpdesk')</title>
+    <title>{{ config('app.name', 'Naftal') }} - @yield('title', 'HelpdesPk')</title>
     
     <!-- Favicon -->
     <link rel="icon" href="{{ asset('favicon.svg') }}" type="image/x-icon">
@@ -39,7 +39,7 @@
             --danger: #e74c3c;
             --light: #f8f9fa;
             --dark: #343a40;
-            
+            --background-new:rgba(255, 255, 255, 0.796);
             /* Theme Colors */
             --body-bg: #ffffff;
             --card-bg: #ffffff;
@@ -57,6 +57,7 @@
             /* Typography */
             --font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
             
+            
             /* Spacing */
             --header-height: 80px;
             --section-spacing: 5rem;
@@ -73,6 +74,7 @@
             --header-bg: #1a1a1a;
             --footer-bg: #1a1a1a;
             --text-color: #e0e0e0;
+            --background-new:rgba(0, 0, 0, 0.429);
             --text-muted: #adb5bd;
             --border-color: rgba(255, 255, 255, 0.1);
             --input-bg: rgba(255, 255, 255, 0.05);

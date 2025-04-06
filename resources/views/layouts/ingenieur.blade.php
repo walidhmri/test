@@ -79,7 +79,7 @@
                                 aria-hidden="true"></span>
                         @endif
                         <a class="inline-flex items-center w-full text-sm font-semibold transition-colors duration-150 hover:text-gray-800 dark:hover:text-gray-200 {{ $isTicketsActive ? 'text-gray-800 dark:text-gray-100' : '' }}"
-                            href="{{ route('admin.tickets.list') }}">
+                            href="{{ route('ingenieur.ticket.list') }}">
 
                             <!-- New SVG Icon for Tickets -->
                             <svg class="w-5 h-5" aria-hidden="true" fill="none" stroke-linecap="round"
@@ -110,7 +110,7 @@
                                     d="M9 18a2 2 0 01-2-2V8a2 2 0 012-2h6a2 2 0 012 2v8a2 2 0 01-2 2h-6zm0 0V8h6v8h-6z">
                                 </path>
                             </svg>
-                            <span class="ml-4"> @lang('messages.solutions')</span>
+                            <span class="ml-4"> @lang('messages.comments')</span>
                         </a>
                     </li>
 
@@ -461,7 +461,7 @@
                         <div class="container mx-auto flex justify-end">
                             <p class="text-right text-sm">
                                 @lang('messages.copyrights')
-                                <strong>Béjaia</strong>
+                                <strong>Béjaia (Akbou)</strong>
                             </p>
 
                         </div>

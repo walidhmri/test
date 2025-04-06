@@ -384,7 +384,18 @@
               <div class="invalid-feedback">{{ $message }}</div>
             @enderror
           </div>
-          
+
+          <div class="form-group">
+            <label for="priority" class="form-label">Language </label>
+            <select class="form-select  is-invalid " id="locale" name="locale">
+              <option value="" disabled selected></option>
+              <option value="fr" {{ auth::user()->localization== 'fr' ? 'selected' : '' }}>Francais</option>
+              <option value="en" {{ auth::user()->localization == 'en' ? 'selected' : '' }}>English</option>
+              <option value="ar" {{ auth::user()->localization == 'ar' ? 'selected' : '' }}>العربية</option>
+              <option value="tm" {{ auth::user()->localization == 'tm' ? 'selected' : '' }}>Taqvaylit</option>
+            </select>
+
+          </div>
          
           
           <div class="form-group">

@@ -2,12 +2,14 @@
 
 namespace App\Http\Controllers\Auth;
 
+use App;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Auth\LoginRequest;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\View\View;
+use Session;
 
 class AuthenticatedSessionController extends Controller
 {
@@ -26,12 +28,12 @@ class AuthenticatedSessionController extends Controller
     {
         if (!Auth::attempt($request->only('email', 'password'), $request->filled('remember'))) {
             return back()->withErrors([
-                'email' => ' Balak le mot de pass inek negh user id faux.',
+                'email' => 'Userid ou le mot de passe est incorrect.',
             ]);
-        }
-
-
+        }        
         $request->authenticate();
+        App::setLocale(Auth::user()->localization);
+        Session::put('locale', Auth::user()->localization);
         if (Auth::user()->role == 'admin') {
             return redirect(route('admin.dashboard'));
         }
