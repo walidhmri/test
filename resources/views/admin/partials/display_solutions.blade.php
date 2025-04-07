@@ -23,7 +23,6 @@
                                     </svg>
                                 @endif
                             </div>
-                            
                             <!-- Engineer Info -->
                             <div>
                                 <h4 class="font-medium text-gray-900 dark:text-white">
@@ -114,14 +113,11 @@
                                 </button>
                             </div>
                             
-                            <!-- Solution Tags -->
-                            @if(isset($solution->tags) && !empty($solution->tags))
+                            @if (request()->routeIs('admin.profile.show'))
                                 <div class="flex flex-wrap gap-1">
-                                    @foreach(explode(',', $solution->tags) as $tag)
-                                        <span class="inline-flex items-center px-2 py-0.5 rounded text-xs font-medium bg-indigo-100 text-indigo-800 dark:bg-indigo-900 dark:text-indigo-300">
-                                            {{ trim($tag) }}
-                                        </span>
-                                    @endforeach
+                                    <span class="inline-flex items-center px-2 py-0.5 rounded text-xs font-medium bg-indigo-100 text-indigo-800 dark:bg-indigo-900 dark:text-indigo-300">
+                                        <a href="{{route('admin.tickets.show',['id'=>$solution->ticket->id,'user_id'=>$solution->ticket->user_id])}}">Show ticket</a>
+                                    </span>
                                 </div>
                             @endif
                         </div>
@@ -129,6 +125,7 @@
                 </div>
             @endforeach
         </div>
+        {{$solutions->links()}}
     @else
         <div class="bg-white dark:bg-gray-800 rounded-lg shadow-md p-6 text-center border border-gray-200 dark:border-gray-700">
             <svg xmlns="http://www.w3.org/2000/svg" class="h-12 w-12 mx-auto text-gray-400 dark:text-gray-500 mb-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">

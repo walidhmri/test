@@ -33,7 +33,7 @@ return [
     
     // Hero Section
     'welcome_to_naftal' => 'Welcome to Naftal',
-    'get_started' => 'Get Started',
+    'get_started' => 'Login',
     'learn_more' => 'Learn More',
     
     // Stats Section
@@ -115,6 +115,16 @@ return [
     'newsletter_description' => 'Stay updated with our latest news, articles and announcements by subscribing to our newsletter.',
     'your_email' => 'Your email address',
     'subscribe' => 'Subscribe',
+    'Assign'=>'Assign',
+
+    'name_hero' => 'Naftal Helpdesk',
+    'support_center_hero' => 'Naftal Support Center',
+    'we_are_here_to_help_hero' => 'We’re here to help',
+    'trusted_support_hero' => 'Your trusted petroleum support',
+    'technical_support_hero' => 'Technical Support 24/7',
+    'instant_help_hero' => 'Instant Assistance',
+    'client_support_hero' => 'Naftal Client Support',
+    'support_available_24_hero' => 'Support available 24/7',
     
     // FAQs Page
     'help_center' => 'Help Center',

@@ -146,7 +146,9 @@
     }
     
     .login-sidebar {
-        background: linear-gradient(135deg, var(--primary), var(--primary-dark));
+        background-image: url('{{ asset('assets/nftl.jpg') }}');
+        background-repeat: no-repeat;
+        background-size: cover;
         position: relative;
         min-height: 300px;
     }

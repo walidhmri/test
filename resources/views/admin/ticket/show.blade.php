@@ -78,7 +78,27 @@
                         {{ $ticket->description ?? 'No description provided.' }}
                     </dd>
                 </div>
+                <div class="px-6 py-4 grid grid-cols-1 md:grid-cols-3 gap-x-4 gap-y-2 items-center">
+                    <dt class="text-sm font-medium text-gray-500 dark:text-gray-400">
+                        <label for="status">@lang('messages.Department')</label>
+                    </dt>
+                    <dd class="md:col-span-2">
+                        <select id="department" name="department_id"
+                            class="block w-full max-w-xs rounded-md border-gray-300 dark:border-gray-600 py-2 px-3 shadow-sm focus:border-indigo-500 focus:ring focus:ring-indigo-200 focus:ring-opacity-50 dark:bg-gray-700 dark:text-gray-200 sm:text-sm">
 
+                            <option value="" disabled
+                                {{ old('department_id', $ticket->department_id) ? '' : 'selected' }}>
+                                -- Select a department --
+                            </option>
+
+                            @foreach ($departments as $department)
+                                <option value="{{ $department->id }}" @selected(old('department_id', $ticket->department_id) == $department->id)>
+                                    {{ $department->name }}
+                                </option>
+                            @endforeach
+                        </select>
+                    </dd>
+                </div>
                 <div class="px-6 py-4 grid grid-cols-1 md:grid-cols-3 gap-x-4 gap-y-2 items-center">
                     <dt class="text-sm font-medium text-gray-500 dark:text-gray-400">
                         <label for="status">@lang('messages.Assign')</label>

@@ -1,6 +1,7 @@
 <?php
 
 namespace App\Http\Controllers\Admin;
+use App\Models\Department;
 use App\Models\Solution;
 use App\Models\ticket;
 use App\Http\Controllers\Controller;
@@ -24,9 +25,9 @@ class TicketsController extends Controller
             }
         }
         if (in_array($request->order, ['asc', 'desc'])) {
-            $query->orderBy('created_at', $request->order);
+            $query->orderBy('id', $request->order);
         } else {
-            $query->orderBy('created_at', 'desc');
+            $query->orderBy('id', 'desc');
         }
     
         if ($request->filled('priority')) {
@@ -66,8 +67,9 @@ class TicketsController extends Controller
         $employee = User::find($request->user_id);
         $ingenieurs = User::where('role', 'ingenieur')->get();
         $ticket=ticket::find($request->id);
-        $solutions =Solution::where('ticket_id',$ticket->id)->get();
-        return view('admin.ticket.show',compact('ticket','employee','solutions','ingenieurs'));
+        $solutions =Solution::where('ticket_id',$ticket->id)->paginate(10);
+        $departments=Department::get();
+        return view('admin.ticket.show',compact('ticket','employee','solutions','ingenieurs','departments'));
     }
     public function update(Request $request)
     {
@@ -76,11 +78,13 @@ class TicketsController extends Controller
                 'status' => 'required',
                 'priority' => 'required',
                 'assign'=> 'nullable',
+                'department_id'=>'nullable'
             ]);
         $ticket=ticket::find($request->id);
         $ticket->status=$request->status;
         $ticket->assign=$request->assign;
         $ticket->priority=$request->priority;
+        $ticket->department_id=$request->department_id;	
         $ticket->save();
         return redirect()->route('admin.tickets.list')->with(['success' => "تم تحديث حالة التذكرة $ticket->id بنجاح."]);
     }

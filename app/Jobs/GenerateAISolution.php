@@ -36,11 +36,11 @@ class GenerateAISolution implements ShouldQueue
 
         $response = Http::post("{$apiUrl}?key={$apiKey}", [
             "contents" => [
-                ["parts" => [["text" => "A user submitted a support ticket:\n\nTitle: {$this->ticket->title}\nDescription: {$this->ticket->description}  \n\nProvide a detailed technical solution in a small paragraph."]]]
+                ["parts" => [["text" => "A user submitted a support ticket:\n\nTitle: {$this->ticket->title}\nDescription: {$this->ticket->description}  \n\nProvide a detailed technical solution in a small paragraph repond with same language as in title and description."]]]
             ]
         ]);
 
-        $aiResponse = $response->json()['candidates'][0]['content']['parts'][0]['text'] ?? "No AI solution available, repond with same language as in title and description";
+        $aiResponse = $response->json()['candidates'][0]['content']['parts'][0]['text'] ?? "No AI solution available";
         Log::info('Gemini API Response:', ['response' => $response->body()]);
 
         Solution::create([

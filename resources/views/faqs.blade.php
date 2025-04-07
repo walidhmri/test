@@ -30,8 +30,8 @@
                 <div class="card p-3">
                     <div class="input-group">
                         
-                        <input type="text" class="form-control" name="search" placeholder="@lang('messages.search_faqs')" value="{{ old('search') }}">
-                        <button class="btn btn-brand" type="submit">@lang('messages.search')</button>
+                        <input type="text" class="inputs form-control" name="search" placeholder="@lang('messages.search_faqs')" value="{{ old('search') }}">
+                        <button class="btn btn-search" type="submit">@lang('messages.search')</button>
                     
                     </div>
                 </div>
@@ -179,6 +179,7 @@
         color: var(--primary);
         box-shadow: none;
     }
+ 
     
     .faq-accordion .accordion-button::after {
         transition: all 0.3s ease;
@@ -186,6 +187,9 @@
     
     .dark-mode .faq-accordion .accordion-button::after {
         filter: invert(1);
+    }
+    .inputs{
+        border-radius: 20px;
     }
     
     /* Icon Circle */

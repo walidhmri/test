@@ -11,7 +11,7 @@ return [
     'description' => 'Tidert Naftal tefkayed tifratin timaynutin i usennedmi d ufraq n igelwa n upitṛul s tefrayt, s teḍmana n tufant, taɣellist, akked ttekkel deg akk inermisen-nwen.', // Naftal platform provides innovative solutions...
 
     'clients_active' => '5000+ Imarayen irmanen', // 5000+ Active Clients
-    'get_started' => 'Bdu', // Get Started
+    'get_started' => 'Kcem', // Get Started
     'learn_more' => 'Rnu Issin', // Learn More
     'fuel_stations' => '150+ Tiɣsiyin n Wesmazzal', // 150+ Fuel Stations
     'customer_satisfaction' => '99% Errḍa n Yimarayen', // 99% Customer Satisfaction
@@ -26,6 +26,16 @@ return [
     'payment_methods' => 'D acu-ten iberdan n tmerniwt i yellan?', // What payment methods are available?
     'fuel_delivery_time' => 'Acḥal i yettaṭṭaf umsebrid n tewsiḍt n wesmazzal?', // How long does the fuel delivery process take?
     'cancel_order' => 'Zemreɣ ad sebleɣ tayiḍt mbeɛd ma snetmeɣ-tt?', // Can I cancel the order after confirming it?
+
+    'name_hero' => 'Asefru n Naftal',
+    'support_center_hero' => 'Asefru ttekra 24/7',
+    'we_are_here_to_help_hero' => 'Nekkini d asefru',
+    'trusted_support_hero' => 'Asefru n izuran n Naftal',
+    'technical_support_hero' => 'Asefru ttekra 24/7',
+    'instant_help_hero' => 'Asefru d wulawen',
+    'client_support_hero' => 'Asefru n izuran n Naftal',
+    'support_available_24_hero' => 'Asefru d tzemre n 24/7',
+
 
     'company_description' => 'Naftal d takompani tamezwarut deg wannar n tnezzut d temsadfin n trasa, tetnadi daymen ad tefk tifratin timaynutin ara yerren ilugen n yimarayen-is s yisefka ɛlayen n tẓayt d talwit.', // Naftal is a leading company...
 

@@ -18,8 +18,8 @@ return new class extends Migration
             $table->timestamp('email_verified_at')->nullable();
             $table->string('password');
             $table->string('phone')->nullable();
-            $table->string('department_name')->nullable();
-            $table->string('adress')->nullable();
+            $table->foreignId('department_id')->nullable()->onDelete('set null');
+            $table->string('adresse')->nullable();
             $table->string('avatar')->nullable();
             $table->string( 'localization')->default('fr');
             $table->string('role')->default('user');

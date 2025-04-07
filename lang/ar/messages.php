@@ -11,7 +11,7 @@ return [
     'description' => 'منصة نافطال تقدم حلولاً مبتكرة لإدارة وتوزيع المنتجات البترولية بكفاءة، مما يضمن الشفافية والأمان والموثوقية في جميع معاملاتك.',
 
     'clients_active' => '+5000 عميل نشط',
-    'get_started' => 'ابدأ الآن',
+    'get_started' => 'سجل الدخول',
     'learn_more' => 'تعلم المزيد',
     'fuel_stations' => '+150 محطة وقود',
     'customer_satisfaction' => '99% رضا العملاء',
@@ -106,6 +106,16 @@ return [
 
     'footer_line1' => 'تم إنشاء هذا المستند تلقائيًا بواسطة نظام الخدمات الحكومية الرسمي',
     'footer_line2' => 'جميع الحقوق محفوظة © إدارة الخدمات الحكومية :year',
+
+
+    'name_hero' => 'مركز دعم نفطال 24/7',
+    'support_center_hero' => 'مركز دعم نفطال',
+    'we_are_here_to_help_hero' => 'نحن هنا للمساعدة',
+    'trusted_support_hero' => 'دعمك الموثوق في البترول',
+    'technical_support_hero' => 'الدعم الفني 24/7',
+    'instant_help_hero' => 'مساعدة فورية',
+    'client_support_hero' => 'دعم العملاء نفطال',
+    'support_available_24_hero' => 'الدعم متاح على مدار الساعة',
 
 
     'official_seal' => 'الختم الرسمي',

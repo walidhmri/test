@@ -13,8 +13,8 @@ class ProfileController extends Controller
 {
     public function index(Request $request)
     {
-        $tickets = ticket::where('user_id', $request->id)->get();
-        $solutions=Solution::where('user_id', $request->id)->get();
+        $tickets = ticket::where('user_id', $request->id)->paginate(10);
+        $solutions=Solution::where('user_id', $request->id)->paginate(10);
         $employee = User::find($request->id);
         return view('admin.profile.show', compact('employee', 'tickets', 'solutions'));
     }

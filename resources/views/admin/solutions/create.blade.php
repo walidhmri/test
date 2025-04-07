@@ -26,7 +26,7 @@ Create new FAQ
     @endif
 
     <div class="px-4 py-3 mb-8 bg-white rounded-lg shadow-md dark:bg-gray-800">
-        <form method="POST" action="{{ route('admin.ticket.solution.store',['id',$ticket->id]) }}">
+        <form method="POST" action="{{ route('admin.ticket.solution.store',['id',$ticket->id]) }}" enctype="multipart/form-data">
             @csrf
             <input type="hidden" name="ticket_id" value="{{ $ticket->id }}">
             <input type="hidden" name="user_id" value="{{ $ticket->user_id }}">

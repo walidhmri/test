@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Admin;
 use App\Http\Controllers\Controller;
+use App\Models\Department;
 use App\Models\User;
 use App\Models\ticket;
 use Illuminate\Auth\Events\Registered;
@@ -13,43 +14,48 @@ use Illuminate\Validation\Rules;
 
 class AdminController extends Controller
 {
-    function index(){
-        $tickets = ticket::orderBy('created_at','desc')->get();
+    function index()
+    {
+        $tickets = ticket::orderBy('created_at', 'desc')->get();
         $employees = User::get();
-        return view('admin.dashboard',compact('employees', 'tickets'));
+        return view('admin.dashboard', compact('employees', 'tickets'));
     }
-    function employee(Request $request) {
-        $search = $request->input('search'); // الحصول على مدخل البحث
-    
+    function employee(Request $request)
+    {
+        $search = $request->input('search');
+
         $employees = User::whereIn('role', ['user', 'admin'])
             ->when($search, function ($query, $search) {
                 return $query->where(function ($query) use ($search) {
                     $query->where('name', 'LIKE', "%{$search}%")
-                          ->orWhere('role', 'LIKE', "%{$search}%");
+                        ->orWhere('role', 'LIKE', "%{$search}%");
                 });
             })
             ->orderBy('created_at', 'desc')
-            ->paginate(10); // التصفح بالصفحات
-    
+            ->paginate(10);
+
         return view('admin.employee.list', compact('employees'));
     }
-    
-    function ingenieur(Request $request) {
+
+    function ingenieur(Request $request)
+    {
         $search = $request->input('search');
-    
+
         $employees = User::where('role', 'ingenieur')
             ->when($search, function ($query, $search) {
                 return $query->where('name', 'LIKE', "%{$search}%");
             })
             ->orderBy('created_at', 'desc')
-            ->paginate(10); // التصفح بالصفحات
-    
+            ->paginate(10); 
+
         return view('admin.ingenieur.list', compact('employees'));
     }
-    
 
-    function addEmployee(){
-        return view('admin.employee.ajouter');
+
+    function addEmployee()
+    {
+        $departments=Department::all();
+        return view('admin.employee.ajouter',compact('departments'));
     }
     public function storeEmployee(Request $request): RedirectResponse
     {
@@ -57,9 +63,9 @@ class AdminController extends Controller
 
         $employee = User::where('email', $request->input('email'))->first();
 
-if ($employee) {
-    return redirect()->back()->with('error', 'المستخدم موجود بالفعل.');
-}
+        if ($employee) {
+            return redirect()->back()->with('error', 'المستخدم موجود بالفعل.');
+        }
         $request->validate([
             'name' => ['required', 'string', 'max:255'],
             'email' => ['required', 'string', 'lowercase', 'max:255'],
@@ -68,7 +74,7 @@ if ($employee) {
         ]);
 
 
-        
+
         $user = User::create([
             'name' => $request->name,
             'email' => $request->email,
@@ -78,11 +84,11 @@ if ($employee) {
 
         event(new Registered($user));
 
-        // عدم تسجيل دخول المستخدم لأنه يتم إنشاؤه من قبل **الإداري**
 
         return redirect()->route('admin.employee.list')->with('success', 'تمت إضافة المستخدم بنجاح.');
     }
-    function deleteEmployee(Request $request){
+    function deleteEmployee(Request $request)
+    {
 
         $employee = User::find($request->id);
         if (!$employee) {
@@ -93,12 +99,14 @@ if ($employee) {
         return redirect()->back()->with('success', 'User deleted succeffully');
 
     }
-    function editEmployee(Request $request){
+    function editEmployee(Request $request)
+    {
         $employee = User::find($request->id);
-  
-        return view('admin.employee.edit',compact('employee'));
+
+        return view('admin.employee.edit', compact('employee'));
     }
-    function updateEmployee(Request $request){
+    function updateEmployee(Request $request)
+    {
         $employee = User::find($request->id);
         if (!$employee) {
             return redirect()->route('admin.employee.list')->with('error', 'User not found');
@@ -106,18 +114,18 @@ if ($employee) {
         $request->validate([
             'name' => ['required', 'string', 'max:255'],
             'email' => ['required', 'string', 'lowercase', 'max:255'],
-            'role' => ['required', 'in:admin,ingenieur,user'], // التأكد من صحة الدور
+            'role' => ['required', 'in:admin,ingenieur,user'], 
         ]);
-        
+
         $employee->update([
             'name' => $request->name,
             'email' => $request->email,
             'role' => $request->role,
         ]);
-        return redirect()->route('admin.profile.show',['id' => $employee->id])->with('success', 'Profile modifier avec succées');
-    
-    
+        return redirect()->route('admin.profile.show', ['id' => $employee->id])->with('success', 'Profile modifier avec succées');
+
+
     }
-    
+
 }
 

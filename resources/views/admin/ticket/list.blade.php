@@ -107,7 +107,15 @@
                 </thead>
                 <tbody class="bg-white divide-y dark:divide-gray-700 dark:bg-gray-800">
                     @foreach ($tickets as $ticket)
-                        <tr class="text-gray-700 dark:text-gray-400">
+                        <tr class="text-gray-700 dark:text-gray-400 @if ($ticket->status == 'pending') bg-yellow-100 dark:bg-yellow-700 @elseif($ticket->status == 'solved') bg-green-100 dark:bg-green-700 @elseif($ticket->status == 'closed') bg-purple-100 dark:bg-purple-700 @endif hover:bg-gray-50 dark:hover:bg-gray-600"
+                            style="background-color: @if ($ticket->status == 'pending')
+                                #fefcbf
+                            @elseif ($ticket->status == 'solved')
+                                #bbf7d0
+                            @elseif ($ticket->status == 'closed')
+                                #e0f2fe
+                        
+                        @endif">
                             <td class="px-4 py-3">
                                 <div class="flex items-center text-sm">
                                     <div class="min-w-0 max-w-full dark:text-gray-200">

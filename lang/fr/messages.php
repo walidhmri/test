@@ -11,11 +11,20 @@ return [
     'description' => 'La plateforme Naftal offre des solutions innovantes pour la gestion et la distribution des produits pétroliers de manière efficace, garantissant transparence, sécurité et fiabilité dans toutes vos transactions.',
 
     'clients_active' => '5000+ Clients Actifs',
-    'get_started' => 'Commencer',
+    'get_started' => 'Identifier',
     'learn_more' => 'En savoir plus',
     'fuel_stations' => '150+ Stations-service',
     'customer_satisfaction' => '99% de Satisfaction Client',
     'years_of_experience' => '25+ Années d’Expérience',
+
+    'name_hero' => 'Assistance Naftal',
+    'support_center_hero' => 'Assistance 24/7',
+    'we_are_here_to_help_hero' => 'Nous aidons',
+    'trusted_support_hero' => 'Support de confiance',
+    'technical_support_hero' => 'Support technique',
+    'instant_help_hero' => 'Aide immédiate',
+    'client_support_hero' => 'Support client',
+    'support_available_24_hero' => 'Support 24/7',
 
     'faq_title' => 'Questions Fréquemment Posées',
     'faq_description' => 'Réponses aux questions les plus fréquentes sur nos services',

@@ -20,6 +20,7 @@ return new class extends Migration
             $table->text('priority')->default('low');
             $table->string('assign')->nullable();
             $table->string('file')->nullable();
+            $table->foreignId('department_id')->nullable()->onDelete('set null');
             $table->timestamp('last_used_at')->nullable();
             $table->string('status')->default('pending');
             $table->timestamp('expires_at')->nullable();

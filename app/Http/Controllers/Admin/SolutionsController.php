@@ -22,12 +22,31 @@ class SolutionsController extends Controller
             'title' => 'required',
             'description' => 'required',
             'ticket_id' => 'required',
+            'file'=> 'nullable'
         ]);
+
+        if ($request->hasFile('file')) {
+            $file = $request->file('file');
+            $filename = time() . '_' . $file->getClientOriginalName();
+            $destination = public_path('storage/uploads'); 
+    
+            if (!file_exists($destination)) {
+                mkdir($destination, 0777, true);
+            }
+    
+            $file->move($destination, $filename);
+    
+            $filepath = 'uploads/' . $filename;
+        } else {
+            $filepath = null;
+        }
+
         $solution = new Solution();
         $solution->title = $request->title;
         $solution->description = $request->description;
         $solution->ticket_id = $request->ticket_id;
         $solution->user_id = Auth::user()->id;
+        $solution->file= $filepath;
         $solution->save();
         return redirect()->route('admin.tickets.show', [ 'user_id' => $request->user_id,'id' => $request->ticket_id ,])->with('success', 'تم إضافة حل التذكرة بنجاح.');
     }
