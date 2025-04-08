@@ -1,47 +1,75 @@
 updated 08/04/2025 by oualid
-# Welcome to My New Website!
 
-This repository contains the source code for my brand-new website
+##  Prérequis
 
-## About
+Avant de commencer, assure-toi d’avoir installé :
 
-This website is designed to [briefly describe the purpose of the website, e.g., showcase my portfolio, share my blog posts, etc.]. It's built using [mention the technologies used, e.g., HTML, CSS, JavaScript, React, etc.].
+- [XAMPP](https://www.apachefriends.org/index.html)
+- [Composer](https://getcomposer.org/)
+- [Git](https://git-scm.com/)
+- PHP (version ≥ 8.0, inclus dans XAMPP)
 
-## Features
+---
 
-*   [List key features of the website, e.g., Responsive design, Contact form, Blog section, etc.]
-*   [Another feature]
-*   [And another one]
-*   [New Feature 1: Dark mode support]
-*   [New Feature 2: Interactive animations]
-*   [New Feature 3: Live chat support]
+##  Étapes pour lancer le projet
 
-## Getting Started
+### 1. Cloner le dépôt Git
+```bash
+git clone https://github.com/walidhmri/test.git
+cd test
+```
 
-To run this website locally, follow these steps:
+### 2. Installer les dépendances PHP
+```bash
+composer install
+```
 
-1.  Clone the repository: `git clone [repository URL]`
-2.  Navigate to the project directory: `cd [project directory]`
-3.  [Add any other necessary steps, e.g., Install dependencies: `npm install`, Run the development server: `npm start`, etc.]
+### 3. Copier le fichier d’environnement
+```bash
+cp .env.example .env
+```
 
-## Contributing
+### 4. Générer la clé de l'application
+```bash
+php artisan key:generate
+```
 
-Contributions are welcome! If you'd like to contribute to this project, please follow these steps:
+### 5. Créer la base de données
 
-1.  Fork the repository.
-2.  Create a new branch for your feature or bug fix.
-3.  Make your changes and commit them.
-4.  Push your changes to your forked repository.
-5.  Submit a pull request.
+- Ouvre [phpMyAdmin](http://localhost/phpmyadmin)
+- Crée une base de données nommée par exemple : `test`
 
-## Contact
+### 6. Configurer les variables d’environnement
 
-If you have any questions or suggestions, feel free to reach out to me:
+Ouvre le fichier `.env` et modifie la section base de données :
 
-*   Name: Oualid Hamri
-*   Email: [your email address]
-*   [Link to your portfolio or social media]
+```env
+DB_CONNECTION=mysql
+DB_HOST=127.0.0.1
+DB_PORT=3306
+DB_DATABASE=test
+DB_USERNAME=root
+DB_PASSWORD=
+```
 
-## License
+### 7. Lancer les migrations
+```bash
+php artisan migrate --seed
+```
 
-[Specify the license under which the code is released, e.g., MIT License, GPL, etc.]
+### 8. Démarrer le serveur Laravel
+```bash
+php artisan serve
+```
+
+Accède ensuite à : [http://127.0.0.1:8000](http://127.0.0.1:8000)
+
+---
+
+- Si tu rencontres une erreur liée à `vendor`, relance `composer install`.
+
+---
+
+## 🤝 Auteur
+
+Projet cloné depuis : [https://github.com/walidhmri/test](https://github.com/walidhmri/test)
