@@ -15,3 +15,6 @@ clear:
 
 optimize:
 	powershell -Command "php artisan optimize"
+
+queue:
+	powershell -Command "Start-Process php -ArgumentList 'artisan queue:work --daemon' -NoNewWindow"

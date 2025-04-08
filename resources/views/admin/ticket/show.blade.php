@@ -3,29 +3,50 @@
 @section('title', 'Ticket Details - #' . $ticket->id)
 
 @section('content')
-<div class="container mx-auto px-4 sm:px-6 lg:px-8 py-8">
+<div class="container mx-auto px-4 sm:px-6 lg:px-8 py-6">
     {{-- Session Messages --}}
     @include('admin.partials.session')
 
     {{-- Main Ticket Card --}}
     <div class="bg-white dark:bg-gray-800 shadow-lg rounded-lg overflow-hidden mb-6">
         {{-- Card Header --}}
-        <div class="px-6 py-5 flex flex-col sm:flex-row justify-between sm:items-center border-b border-gray-200 dark:border-gray-700">
+        <div class="px-4 sm:px-6 py-4 sm:py-5 flex flex-col sm:flex-row justify-between sm:items-center border-b border-gray-200 dark:border-gray-700">
             {{-- Left Side: Title & Submitter --}}
             <div>
-                <h2 class="text-2xl font-semibold text-gray-800 dark:text-white mb-1 sm:mb-0">
-                    Ticket #{{ $ticket->id }}
-                </h2>
+                <div class="flex items-center">
+                    <h2 class="text-xl sm:text-2xl font-semibold text-gray-800 dark:text-white mb-1 sm:mb-0">
+                        Ticket #{{ $ticket->id }}
+                    </h2>
+                    <span class="ml-3 px-2.5 py-0.5 rounded-full text-xs font-medium
+                        @switch($ticket->status)
+                            @case('pending') bg-amber-100 text-amber-800 dark:bg-amber-800 dark:text-amber-100 @break
+                            @case('solved') bg-green-100 text-green-800 dark:bg-green-800 dark:text-green-100 @break
+                            @case('closed') bg-blue-100 text-blue-800 dark:bg-blue-800 dark:text-blue-100 @break
+                            @default bg-gray-100 text-gray-800 dark:bg-gray-700 dark:text-gray-100
+                        @endswitch">
+                        {{ ucfirst($ticket->status) }}
+                    </span>
+                    <span class="ml-2 px-2.5 py-0.5 rounded-full text-xs font-medium
+                        @switch($ticket->priority)
+                            @case('low') bg-green-100 text-green-800 dark:bg-green-800 dark:text-green-100 @break
+                            @case('medium') bg-yellow-100 text-yellow-800 dark:bg-yellow-800 dark:text-yellow-100 @break
+                            @case('high') bg-orange-100 text-orange-800 dark:bg-orange-800 dark:text-orange-100 @break
+                            @case('urgent') bg-red-100 text-red-800 dark:bg-red-800 dark:text-red-100 @break
+                            @default bg-gray-100 text-gray-800 dark:bg-gray-700 dark:text-gray-100
+                        @endswitch">
+                        {{ ucfirst($ticket->priority) }}
+                    </span>
+                </div>
                 {{-- Check if $employee is passed and not null --}}
                 @if(isset($employee))
-                    <p class="text-sm text-gray-500 dark:text-gray-400">
+                    <p class="text-sm text-gray-500 dark:text-gray-400 mt-1">
                         Submitted by:
-                        <a href="{{ route('admin.profile.show', ['id' => $employee->id]) }}" class="text-blue-600 dark:text-blue-400 hover:underline font-medium">
+                        <a href="{{ route('admin.profile.show', ['id' => $employee->id]) }}" class="text-indigo-600 dark:text-indigo-400 hover:underline font-medium">
                             {{ $employee->name }}
                         </a>
                     </p>
                 @else
-                    <p class="text-sm text-gray-500 dark:text-gray-400">Submitter information unavailable.</p>
+                    <p class="text-sm text-gray-500 dark:text-gray-400 mt-1">Submitter information unavailable.</p>
                 @endif
             </div>
 
@@ -43,16 +64,14 @@
 
                 {{-- Add Solution Button --}}
                 <a href="{{ route('admin.tickets.solve', ['id' => $ticket->id, 'user_id' => $ticket->user_id]) }}" 
-                    class="inline-flex items-center px-4 py-2 border border-indigo-500 dark:border-indigo-700 rounded-md shadow-sm text-sm font-medium 
-                           text-black dark:text-white bg-indigo-500 hover:bg-indigo-600 dark:bg-indigo-700 dark:hover:bg-indigo-800 
-                           focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 dark:focus:ring-offset-gray-900">
+                    class="inline-flex items-center px-4 py-2 border border-transparent rounded-md shadow-sm text-sm font-medium 
+                           text-white bg-indigo-600 hover:bg-indigo-700 dark:bg-indigo-600 dark:hover:bg-indigo-700 
+                           focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 dark:focus:ring-offset-gray-900 transition-colors duration-200">
                      <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 mr-2" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6v6m0 0v6m0-6h6m-6 0H6" />
                      </svg>
                      Add Solution
                  </a>
-                 
-                 
             </div>
         </div>
 
@@ -64,7 +83,7 @@
             {{-- Ticket Details List --}}
             <div class="divide-y divide-gray-200 dark:divide-gray-700">
                 {{-- Title Row --}}
-                <div class="px-6 py-4 grid grid-cols-1 md:grid-cols-3 gap-x-4 gap-y-2">
+                <div class="px-4 sm:px-6 py-4 grid grid-cols-1 md:grid-cols-3 gap-x-4 gap-y-2">
                     <dt class="text-sm font-medium text-gray-500 dark:text-gray-400">Title</dt>
                     <dd class="text-sm text-gray-900 dark:text-white md:col-span-2">
                         {{ $ticket->title ?? 'N/A' }}
@@ -72,15 +91,17 @@
                 </div>
 
                 {{-- Description Row --}}
-                <div class="px-6 py-4 grid grid-cols-1 md:grid-cols-3 gap-x-4 gap-y-2">
+                <div class="px-4 sm:px-6 py-4 grid grid-cols-1 md:grid-cols-3 gap-x-4 gap-y-2">
                     <dt class="text-sm font-medium text-gray-500 dark:text-gray-400">Description</dt>
                     <dd class="text-sm text-gray-900 dark:text-white md:col-span-2 whitespace-pre-wrap">
                         {{ $ticket->description ?? 'No description provided.' }}
                     </dd>
                 </div>
-                <div class="px-6 py-4 grid grid-cols-1 md:grid-cols-3 gap-x-4 gap-y-2 items-center">
+                
+                {{-- Department Row --}}
+                <div class="px-4 sm:px-6 py-4 grid grid-cols-1 md:grid-cols-3 gap-x-4 gap-y-2 items-center">
                     <dt class="text-sm font-medium text-gray-500 dark:text-gray-400">
-                        <label for="status">@lang('messages.Department')</label>
+                        <label for="department">@lang('messages.Department')</label>
                     </dt>
                     <dd class="md:col-span-2">
                         <select id="department" name="department_id"
@@ -99,12 +120,14 @@
                         </select>
                     </dd>
                 </div>
-                <div class="px-6 py-4 grid grid-cols-1 md:grid-cols-3 gap-x-4 gap-y-2 items-center">
+                
+                {{-- Assignment Row --}}
+                <div class="px-4 sm:px-6 py-4 grid grid-cols-1 md:grid-cols-3 gap-x-4 gap-y-2 items-center">
                     <dt class="text-sm font-medium text-gray-500 dark:text-gray-400">
-                        <label for="status">@lang('messages.Assign')</label>
+                        <label for="assign">@lang('messages.Assign')</label>
                     </dt>
                     <dd class="md:col-span-2">
-                        <select id="status" name="assign" 
+                        <select id="assign" name="assign" 
                         class="block w-full max-w-xs rounded-md border-gray-300 dark:border-gray-600 py-2 px-3 shadow-sm focus:border-indigo-500 focus:ring focus:ring-indigo-200 focus:ring-opacity-50 dark:bg-gray-700 dark:text-gray-200 sm:text-sm">
                     
                         <option value="" @if(old('assign', $ingenieur->assign ?? '') == '') selected @endif>Unassigned</option>
@@ -117,9 +140,8 @@
                     </dd>
                 </div>
 
-
                 {{-- Status Row (Editable) --}}
-                <div class="px-6 py-4 grid grid-cols-1 md:grid-cols-3 gap-x-4 gap-y-2 items-center">
+                <div class="px-4 sm:px-6 py-4 grid grid-cols-1 md:grid-cols-3 gap-x-4 gap-y-2 items-center">
                     <dt class="text-sm font-medium text-gray-500 dark:text-gray-400">
                         <label for="status">@lang('messages.status')</label>
                     </dt>
@@ -134,7 +156,7 @@
                 </div>
 
                 {{-- Priority Row (Editable) --}}
-                <div class="px-6 py-4 grid grid-cols-1 md:grid-cols-3 gap-x-4 gap-y-2 items-center">
+                <div class="px-4 sm:px-6 py-4 grid grid-cols-1 md:grid-cols-3 gap-x-4 gap-y-2 items-center">
                     <dt class="text-sm font-medium text-gray-500 dark:text-gray-400">
                         <label for="priority">Priority</label>
                     </dt>
@@ -152,7 +174,7 @@
                 </div>
 
                 {{-- Created At Row --}}
-                <div class="px-6 py-4 grid grid-cols-1 md:grid-cols-3 gap-x-4 gap-y-2">
+                <div class="px-4 sm:px-6 py-4 grid grid-cols-1 md:grid-cols-3 gap-x-4 gap-y-2">
                     <dt class="text-sm font-medium text-gray-500 dark:text-gray-400">Created At</dt>
                     <dd class="text-sm text-gray-900 dark:text-white md:col-span-2">
                         @if($ticket->created_at)
@@ -165,7 +187,7 @@
                 </div>
 
                 {{-- Attachment Row --}}
-                <div class="px-6 py-4 grid grid-cols-1 md:grid-cols-3 gap-x-4 gap-y-2">
+                <div class="px-4 sm:px-6 py-4 grid grid-cols-1 md:grid-cols-3 gap-x-4 gap-y-2">
                     <dt class="text-sm font-medium text-gray-500 dark:text-gray-400">Attachment</dt>
                     <dd class="text-sm text-gray-900 dark:text-white md:col-span-2">
                         @if (!empty($ticket->file))
@@ -183,10 +205,10 @@
                                         {{ basename($ticket->file) }}
                                     </p>
                                 
-                                    <div class="flex mt-1 space-x-3">
+                                    <div class="flex flex-wrap mt-1 gap-3">
                                         {{-- Download Button --}}
                                         <a href="{{ asset('storage/' . $ticket->file) }}" download="{{ basename($ticket->file) }}"
-                                           class="inline-flex items-center text-sm text-blue-600 dark:text-blue-400 hover:underline">
+                                           class="inline-flex items-center text-sm text-indigo-600 dark:text-indigo-400 hover:underline">
                                             <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 mr-1" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
                                                 <path stroke-linecap="round" stroke-linejoin="round" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4" />
                                             </svg>
@@ -213,10 +235,10 @@
             </div> {{-- End Details List --}}
 
             {{-- Form Actions / Footer --}}
-            <div class=" text-gray-300 px-6 py-4 bg-gray-50 dark:bg-gray-800 border-t border-gray-300 dark:border-gray-700 flex justify-end">
+            <div class="px-4 sm:px-6 py-4 bg-gray-50 dark:bg-gray-800 border-t border-gray-200 dark:border-gray-700 flex justify-end">
                 <button type="submit"
-                    class="inline-flex items-center text-gray-300 gap-2 justify-center py-2 px-4 border shadow-sm text-sm font-medium rounded-lg  dark:text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 transition ease-in-out duration-150">
-                    <svg class="w-5 h-5 text-white dark:text-white" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    class="inline-flex items-center gap-2 justify-center py-2 px-4 border border-transparent shadow-sm text-sm font-medium rounded-lg text-white bg-indigo-600 hover:bg-indigo-700 dark:bg-indigo-600 dark:hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 dark:focus:ring-offset-gray-800 transition ease-in-out duration-150">
+                    <svg class="w-5 h-5" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/>
                     </svg>
                     Update Ticket Details
@@ -225,12 +247,9 @@
         </form> {{-- End Form --}}
     </div> {{-- End Card --}}
 
-    {{-- Solutions Section (Reddit-style) --}}
-
+    {{-- Solutions Section --}}
     @include('admin.partials.display_solutions',['solutions'=>$solutions])
-
-    {{-- Delete Confirmation Modal --}}
-
+</div>
 
 <script>
 document.addEventListener('DOMContentLoaded', function() {

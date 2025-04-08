@@ -24,6 +24,7 @@
             font-style: normal;
         }
     </style>
+    
     <!-- Bootstrap Icons -->
     <link rel="stylesheet" href="{{ asset('assets/css/bootstrapicons.css') }}">
 
@@ -589,6 +590,7 @@
 </head>
 
 <body>
+    
     <!-- wagi d Header -->
     <header class="header fixed-top">
         <nav class="navbar navbar-expand-lg">

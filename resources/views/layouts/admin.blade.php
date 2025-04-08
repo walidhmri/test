@@ -22,12 +22,51 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.3/Chart.min.css" />
     <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.3/Chart.min.js" defer></script>
     <link rel="icon" type="image/svg+xml" href="{{ asset('favicon.svg') }}">
+    <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
 
     <!-- Custom Scripts -->
     <script src="{{ asset('assets/js/charts-lines.js') }}" defer></script>
     <script src="{{ asset('assets/js/charts-pie.js') }}" defer></script>
     @stack('styles')
     @stack('head')
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            var deskbar = document.getElementById('deskbar');
+            var toggleBtn = document.getElementById('toggleDeskbar');
+
+            // Check screen size and adjust sidebar visibility
+            function checkScreenSize() {
+                if (window.innerWidth < 768) {
+                    deskbar.classList.add('md:hidden');
+                } else {
+                    var deskbarState = localStorage.getItem('deskbarState');
+                    if (deskbarState === 'visible' || deskbarState === null) {
+                        deskbar.classList.remove('md:hidden');
+                    } else {
+                        deskbar.classList.add('md:hidden');
+                    }
+                }
+            }
+
+            // Toggle sidebar visibility
+            toggleBtn.addEventListener('click', function() {
+                var isHidden = deskbar.classList.contains('md:hidden');
+                if (isHidden) {
+                    deskbar.classList.remove('md:hidden');
+                    localStorage.setItem('deskbarState', 'visible');
+                } else {
+                    deskbar.classList.add('md:hidden');
+                    localStorage.setItem('deskbarState', 'hidden');
+                }
+            });
+
+            // Watch for screen size changes
+            window.addEventListener('resize', checkScreenSize);
+
+            // Initialize on page load
+            checkScreenSize();
+        });
+    </script>
 </head>
 
 <body>
@@ -47,7 +86,7 @@
         @endphp
 
 
-        <aside id="deskbar" class="z-20 hidden w-64 overflow-y-auto bg-white dark:bg-gray-800 md:block md:hidden">
+        <aside id="deskbar" class="z-20 hidden w-64 overflow-y-auto bg-white dark:bg-gray-800 md:block flex-shrink-0 shadow-md">
             <div class="py-4 text-gray-500 dark:text-gray-400">
                 <a class="ml-6 text-lg font-bold text-gray-800 dark:text-gray-200"
                     href="{{ route('admin.dashboard') }}">
@@ -160,13 +199,12 @@
                         <a class="inline-flex items-center w-full text-sm font-semibold transition-colors duration-150 hover:text-gray-800 dark:hover:text-gray-200 {{ $isDepartmentsActive ? 'text-gray-800 dark:text-gray-100' : '' }}"
                             href="{{ route('admin.department.list') }}">
 
-                            <!-- New SVG Icon for Employees -->
+                            <!-- New SVG Icon for Departments -->
                             <svg class="w-5 h-5" aria-hidden="true" fill="none" stroke-linecap="round"
                                 stroke-linejoin="round" stroke-width="2" viewBox="0 0 24 24" stroke="currentColor">
                                 <path
-                                    d="M5.5 21a1.5 1.5 0 01-1.5-1.5V17a4 4 0 014-4h8a4 4 0 014 4v2.5a1.5 1.5 0 01-1.5 1.5H5.5z">
+                                    d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m4-4h1m-1 4h1m-5 10v-5a1 1 0 011-1h2a1 1 0 011 1v5m-4 0h4">
                                 </path>
-                                <path d="M12 11a4 4 0 100-8 4 4 0 000 8z"></path>
                             </svg>
 
                             <span class="ml-4"> @lang('messages.departments')</span>
@@ -174,36 +212,26 @@
                     </li>
 
                     <li class="relative px-6 py-3">
-                        @if ($isEmployeesActive)
-                            <span class="absolute inset-y-0 left-0 w-1 bg-purple-600 rounded-tr-lg rounded-br-lg"
-                                aria-hidden="true"></span>
-                        @endif
-                        <a class="inline-flex items-center w-full text-sm font-semibold transition-colors duration-150 hover:text-gray-800 dark:hover:text-gray-200 {{ $isEmployeesActive ? 'text-gray-800 dark:text-gray-100' : '' }}"
-                            href="{{ route('admin.employee.list') }}">
+                        <a class="inline-flex items-center w-full text-sm font-semibold transition-colors duration-150 hover:text-gray-800 dark:hover:text-gray-200"
+                            href="#">
                             <svg class="w-5 h-5" aria-hidden="true" fill="none" stroke-linecap="round"
                                 stroke-linejoin="round" stroke-width="2" viewBox="0 0 24 24" stroke="currentColor">
                                 <path
-                                    d="M5.5 21a1.5 1.5 0 01-1.5-1.5V17a4 4 0 014-4h8a4 4 0 014 4v2.5a1.5 1.5 0 01-1.5 1.5H5.5z">
+                                    d="M11.049 2.927c.3-.921 1.603-.921 1.902 0l1.519 4.674a1 1 0 00.95.69h4.915c.969 0 1.371 1.24.588 1.81l-3.976 2.888a1 1 0 00-.363 1.118l1.518 4.674c.3.922-.755 1.688-1.538 1.118l-3.976-2.888a1 1 0 00-1.176 0l-3.976 2.888c-.783.57-1.838-.197-1.538-1.118l1.518-4.674a1 1 0 00-.363-1.118l-3.976-2.888c-.784-.57-.38-1.81.588-1.81h4.914a1 1 0 00.951-.69l1.519-4.674z">
                                 </path>
-                                <path d="M12 11a4 4 0 100-8 4 4 0 000 8z"></path>
                             </svg>
 
                             <span class="ml-4"> @lang('messages.reviews')</span>
                         </a>
                     </li>
                     <li class="relative px-6 py-3">
-                        @if ($isEmployeesActive)
-                            <span class="absolute inset-y-0 left-0 w-1 bg-purple-600 rounded-tr-lg rounded-br-lg"
-                                aria-hidden="true"></span>
-                        @endif
-                        <a class="inline-flex items-center w-full text-sm font-semibold transition-colors duration-150 hover:text-gray-800 dark:hover:text-gray-200 {{ $isEmployeesActive ? 'text-gray-800 dark:text-gray-100' : '' }}"
-                            href="{{ route('admin.employee.list') }}">
+                        <a class="inline-flex items-center w-full text-sm font-semibold transition-colors duration-150 hover:text-gray-800 dark:hover:text-gray-200"
+                            href="#">
                             <svg class="w-5 h-5" aria-hidden="true" fill="none" stroke-linecap="round"
                                 stroke-linejoin="round" stroke-width="2" viewBox="0 0 24 24" stroke="currentColor">
                                 <path
-                                    d="M5.5 21a1.5 1.5 0 01-1.5-1.5V17a4 4 0 014-4h8a4 4 0 014 4v2.5a1.5 1.5 0 01-1.5 1.5H5.5z">
+                                    d="M19 20H5a2 2 0 01-2-2V6a2 2 0 012-2h10a2 2 0 012 2v1m2 13a2 2 0 01-2-2V7m2 13a2 2 0 002-2V9a2 2 0 00-2-2h-2m-4-3H9M7 16h6M7 8h6v4H7V8z">
                                 </path>
-                                <path d="M12 11a4 4 0 100-8 4 4 0 000 8z"></path>
                             </svg>
 
                             <span class="ml-4"> @lang('messages.posts')</span>
@@ -211,18 +239,14 @@
                     </li>
 
                     <li class="relative px-6 py-3">
-                        @if ($isEmployeesActive)
-                            <span class="absolute inset-y-0 left-0 w-1 bg-purple-600 rounded-tr-lg rounded-br-lg"
-                                aria-hidden="true"></span>
-                        @endif
-                        <a class="inline-flex items-center w-full text-sm font-semibold transition-colors duration-150 hover:text-gray-800 dark:hover:text-gray-200 {{ $isEmployeesActive ? 'text-gray-800 dark:text-gray-100' : '' }}"
-                            href="{{ route('admin.employee.list') }}">
+                        <a class="inline-flex items-center w-full text-sm font-semibold transition-colors duration-150 hover:text-gray-800 dark:hover:text-gray-200"
+                            href="#">
                             <svg class="w-5 h-5" aria-hidden="true" fill="none" stroke-linecap="round"
                                 stroke-linejoin="round" stroke-width="2" viewBox="0 0 24 24" stroke="currentColor">
                                 <path
-                                    d="M5.5 21a1.5 1.5 0 01-1.5-1.5V17a4 4 0 014-4h8a4 4 0 014 4v2.5a1.5 1.5 0 01-1.5 1.5H5.5z">
+                                    d="M10.325 4.317c.426-1.756 2.924-1.756 3.35 0a1.724 1.724 0 002.573 1.066c1.543-.94 3.31.826 2.37 2.37a1.724 1.724 0 001.065 2.572c1.756.426 1.756 2.924 0 3.35a1.724 1.724 0 00-1.066 2.573c.94 1.543-.826 3.31-2.37 2.37a1.724 1.724 0 00-2.572 1.065c-.426 1.756-2.924 1.756-3.35 0a1.724 1.724 0 00-2.573-1.066c-1.543.94-3.31-.826-2.37-2.37a1.724 1.724 0 00-1.065-2.572c-1.756-.426-1.756-2.924 0-3.35a1.724 1.724 0 001.066-2.573c-.94-1.543.826-3.31 2.37-2.37.996.608 2.296.07 2.572-1.065z">
                                 </path>
-                                <path d="M12 11a4 4 0 100-8 4 4 0 000 8z"></path>
+                                <path d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"></path>
                             </svg>
 
                             <span class="ml-4"> @lang('messages.settings')</span>
@@ -234,10 +258,10 @@
                 </ul>
 
                 <div class="px-6 my-6">
-                    <a
-                        class="flex items-center justify-between w-full px-4 py-2 text-sm font-medium leading-5 text-dark transition-colors duration-150 border border-transparent rounded-lg">
+                    <div
+                        class="flex items-center justify-between w-full px-4 py-2 text-sm font-medium leading-5 text-dark transition-colors duration-150 border border-transparent rounded-lg bg-gray-100 dark:bg-gray-700 dark:text-gray-200">
                         @lang('messages.looged_in_as') {{ Auth::user()->name }}
-                    </a>
+                    </div>
                 </div>
             </div>
         </aside>
@@ -258,75 +282,167 @@
             x-transition:leave-end="opacity-0 transform -translate-x-20" @click.away="closeSideMenu"
             @keydown.escape="closeSideMenu">
             <div class="py-4 text-gray-500 dark:text-gray-400">
-                <a class="ml-6 text-lg font-bold text-gray-800 dark:text-gray-200" href="#">
-                    @lang('messages.platform_title')
+                <a class="ml-6 text-lg font-bold text-gray-800 dark:text-gray-200" href="{{ route('admin.dashboard') }}">
+                    @lang('messages.title')
                 </a>
                 <ul class="mt-6">
                     <li class="relative px-6 py-3">
-                        <span class="absolute inset-y-0 left-0 w-1 bg-purple-600 rounded-tr-lg rounded-br-lg"
-                            aria-hidden="true"></span>
-                        <a class="inline-flex items-center w-full text-sm font-semibold text-gray-800 transition-colors duration-150 hover:text-gray-800 dark:hover:text-gray-200 dark:text-gray-100"
-                            href="{{ route('dashboard') }}">
+                        @if ($isDashboardActive)
+                            <span class="absolute inset-y-0 left-0 w-1 bg-purple-600 rounded-tr-lg rounded-br-lg"
+                                aria-hidden="true"></span>
+                        @endif
+                        <a class="inline-flex items-center w-full text-sm font-semibold transition-colors duration-150 hover:text-gray-800 dark:hover:text-gray-200 {{ $isDashboardActive ? 'text-gray-800 dark:text-gray-100' : '' }}"
+                            href="{{ route('admin.dashboard') }}">
                             <svg class="w-5 h-5" aria-hidden="true" fill="none" stroke-linecap="round"
                                 stroke-linejoin="round" stroke-width="2" viewBox="0 0 24 24" stroke="currentColor">
                                 <path
                                     d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6">
                                 </path>
                             </svg>
-                            <span class="ml-4">Dashboard</span>
+                            <span class="ml-4">@lang('messages.dashboard')</span>
                         </a>
                     </li>
                 </ul>
                 <ul>
+                    <!-- Tickets Section -->
                     <li class="relative px-6 py-3">
-                        <button
-                            class="inline-flex items-center justify-between w-full text-sm font-semibold transition-colors duration-150 hover:text-gray-800 dark:hover:text-gray-200"
-                            @click="togglePagesMenu" aria-haspopup="true">
-                            <span class="inline-flex items-center">
-                                <svg class="w-5 h-5" aria-hidden="true" fill="none" stroke-linecap="round"
-                                    stroke-linejoin="round" stroke-width="2" viewBox="0 0 24 24"
-                                    stroke="currentColor">
-                                    <path
-                                        d="M4 5a1 1 0 011-1h14a1 1 0 011 1v2a1 1 0 01-1 1H5a1 1 0 01-1-1V5zM4 13a1 1 0 011-1h6a1 1 0 011 1v6a1 1 0 01-1 1H5a1 1 0 01-1-1v-6zM16 13a1 1 0 011-1h2a1 1 0 011 1v6a1 1 0 01-1 1h-2a1 1 0 01-1-1v-6z">
-                                    </path>
-                                </svg>
-                                <span class="ml-4">Tickets</span>
-                            </span>
-                            <svg class="w-4 h-4" aria-hidden="true" fill="currentColor" viewBox="0 0 20 20">
-                                <path fill-rule="evenodd"
-                                    d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z"
-                                    clip-rule="evenodd"></path>
+                        @if ($isTicketsActive)
+                            <span class="absolute inset-y-0 left-0 w-1 bg-purple-600 rounded-tr-lg rounded-br-lg"
+                                aria-hidden="true"></span>
+                        @endif
+                        <a class="inline-flex items-center w-full text-sm font-semibold transition-colors duration-150 hover:text-gray-800 dark:hover:text-gray-200 {{ $isTicketsActive ? 'text-gray-800 dark:text-gray-100' : '' }}"
+                            href="{{ route('admin.tickets.list') }}">
+                            <svg class="w-5 h-5" aria-hidden="true" fill="none" stroke-linecap="round"
+                                stroke-linejoin="round" stroke-width="2" viewBox="0 0 24 24" stroke="currentColor">
+                                <path
+                                    d="M3 9V7a2 2 0 012-2h14a2 2 0 012 2v2a3 3 0 000 6v2a2 2 0 01-2 2H5a2 2 0 01-2-2v-2a3 3 0 000-6z">
+                                </path>
                             </svg>
-                        </button>
+                            <span class="ml-4">@lang('messages.tickets')</span>
+                        </a>
+                    </li>
+
+                    <!-- Employees Section -->
                     <li class="relative px-6 py-3">
-                        <a class="inline-flex items-center w-full text-sm font-semibold transition-colors duration-150 hover:text-gray-800 dark:hover:text-gray-200"
+                        @if ($isEmployeesActive)
+                            <span class="absolute inset-y-0 left-0 w-1 bg-purple-600 rounded-tr-lg rounded-br-lg"
+                                aria-hidden="true"></span>
+                        @endif
+                        <a class="inline-flex items-center w-full text-sm font-semibold transition-colors duration-150 hover:text-gray-800 dark:hover:text-gray-200 {{ $isEmployeesActive ? 'text-gray-800 dark:text-gray-100' : '' }}"
                             href="{{ route('admin.employee.list') }}">
                             <svg class="w-5 h-5" aria-hidden="true" fill="none" stroke-linecap="round"
                                 stroke-linejoin="round" stroke-width="2" viewBox="0 0 24 24" stroke="currentColor">
                                 <path
-                                    d="M19 11H5m14 0a2 2 0 012 2v6a2 2 0 01-2 2H5a2 2 0 01-2-2v-6a2 2 0 012-2m14 0V9a2 2 0 00-2-2M5 11V9a2 2 0 012-2m0 0V5a2 2 0 012-2h6a2 2 0 012 2v2M7 7h10">
+                                    d="M5.5 21a1.5 1.5 0 01-1.5-1.5V17a4 4 0 014-4h8a4 4 0 014 4v2.5a1.5 1.5 0 01-1.5 1.5H5.5z">
                                 </path>
+                                <path d="M12 11a4 4 0 100-8 4 4 0 000 8z"></path>
                             </svg>
-                            <span class="ml-4">Employees</span>
+                            <span class="ml-4">@lang('messages.employees')</span>
                         </a>
                     </li>
-                    </li>
+
+                    <!-- Ingenieurs Section -->
                     <li class="relative px-6 py-3">
-                        <a class="inline-flex items-center w-full text-sm font-semibold transition-colors duration-150 hover:text-gray-800 dark:hover:text-gray-200"
-                            href="{{ route('admin.employee.list') }}">
+                        @if ($isIngenActive)
+                            <span class="absolute inset-y-0 left-0 w-1 bg-purple-600 rounded-tr-lg rounded-br-lg"
+                                aria-hidden="true"></span>
+                        @endif
+                        <a class="inline-flex items-center w-full text-sm font-semibold transition-colors duration-150 hover:text-gray-800 dark:hover:text-gray-200 {{ $isIngenActive ? 'text-gray-800 dark:text-gray-100' : '' }}"
+                            href="{{ route('admin.ingenieurs.list') }}">
+                            <svg class="w-5 h-5" aria-hidden="true" fill="none" stroke-linecap="round"
+                                stroke-linejoin="round" stroke-width="2" viewBox="0 0 24 24" stroke="currentColor">
+                                <path d="M12 6v6m0 0v6m0-6h6m-6 0H6"></path>
+                            </svg>
+                            <span class="ml-4">@lang('messages.ingenieurs')</span>
+                        </a>
+                    </li>
+
+                    <!-- FAQs Section -->
+                    <li class="relative px-6 py-3">
+                        @if ($isFaqsActive)
+                            <span class="absolute inset-y-0 left-0 w-1 bg-purple-600 rounded-tr-lg rounded-br-lg"
+                                aria-hidden="true"></span>
+                        @endif
+                        <a class="inline-flex items-center w-full text-sm font-semibold transition-colors duration-150 hover:text-gray-800 dark:hover:text-gray-200 {{ $isFaqsActive ? 'text-gray-800 dark:text-gray-100' : '' }}"
+                            href="{{ route('admin.faqs.list') }}">
                             <svg class="w-5 h-5" aria-hidden="true" fill="none" stroke-linecap="round"
                                 stroke-linejoin="round" stroke-width="2" viewBox="0 0 24 24" stroke="currentColor">
                                 <path
-                                    d="M19 11H5m14 0a2 2 0 012 2v6a2 2 0 01-2 2H5a2 2 0 01-2-2v-6a2 2 0 012-2m14 0V9a2 2 0 00-2-2M5 11V9a2 2 0 012-2m0 0V5a2 2 0 012-2h6a2 2 0 012 2v2M7 7h10">
+                                    d="M9 18a2 2 0 01-2-2V8a2 2 0 012-2h6a2 2 0 012 2v8a2 2 0 01-2 2h-6zm0 0V8h6v8h-6z">
                                 </path>
                             </svg>
-                            <span class="ml-4">Employees</span>
+                            <span class="ml-4">@lang('messages.faqs')</span>
                         </a>
                     </li>
 
+                    <!-- Departments Section -->
+                    <li class="relative px-6 py-3">
+                        @if ($isDepartmentsActive)
+                            <span class="absolute inset-y-0 left-0 w-1 bg-purple-600 rounded-tr-lg rounded-br-lg"
+                                aria-hidden="true"></span>
+                        @endif
+                        <a class="inline-flex items-center w-full text-sm font-semibold transition-colors duration-150 hover:text-gray-800 dark:hover:text-gray-200 {{ $isDepartmentsActive ? 'text-gray-800 dark:text-gray-100' : '' }}"
+                            href="{{ route('admin.department.list') }}">
+                            <svg class="w-5 h-5" aria-hidden="true" fill="none" stroke-linecap="round"
+                                stroke-linejoin="round" stroke-width="2" viewBox="0 0 24 24" stroke="currentColor">
+                                <path
+                                    d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m4-4h1m-1 4h1m-5 10v-5a1 1 0 011-1h2a1 1 0 011 1v5m-4 0h4">
+                                </path>
+                            </svg>
+                            <span class="ml-4">@lang('messages.departments')</span>
+                        </a>
+                    </li>
 
+                    <!-- Reviews Section -->
+                    <li class="relative px-6 py-3">
+                        <a class="inline-flex items-center w-full text-sm font-semibold transition-colors duration-150 hover:text-gray-800 dark:hover:text-gray-200"
+                            href="#">
+                            <svg class="w-5 h-5" aria-hidden="true" fill="none" stroke-linecap="round"
+                                stroke-linejoin="round" stroke-width="2" viewBox="0 0 24 24" stroke="currentColor">
+                                <path
+                                    d="M11.049 2.927c.3-.921 1.603-.921 1.902 0l1.519 4.674a1 1 0 00.95.69h4.915c.969 0 1.371 1.24.588 1.81l-3.976 2.888a1 1 0 00-.363 1.118l1.518 4.674c.3.922-.755 1.688-1.538 1.118l-3.976-2.888a1 1 0 00-1.176 0l-3.976 2.888c-.783.57-1.838-.197-1.538-1.118l1.518-4.674a1 1 0 00-.363-1.118l-3.976-2.888c-.784-.57-.38-1.81.588-1.81h4.914a1 1 0 00.951-.69l1.519-4.674z">
+                                </path>
+                            </svg>
+                            <span class="ml-4">@lang('messages.reviews')</span>
+                        </a>
+                    </li>
+
+                    <!-- Posts Section -->
+                    <li class="relative px-6 py-3">
+                        <a class="inline-flex items-center w-full text-sm font-semibold transition-colors duration-150 hover:text-gray-800 dark:hover:text-gray-200"
+                            href="#">
+                            <svg class="w-5 h-5" aria-hidden="true" fill="none" stroke-linecap="round"
+                                stroke-linejoin="round" stroke-width="2" viewBox="0 0 24 24" stroke="currentColor">
+                                <path
+                                    d="M19 20H5a2 2 0 01-2-2V6a2 2 0 012-2h10a2 2 0 012 2v1m2 13a2 2 0 01-2-2V7m2 13a2 2 0 002-2V9a2 2 0 00-2-2h-2m-4-3H9M7 16h6M7 8h6v4H7V8z">
+                                </path>
+                            </svg>
+                            <span class="ml-4">@lang('messages.posts')</span>
+                        </a>
+                    </li>
+
+                    <!-- Settings Section -->
+                    <li class="relative px-6 py-3">
+                        <a class="inline-flex items-center w-full text-sm font-semibold transition-colors duration-150 hover:text-gray-800 dark:hover:text-gray-200"
+                            href="#">
+                            <svg class="w-5 h-5" aria-hidden="true" fill="none" stroke-linecap="round"
+                                stroke-linejoin="round" stroke-width="2" viewBox="0 0 24 24" stroke="currentColor">
+                                <path
+                                    d="M10.325 4.317c.426-1.756 2.924-1.756 3.35 0a1.724 1.724 0 002.573 1.066c1.543-.94 3.31.826 2.37 2.37a1.724 1.724 0 001.065 2.572c1.756.426 1.756 2.924 0 3.35a1.724 1.724 0 00-1.066 2.573c.94 1.543-.826 3.31-2.37 2.37a1.724 1.724 0 00-2.572 1.065c-.426 1.756-2.924 1.756-3.35 0a1.724 1.724 0 00-2.573-1.066c-1.543.94-3.31-.826-2.37-2.37a1.724 1.724 0 00-1.065-2.572c-1.756-.426-1.756-2.924 0-3.35a1.724 1.724 0 001.066-2.573c-.94-1.543.826-3.31 2.37-2.37.996.608 2.296.07 2.572-1.065z">
+                                </path>
+                                <path d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"></path>
+                            </svg>
+                            <span class="ml-4">@lang('messages.settings')</span>
+                        </a>
+                    </li>
                 </ul>
 
+                <div class="px-6 my-6">
+                    <div
+                        class="flex items-center justify-between w-full px-4 py-2 text-sm font-medium leading-5 text-dark transition-colors duration-150 border border-transparent rounded-lg bg-gray-100 dark:bg-gray-700 dark:text-gray-200">
+                        @lang('messages.looged_in_as') {{ Auth::user()->name }}
+                    </div>
+                </div>
             </div>
         </aside>
         <div class="flex flex-col flex-1 w-full">
@@ -344,7 +460,7 @@
                     </button>
                     <!-- Search input -->
                     <div class="flex flex-1 lg:mr-32 items-center space-x-4">
-                        <!-- زر إظهار الشريط الجانبي -->
+                        <!-- Toggle sidebar button -->
                         <button id="toggleDeskbar"
                             class="p-2 rounded-md focus:outline-none focus:shadow-outline-purple hidden md:block"
                             @click="toggleDeskbar" aria-label="Toggle Deskbar">
@@ -356,7 +472,7 @@
                             </svg>
                         </button>
 
-                        <!-- زر الدردشة يفتح في نافذة جديدة -->
+                        <!-- Chat button -->
                         <a href="https://dashboard.tawk.to/#/chat" target="_blank" rel="noopener noreferrer"
                             class="p-2 rounded-md focus:outline-none focus:shadow-outline-purple hidden md:block">
                             <svg class="w-6 h-6 text-gray-700 dark:text-gray-200" aria-hidden="true"
@@ -497,7 +613,6 @@
                                                 <span>@lang('messages.logout')</span>
                                             </button>
                                         </form>
-
                                     </li>
                                 </ul>
                             </template>
@@ -507,10 +622,10 @@
             </header>
 
             <main class="h-full overflow-y-auto">
-                <div class="container px-6 mx-auto grid">
+                <div class="container px-4 sm:px-6 mx-auto grid">
                     <nav
-                        class="text-sm text-gray-500 dark:text-gray-400 py-3 px-4 bg-gray-100 dark:bg-gray-800 rounded-lg shadow-sm">
-                        <ol class="list-reset flex items-center space-x-2">
+                        class="text-sm text-gray-500 dark:text-gray-400 py-3 px-4 bg-gray-100 dark:bg-gray-800 rounded-lg shadow-sm my-4">
+                        <ol class="list-reset flex flex-wrap items-center space-x-2">
                             <li class="flex items-center">
                                 <a href="{{ route('admin.dashboard') }}"
                                     class="text-gray-600 hover:text-gray-900 dark:text-gray-300 dark:hover:text-white flex items-center">
@@ -550,55 +665,21 @@
                         </ol>
                     </nav>
 
-
-
                     @yield('content')
-                    <footer class="px-6 py-2 text-gray-700 dark:text-gray-400">
+                    
+                    <footer class="px-6 py-4 mt-8 text-gray-700 dark:text-gray-400 border-t border-gray-200 dark:border-gray-700">
                         <div class="container mx-auto flex justify-end">
                             <p class="text-right text-sm">
                                 @lang('messages.copyrights')
                                 <strong>Béjaia (Akbou)</strong>
                             </p>
-
                         </div>
                     </footer>
-
                 </div>
             </main>
-
         </div>
-
     </div>
 
-    <script>
-        document.addEventListener('DOMContentLoaded', function() {
-            var deskbar = document.getElementById('deskbar');
-            var toggleBtn = document.getElementById('toggleDeskbar');
-
-            // إخفاء الشريط تلقائيًا على الشاشات الصغيرة
-            function checkScreenSize() {
-                if (window.innerWidth < 768) {
-                    deskbar.style.display = 'none';
-                } else {
-                    var deskbarState = localStorage.getItem('deskbarState');
-                    deskbar.style.display = deskbarState === 'visible' ? 'block' : 'none';
-                }
-            }
-
-            // عند الضغط على الزر، يتم إظهار / إخفاء الشريط
-            toggleBtn.addEventListener('click', function() {
-                var isHidden = window.getComputedStyle(deskbar).display === 'none';
-                deskbar.style.display = isHidden ? 'block' : 'none';
-                localStorage.setItem('deskbarState', isHidden ? 'visible' : 'hidden');
-            });
-
-            // مراقبة تغيير حجم الشاشة وإعادة تطبيق القواعد
-            window.addEventListener('resize', checkScreenSize);
-
-            // استعادة الحالة عند تحميل الصفحة
-            checkScreenSize();
-        });
-    </script>
+  
 </body>
-
 </html>
