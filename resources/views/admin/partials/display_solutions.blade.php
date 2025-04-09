@@ -14,7 +14,7 @@
                     <div class="bg-gray-50 dark:bg-gray-700 px-4 py-3 flex items-center justify-between border-b border-gray-200 dark:border-gray-700">
                         <div class="flex items-center space-x-3">
                             <!-- Engineer Avatar -->
-                            <div class="h-10 w-10 rounded-full bg-indigo-100 dark:bg-indigo-900 flex items-center justify-center text-indigo-500 dark:text-indigo-400 overflow-hidden">
+                            <div class="h-10 w-10 rounded-full bg-indigo-100 dark:bg-indigo-900 flex items-center justify-center text-dark-500 dark:text-indigo-400 overflow-hidden">
                                 @if(isset($solution->user) && $solution->user->profile_photo_path)
                                     <img src="{{ asset('storage/'.$solution->user->profile_photo_path) }}" alt="{{ $solution->user->name }}" class="h-full w-full object-cover">
                                 @else
