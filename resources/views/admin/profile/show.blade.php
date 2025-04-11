@@ -44,6 +44,20 @@
                         {{ $employee->role }}
                     </dd>
                 </div>
+                @if ($employee->role == 'ingenieur')
+                
+               
+                <div class="bg-gray-50 dark:bg-gray-700 px-6 py-4 sm:grid sm:grid-cols-3 sm:gap-4">
+                    <dt class="text-sm font-medium text-gray-500 dark:text-gray-300">Department</dt>
+                    <dd class="mt-1 text-sm text-gray-800  dark:text-white sm:mt-0 sm:col-span-2">
+                        @if($employee->department_id)
+                            {{ $employee->department->name }}
+                        @else
+                            <span class="text-gray-500 dark:text-gray-400">No department assigned</span>
+                        @endif
+                    </dd>
+                </div>
+                @endif
                 <div class="bg-white dark:bg-gray-800 px-6 py-4 sm:grid sm:grid-cols-3 sm:gap-4">
                     <dt class="text-sm font-medium text-gray-500 dark:text-gray-300">Created At</dt>
                     <dd class="mt-1 text-sm text-gray-800  dark:text-white sm:mt-0 sm:col-span-2">
@@ -59,7 +73,6 @@
     <div class="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-4 sm:gap-6">
         @foreach ($tickets as $ticket)
             <div class="group bg-white dark:bg-gray-800 rounded-xl shadow-md hover:shadow-xl transition-all duration-300 overflow-hidden flex flex-col">
-                <!-- Ticket Header with Status Background -->
                 <div class="p-4 sm:p-5 relative
                     @switch($ticket->status)
                         @case('pending') bg-amber-50 dark:bg-amber-900/20 @break
@@ -69,7 +82,6 @@
                     @endswitch
                     border-b border-gray-100 dark:border-gray-700">
                     
-                    <!-- Priority and Status Indicators - Fixed spacing and visibility -->
                     <div class="absolute top-0 right-0 mt-4 sm:mt-5 mr-4 sm:mr-5">
                         <div class="flex flex-col space-y-2">
                             <span class="inline-block text-xs font-medium px-2.5 py-1 rounded-full
@@ -104,12 +116,7 @@
                         {{ \Illuminate\Support\Str::words($ticket->title, 5, '...') }}
                     </h3>
                     
-                    <!-- Ticket Role (if available) -->
-                    @if(isset($ticket->role))
-                    <p class="text-sm text-gray-500 dark:text-gray-400">
-                        {{ $ticket->role }}
-                    </p>
-                    @endif
+
                 </div>
                 
                 <!-- Ticket Details -->

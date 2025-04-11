@@ -70,6 +70,23 @@ edit {{$employee->name}}
                 </select>
                 @error('role') <p class="text-red-500 text-xs italic">{{ $message }}</p> @enderror
             </label>
+            <div>
+                <label class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
+                    Department if enginner <span style="color: red">*</span>
+                </label>
+                <select id="department" name="department_id"
+                    class="block w-full rounded-lg border-2 border-gray-300 dark:border-gray-700 bg-white dark:bg-gray-800 text-gray-900 dark:text-white px-4 py-3 text-sm focus:border-purple-500 focus:ring-2 focus:ring-purple-500 appearance-none">
+                    <option value="" disabled {{ old('department_id', '') ? '' : 'selected' }}>
+                        -- Select a department --
+                    </option>
+                    @foreach ($departments as $department)
+                        <option value="{{ $department->id }}">
+                            {{ $department->name }}
+                        </option>
+                    @endforeach
+                </select>
+                @error('department') <p class="text-red-500 dark:text-red-400 text-xs mt-2">{{ $message }}</p> @enderror
+            </div>
         
             <button type="submit"
             class="flex items-center justify-center w-full px-4 py-2 mt-4 text-sm font-medium text-gray-900 dark:text-white border border-blue-600 dark:border-blue-400 rounded-lg hover:bg-blue-100 dark:hover:bg-blue-900 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500 dark:focus:ring-offset-gray-900 transition ease-in-out duration-150">

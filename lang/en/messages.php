@@ -15,7 +15,7 @@ return [
     'copyrights' => '2025 Naftal. All rights reserved.',
     'all_rights_reserved' => 'All rights reserved',
     
-    // Navigation & Layout
+    'engineer_dashboard'=>'Dashboard Ingenieur',
     'home' => 'Home',
     'about' => 'About',
     'services' => 'Services',

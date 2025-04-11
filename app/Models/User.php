@@ -66,6 +66,10 @@ class User extends Authenticatable
     {
         return $this->hasMany(ticket::class);
     }
+    public function department(){
+        return $this->belongsTo(Department::class);
+        
+    }
 
     /**
      * Check if the user is an admin.

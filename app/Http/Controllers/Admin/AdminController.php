@@ -102,8 +102,9 @@ class AdminController extends Controller
     function editEmployee(Request $request)
     {
         $employee = User::find($request->id);
+        $departments= Department::all();
 
-        return view('admin.employee.edit', compact('employee'));
+        return view('admin.employee.edit', compact('employee','departments'));
     }
     function updateEmployee(Request $request)
     {
@@ -115,12 +116,13 @@ class AdminController extends Controller
             'name' => ['required', 'string', 'max:255'],
             'email' => ['required', 'string', 'lowercase', 'max:255'],
             'role' => ['required', 'in:admin,ingenieur,user'], 
+            'department_id' => ['required', 'exists:departments,id'],
         ]);
-
         $employee->update([
             'name' => $request->name,
             'email' => $request->email,
             'role' => $request->role,
+            'department_id'=>$request->department_id,
         ]);
         return redirect()->route('admin.profile.show', ['id' => $employee->id])->with('success', 'Profile modifier avec succées');
 
