@@ -259,11 +259,11 @@
 @endpush
 
 <div class="page-header">
-  <h1 class="page-title">Créer un nouveau ticket</h1>
+  <h1 class="page-title">Créer un nouveau Ticket</h1>
   <div class="page-actions">
-    <a href="{{ route('employee.tickets.list') }}" class="btn btn-secondary">
+    <a href="{{ route('employee.Tickets.list') }}" class="btn btn-secondary">
       <i class="material-symbols-rounded">list</i>
-      Voir tous les tickets
+      Voir tous les Tickets
     </a>
   </div>
 </div>
@@ -275,10 +275,10 @@
         <div class="form-card-icon">
           <i class="material-symbols-rounded">add_circle</i>
         </div>
-        <h2 class="form-card-title">Informations du ticket</h2>
+        <h2 class="form-card-title">Informations du Ticket</h2>
       </div>
       
-      <form action="{{ route('employee.tickets.store') }}" method="POST" enctype="multipart/form-data">
+      <form action="{{ route('employee.Tickets.store') }}" method="POST" enctype="multipart/form-data">
         @csrf
         
         <div class="form-card-body">
@@ -328,7 +328,7 @@
           <button type="reset" class="btn btn-secondary">Réinitialiser</button>
           <button type="submit" class="btn btn-primary">
             <i class="material-symbols-rounded">send</i>
-            Soumettre le ticket
+            Soumettre le Ticket
           </button>
         </div>
       </form>
@@ -339,7 +339,7 @@
     <div class="tips-card">
       <h3 class="tips-title">
         <i class="material-symbols-rounded">lightbulb</i>
-        Conseils pour un bon ticket
+        Conseils pour un bon Ticket
       </h3>
       
       <ul class="tips-list">
@@ -375,7 +375,7 @@
       </div>
       
       <div class="form-card-body">
-        <p>Si vous avez des questions ou besoin d'assistance pour créer votre ticket, n'hésitez pas à contacter notre équipe de support.</p>
+        <p>Si vous avez des questions ou besoin d'assistance pour créer votre Ticket, n'hésitez pas à contacter notre équipe de support.</p>
         
         <div class="d-grid gap-2 mt-3">
           <button class="btn btn-primary" id="chatIcon">

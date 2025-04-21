@@ -115,7 +115,7 @@
                         </div>
                         <div class="text-center text-muted" style="font-size: 0.875rem;">
                             <p class="mb-2">@lang('messages.last_update') <span class="fw-medium">Mars 8, 2025</span></p>
-                            <a href="http://localhost/ticket" class="text-decoration-none" style="color: var(--primary);">@lang('messages.support')</a>
+                            <a href="http://localhost/Ticket" class="text-decoration-none" style="color: var(--primary);">@lang('messages.support')</a>
                         </div>
                     </div>
                 </div>

@@ -62,9 +62,9 @@ class User extends Authenticatable
     /**
      * Get the chat messages for the user.
      */
-    public function tickets()
+    public function Tickets()
     {
-        return $this->hasMany(ticket::class);
+        return $this->hasMany(Ticket::class);
     }
     public function department(){
         return $this->belongsTo(Department::class);

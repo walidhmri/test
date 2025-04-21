@@ -1497,12 +1497,12 @@ url("https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.0/font/fonts/bootstrap-ic
   .bi-terminal-dash::before { content: "\f6c3"; }
   .bi-terminal-plus::before { content: "\f6c4"; }
   .bi-terminal-split::before { content: "\f6c5"; }
-  .bi-ticket-detailed-fill::before { content: "\f6c6"; }
-  .bi-ticket-detailed::before { content: "\f6c7"; }
-  .bi-ticket-fill::before { content: "\f6c8"; }
-  .bi-ticket-perforated-fill::before { content: "\f6c9"; }
-  .bi-ticket-perforated::before { content: "\f6ca"; }
-  .bi-ticket::before { content: "\f6cb"; }
+  .bi-Ticket-detailed-fill::before { content: "\f6c6"; }
+  .bi-Ticket-detailed::before { content: "\f6c7"; }
+  .bi-Ticket-fill::before { content: "\f6c8"; }
+  .bi-Ticket-perforated-fill::before { content: "\f6c9"; }
+  .bi-Ticket-perforated::before { content: "\f6ca"; }
+  .bi-Ticket::before { content: "\f6cb"; }
   .bi-tiktok::before { content: "\f6cc"; }
   .bi-window-dash::before { content: "\f6cd"; }
   .bi-window-desktop::before { content: "\f6ce"; }

@@ -79,10 +79,10 @@ return [
     'total_employees'=>'Umli n Yixeddamen', // Total Employees
     'total_ingenieurs'=>'Umli n Yinejniyuren', // Total Engineers
     'total_faqs'=>'Umli n Yesteqsiyen Ittuɣalen-d', // Total FAQs
-    'total_tickets'=>'Umli n Yitikiyen', // Total Tickets
+    'total_Tickets'=>'Umli n Yitikiyen', // Total Tickets
     'tickets_solved'=>'Itikiyen yefra', // Tickets solved
     'priority'=> 'Tazwart', // Priority
-    'last_created_tickets'=>'Itikiyen ineggura yettwaxelqen', // Last Created Tickets
+    'last_created_Tickets'=>'Itikiyen ineggura yettwaxelqen', // Last Created Tickets
     'traffic'=>'Anezzu', // Traffic
 
     'service_type' => 'Anaw n Temsadft:', // Service Type:

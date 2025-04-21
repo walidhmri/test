@@ -16,7 +16,7 @@ Create new FAQ
 
 <div class="container px-6 mx-auto grid">
     <h2 class="my-6 text-2xl font-semibold text-gray-700 dark:text-gray-200">
-        Create solution for ticket #{{ $ticket->id }}
+        Create solution for Ticket #{{ $ticket->id }}
     </h2>
     @if(session('error'))
     <div class="bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded relative" role="alert">
@@ -26,9 +26,9 @@ Create new FAQ
     @endif
 
     <div class="px-4 py-3 mb-8 bg-white rounded-lg shadow-md dark:bg-gray-800">
-        <form method="POST" action="{{ route('admin.ticket.solution.store',['id',$ticket->id]) }}" enctype="multipart/form-data">
+        <form method="POST" action="{{ route('admin.Ticket.solution.store',['id',$ticket->id]) }}" enctype="multipart/form-data">
             @csrf
-            <input type="hidden" name="ticket_id" value="{{ $ticket->id }}">
+            <input type="hidden" name="Ticket_id" value="{{ $ticket->id }}">
             <input type="hidden" name="user_id" value="{{ $ticket->user_id }}">
 
            @include('admin.partials.form_solution')

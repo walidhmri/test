@@ -2,7 +2,7 @@
 namespace App\Jobs;
 
 use App\Models\Solution;
-use App\Models\ticket;
+use App\Models\Ticket;
 use Illuminate\Bus\Queueable;
 use Illuminate\Contracts\Queue\ShouldBeUnique;
 use Illuminate\Contracts\Queue\ShouldQueue;
@@ -21,9 +21,9 @@ class GenerateAISolution implements ShouldQueue
     /**
      * Create a new job instance.
      */
-    public function __construct(ticket $ticket)
+    public function __construct(Ticket $ticket)
     {
-        $this->ticket = $ticket;
+        $this->Ticket = $ticket;
     }
 
     /**
@@ -36,7 +36,7 @@ class GenerateAISolution implements ShouldQueue
 
         $response = Http::post("{$apiUrl}?key={$apiKey}", [
             "contents" => [
-                ["parts" => [["text" => "A user submitted a support ticket:\n\nTitle: {$this->ticket->title}\nDescription: {$this->ticket->description}  \n\nProvide a detailed technical solution in a small paragraph repond with same language as in title and description."]]]
+                ["parts" => [["text" => "A user submitted a support Ticket:\n\nTitle: {$this->Ticket->title}\nDescription: {$this->Ticket->description}  \n\nProvide a detailed technical solution in a small paragraph repond with same language as in title and description."]]]
             ]
         ]);
 
@@ -44,7 +44,7 @@ class GenerateAISolution implements ShouldQueue
         Log::info('Gemini API Response:', ['response' => $response->body()]);
 
         Solution::create([
-            'ticket_id' => $this->ticket->id,
+            'Ticket_id' => $this->Ticket->id,
             'user_id' => 1, 
             'title' => 'Bot',
             'description' => $aiResponse,

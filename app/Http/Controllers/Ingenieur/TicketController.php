@@ -4,7 +4,7 @@ namespace App\Http\Controllers\Ingenieur;
 
 use App\Http\Controllers\Controller;
 use App\Models\Solution;
-use App\Models\ticket;
+use App\Models\Ticket;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -20,16 +20,16 @@ class TicketController extends Controller
         }
         $tickets=Ticket::where('assign',Auth::user()->id)->orWhere('department_id',$department_id)->orderBy('updated_at' ,'desc')->paginate(10);
         $employees =User::all();
-        return view('ingenieur.ticket.list',compact('tickets'));
+        return view('ingenieur.Ticket.list',compact('tickets'));
     }
     public function show(Request $request){
         
         $ticket= Ticket::findOrFail($request->id);
         if(Auth::user()->id!=$ticket->assign && Auth::user()->department_id!=$ticket->department_id){
-            return redirect()->back()->with('error','you don\'t have permission to see this ticket');
+            return redirect()->back()->with('error','you don\'t have permission to see this Ticket');
         }
-        $solutions=Solution::where('ticket_id',$ticket->id)->paginate(10);
-        return view('ingenieur.ticket.show',compact('ticket','solutions'));
+        $solutions=Solution::where('Ticket_id',$ticket->id)->paginate(10);
+        return view('ingenieur.Ticket.show',compact('ticket','solutions'));
     }
   public function update(Request $request){
     $request->validate(
@@ -38,7 +38,7 @@ class TicketController extends Controller
             'status'=> 'required',
         ]
         );
-    $tikcet=ticket::findOrFail($request->id);
+    $tikcet=Ticket::findOrFail($request->id);
     $tikcet->status=$request->status;
     $tikcet->priority=$request->priority;
     $tikcet->save();

@@ -53,7 +53,7 @@ return [
     'access'=>'Accès rapide',
     'last_update'=>'Dernière mise à jour :',
     'support'=> 'Support',
-    'tickets'=> 'Tickets',
+    'tickets'=> 'tickets',
     'copyrights' => '2025 Naftal. Tous droits réservés.',
     'password'=>'Mot de passe',
 
@@ -78,10 +78,10 @@ return [
     'total_employees'=>'Total des Employés',
     'total_ingenieurs'=>'Total des Ingénieurs',
     'total_faqs'=>'Total des FAQ',
-    'total_tickets'=>'Total des Tickets',
+    'total_Tickets'=>'Total des Tickets',
     'tickets_solved'=>'Tickets résolus',
     'priority'=> 'Priorité',
-    'last_created_tickets'=>'Derniers Tickets Créés',
+    'last_created_Tickets'=>'Derniers Tickets Créés',
     'traffic'=>'Trafic',
 
     'service_type' => 'Type de Service :',

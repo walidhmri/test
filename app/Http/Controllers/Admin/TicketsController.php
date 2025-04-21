@@ -3,7 +3,7 @@
 namespace App\Http\Controllers\Admin;
 use App\Models\Department;
 use App\Models\Solution;
-use App\Models\ticket;
+use App\Models\Ticket;
 use App\Http\Controllers\Controller;
 use App\Models\User;
 use Illuminate\Http\Request;
@@ -14,7 +14,7 @@ class TicketsController extends Controller
     {
         $solutions=Solution::get();
         $employees = User::where('role', 'user')->get();
-        $query = ticket::query(); 
+        $query = Ticket::query(); 
 
         if ($request->filled('month')) {
             try {
@@ -51,14 +51,14 @@ class TicketsController extends Controller
     
         $tickets = $query->paginate(10);
         
-        return view('admin.ticket.list', compact('tickets', 'employees','solutions'));
+        return view('admin.Ticket.list', compact('tickets', 'employees','solutions'));
     }
     
 
 
     function destroy(Request $request)
     {
-        $ticket=ticket::find($request->id);
+        $ticket=Ticket::find($request->id);
         $ticket->delete();
         return redirect()->back()->with('success', 'تم حذف التذكرة بنجاح.');
     }
@@ -66,10 +66,10 @@ class TicketsController extends Controller
     {
         $employee = User::find($request->user_id);
         $ingenieurs = User::where('role', 'ingenieur')->get();
-        $ticket=ticket::find($request->id);
-        $solutions =Solution::where('ticket_id',$ticket->id)->paginate(10);
+        $ticket=Ticket::find($request->id);
+        $solutions =Solution::where('Ticket_id',$ticket->id)->paginate(10);
         $departments=Department::get();
-        return view('admin.ticket.show',compact('ticket','employee','solutions','ingenieurs','departments'));
+        return view('admin.Ticket.show',compact('ticket','employee','solutions','ingenieurs','departments'));
     }
     public function update(Request $request)
     {
@@ -80,13 +80,13 @@ class TicketsController extends Controller
                 'assign'=> 'nullable',
                 'department_id'=>'nullable'
             ]);
-        $ticket=ticket::find($request->id);
+        $ticket=Ticket::find($request->id);
         $ticket->status=$request->status;
         $ticket->assign=$request->assign;
         $ticket->priority=$request->priority;
         $ticket->department_id=$request->department_id;	
         $ticket->save();
-        return redirect()->route('admin.tickets.list')->with(['success' => "تم تحديث حالة التذكرة $ticket->id بنجاح."]);
+        return redirect()->route('admin.Tickets.list')->with(['success' => "تم تحديث حالة التذكرة $ticket->id بنجاح."]);
     }
 function idfill($id)
 {

@@ -4,7 +4,7 @@ namespace App\Http\Controllers\Ingenieur;
 
 use App\Http\Controllers\Controller;
 use App\Models\Comment;
-use App\Models\ticket;
+use App\Models\Ticket;
 use App\Models\User;
 use Auth;
 use Illuminate\Http\Request;
@@ -15,8 +15,8 @@ class CommentController extends Controller
     {
         
         
-        $tickets = ticket::where('assign', auth()->user()->id)->orWhere('department_id',Auth::user()->department_id)->get();
-        $comments = Comment::whereIn('ticket_id', $tickets->pluck('id'))->get();
+        $tickets = Ticket::where('assign', auth()->user()->id)->orWhere('department_id',Auth::user()->department_id)->get();
+        $comments = Comment::whereIn('Ticket_id', $tickets->pluck('id'))->get();
         $employees= User::where('role', 'employee')->get();
         return view('ingenieur.comments.list',compact('comments','tickets','employees'));
     }

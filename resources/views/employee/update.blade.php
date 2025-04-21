@@ -235,9 +235,9 @@
 @endpush
 
 <div class="page-header">
-  <h1 class="page-title">Modifier le ticket</h1>
+  <h1 class="page-title">Modifier le Ticket</h1>
   <div class="page-actions">
-    <a href="{{ route('employee.tickets.list') }}" class="btn btn-secondary">
+    <a href="{{ route('employee.Tickets.list') }}" class="btn btn-secondary">
       <i class="material-symbols-rounded">arrow_back</i>
       Retour à la liste
     </a>
@@ -249,10 +249,10 @@
     <div class="form-card-icon">
       <i class="material-symbols-rounded">edit_document</i>
     </div>
-    <h2 class="form-card-title">Informations du ticket</h2>
+    <h2 class="form-card-title">Informations du Ticket</h2>
   </div>
   
-  <form action="{{ route('employee.tickets.update', $ticket->id) }}" method="POST">
+  <form action="{{ route('employee.Tickets.update', $ticket->id) }}" method="POST">
     @csrf
     @method('patch')
     
@@ -294,7 +294,7 @@
     </div>
     
     <div class="form-footer">
-      <a href="{{ url()->previous() ?? route('employee.tickets.list') }}" class="btn btn-secondary">Annuler</a>
+      <a href="{{ url()->previous() ?? route('employee.Tickets.list') }}" class="btn btn-secondary">Annuler</a>
       <button type="submit" class="btn btn-primary">
         <i class="material-symbols-rounded">save</i>
         Enregistrer les modifications
@@ -309,21 +309,21 @@
     <div class="form-card-icon" style="background-color: rgba(245, 101, 101, 0.1); color: var(--danger-color);">
       <i class="material-symbols-rounded">delete</i>
     </div>
-    <h2 class="form-card-title">Supprimer le ticket</h2>
+    <h2 class="form-card-title">Supprimer le Ticket</h2>
   </div>
   
   <div class="form-card-body">
-    <p>Attention, cette action est irréversible. Le ticket sera définitivement supprimé.</p>
-    <p class="form-text">Vous ne pouvez supprimer un ticket que dans les 24 heures suivant sa création.</p>
+    <p>Attention, cette action est irréversible. Le Ticket sera définitivement supprimé.</p>
+    <p class="form-text">Vous ne pouvez supprimer un Ticket que dans les 24 heures suivant sa création.</p>
   </div>
   
   <div class="form-footer">
-    <form action="{{ route('employee.tickets.destroy', $ticket->id) }}" method="POST">
+    <form action="{{ route('employee.Tickets.destroy', $ticket->id) }}" method="POST">
       @csrf
       @method('DELETE')
-      <button type="submit" class="btn btn-danger" onclick="return confirm('Êtes-vous sûr de vouloir supprimer ce ticket ?')">
+      <button type="submit" class="btn btn-danger" onclick="return confirm('Êtes-vous sûr de vouloir supprimer ce Ticket ?')">
         <i class="material-symbols-rounded">delete</i>
-        Supprimer le ticket
+        Supprimer le Ticket
       </button>
     </form>
   </div>

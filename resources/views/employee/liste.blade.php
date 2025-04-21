@@ -4,21 +4,21 @@
 @push('styles')
 <style>
 /* Table styling with dark mode support */
-.tickets-header {
+.Tickets-header {
   display: flex;
   align-items: center;
   justify-content: space-between;
   margin-bottom: 1.5rem;
 }
 
-.tickets-title {
+.Tickets-title {
   font-size: 1.5rem;
   font-weight: 600;
   color: var(--text-color);
   margin: 0;
 }
 
-.tickets-actions {
+.Tickets-actions {
   display: flex;
   gap: 0.75rem;
 }
@@ -334,26 +334,26 @@
 }
 
 /* Ticket info */
-.ticket-title {
+.Ticket-title {
   font-size: 0.875rem;
   font-weight: 600;
   color: var(--text-color);
   margin-bottom: 0.25rem;
 }
 
-.ticket-id {
+.Ticket-id {
   font-size: 0.75rem;
   color: var(--text-muted);
 }
 
-.ticket-date {
+.Ticket-date {
   font-size: 0.875rem;
   font-weight: 500;
   color: var(--text-color);
   margin-bottom: 0.25rem;
 }
 
-.ticket-time {
+.Ticket-time {
   font-size: 0.75rem;
   color: var(--text-muted);
 }
@@ -461,7 +461,7 @@
 
 /* Responsive adjustments */
 @media (max-width: 991.98px) {
-  .tickets-actions {
+  .Tickets-actions {
     flex-wrap: wrap;
   }
   
@@ -471,17 +471,17 @@
 }
 
 @media (max-width: 767.98px) {
-  .tickets-header {
+  .Tickets-header {
     flex-direction: column;
     align-items: flex-start;
     gap: 1rem;
   }
   
-  .tickets-actions {
+  .Tickets-actions {
     width: 100%;
   }
   
-  .tickets-actions .btn {
+  .Tickets-actions .btn {
     flex: 1;
   }
   
@@ -659,12 +659,12 @@
   });
 </script>
 
-<div class="tickets-header">
-  <h1 class="tickets-title">Tickets existants</h1>
-  <div class="tickets-actions">
-    <a href="{{ route('dasboard.tickets') }}" class="btn btn-primary">
+<div class="Tickets-header">
+  <h1 class="Tickets-title">Tickets existants</h1>
+  <div class="Tickets-actions">
+    <a href="{{ route('dasboard.Tickets') }}" class="btn btn-primary">
       <i class="material-symbols-rounded">add</i>
-      Nouveau ticket
+      Nouveau Ticket
     </a>
     <div class="filter-dropdown">
       <button class="btn btn-outline-primary" id="filterButton">
@@ -675,13 +675,13 @@
         <div class="filter-header">
           <h3 class="filter-title">
             <i class="material-symbols-rounded">filter_alt</i>
-            Filtrer les tickets
+            Filtrer les Tickets
           </h3>
           <button class="filter-close" id="filterClose">
             <i class="material-symbols-rounded">close</i>
           </button>
         </div>
-        <form action="{{ route('employee.tickets.list') }}" method="GET" class="filter-form">
+        <form action="{{ route('employee.Tickets.list') }}" method="GET" class="filter-form">
           <div class="filter-group">
             <label for="search" class="filter-label">Rechercher par titre</label>
             <input type="text" id="search" name="search" class="filter-input" placeholder="Rechercher..." value="{{ request('search') }}">
@@ -719,7 +719,7 @@
           </div>
           
           <div class="filter-actions">
-            <a href="{{ route('employee.tickets.list') }}" class="btn btn-secondary">Réinitialiser</a>
+            <a href="{{ route('employee.Tickets.list') }}" class="btn btn-secondary">Réinitialiser</a>
             <button type="submit" class="btn btn-primary">Appliquer</button>
           </div>
         </form>
@@ -766,7 +766,7 @@
     </div>
   @endif
   
-  <a href="{{ route('employee.tickets.list') }}" class="filter-tag">
+  <a href="{{ route('employee.Tickets.list') }}" class="filter-tag">
     Effacer tous les filtres
     <i class="material-symbols-rounded">backspace</i>
   </a>
@@ -787,13 +787,13 @@
           <th>Action</th>
         </tr>
       </thead>
-      <tbody id="ticketList">
+      <tbody id="TicketList">
         @foreach ($tickets as $ticket)
           <tr>
             <td data-label="Titre">
-              <div class="ticket-info">
-                <div class="ticket-title">{{ \Illuminate\Support\Str::words($ticket->title, 5, '...') }}</div>
-                <div class="ticket-id">ID: #{{ $ticket->id }}</div>
+              <div class="Ticket-info">
+                <div class="Ticket-title">{{ \Illuminate\Support\Str::words($ticket->title, 5, '...') }}</div>
+                <div class="Ticket-id">ID: #{{ $ticket->id }}</div>
               </div>
             </td>
             <td data-label="Priorité">
@@ -802,8 +802,8 @@
               </span>
             </td>
             <td data-label="Titre">
-              <div class="ticket-info">
-                <div class="ticket-title">
+              <div class="Ticket-info">
+                <div class="Ticket-title">
                   @php
                   $assignedUser = $ticket->user->find($ticket->assign);
                   echo $assignedUser ? $assignedUser->name : 'Non assigné';
@@ -813,8 +813,8 @@
             </td>
           </td>
             <td data-label="Date">
-              <div class="ticket-date">{{ $ticket->created_at->format('d M Y') }}</div>
-              <div class="ticket-time">{{ $ticket->created_at->format('H:i') }}</div>
+              <div class="Ticket-date">{{ $ticket->created_at->format('d M Y') }}</div>
+              <div class="Ticket-time">{{ $ticket->created_at->format('H:i') }}</div>
             </td>
             <td data-label="Statut">
               <span class="badge badge-{{ $ticket->status }}">
@@ -830,27 +830,27 @@
           
               <div class="action-buttons">
                 @if($diffInHours < 24)
-                  <form action="{{ route('employee.tickets.destroy', $ticket->id) }}" method="POST" style="display: inline;">
+                  <form action="{{ route('employee.Tickets.destroy', $ticket->id) }}" method="POST" style="display: inline;">
                     @csrf
                     @method('DELETE')
-                    <button type="submit" class="action-btn delete-btn" data-tooltip="Supprimer" onclick="return confirm('Êtes-vous sûr de vouloir supprimer ce ticket ?')">
+                    <button type="submit" class="action-btn delete-btn" data-tooltip="Supprimer" onclick="return confirm('Êtes-vous sûr de vouloir supprimer ce Ticket ?')">
                       <i class="material-symbols-rounded">delete</i>
                     </button>
                   </form>
                 @else
-                  <button class="action-btn disabled" disabled data-tooltip="Vous ne pouvez plus supprimer ce ticket après 24h">
+                  <button class="action-btn disabled" disabled data-tooltip="Vous ne pouvez plus supprimer ce Ticket après 24h">
                     <i class="material-symbols-rounded">delete</i>
                   </button>
                 @endif
                 
-                <a href="{{route('employee.tickets.edit', $ticket->id)}}" class="action-btn edit-btn" data-tooltip="Modifier">
+                <a href="{{route('employee.Tickets.edit', $ticket->id)}}" class="action-btn edit-btn" data-tooltip="Modifier">
                   <i class="material-symbols-rounded">edit</i>
                 </a>
-                <a href="{{ route('employee.tickets.show', $ticket->id) }}" class="action-btn show-btn" data-tooltip="Afficher">
+                <a href="{{ route('employee.Tickets.show', $ticket->id) }}" class="action-btn show-btn" data-tooltip="Afficher">
                   <i class="material-symbols-rounded">visibility</i>
                 </a>
                 
-                <a href="{{route('pdf.ticket',['id'=>$ticket->id])}}" class="action-btn download-btn" data-tooltip="Télécharger">
+                <a href="{{route('pdf.Ticket',['id'=>$ticket->id])}}" class="action-btn download-btn" data-tooltip="Télécharger">
                   <i class="material-symbols-rounded">download</i>
                 </a>
               </div>
@@ -888,23 +888,23 @@
 @else
   <div class="empty-state">
     <i class="material-symbols-rounded empty-state-icon">inbox</i>
-    <h2 class="empty-state-title">Aucun ticket trouvé</h2>
+    <h2 class="empty-state-title">Aucun Ticket trouvé</h2>
     <p class="empty-state-description">
       @if(request()->anyFilled(['search', 'status', 'priority']))
-        Aucun ticket ne correspond à vos critères de recherche. Essayez de modifier vos filtres.
+        Aucun Ticket ne correspond à vos critères de recherche. Essayez de modifier vos filtres.
       @else
-        Vous n'avez pas encore créé de tickets. Commencez par en créer un nouveau.
+        Vous n'avez pas encore créé de Tickets. Commencez par en créer un nouveau.
       @endif
     </p>
     @if(request()->anyFilled(['search', 'status', 'priority']))
-      <a href="{{ route('employee.tickets.list') }}" class="btn btn-primary">
+      <a href="{{ route('employee.Tickets.list') }}" class="btn btn-primary">
         <i class="material-symbols-rounded">filter_alt_off</i>
         Effacer les filtres
       </a>
     @else
-      <a href="{{ route('dasboard.tickets') }}" class="btn btn-primary">
+      <a href="{{ route('dasboard.Tickets') }}" class="btn btn-primary">
         <i class="material-symbols-rounded">add</i>
-        Créer un ticket
+        Créer un Ticket
       </a>
     @endif
   </div>

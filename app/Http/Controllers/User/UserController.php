@@ -8,13 +8,13 @@ use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\Auth;
-use App\Models\ticket;
+use App\Models\Ticket;
 use Illuminate\Support\Facades\Hash;
 use Session;
 class UserController extends Controller
 {
     public function index(){
-        $tickets = ticket::where('user_id', auth()->user()->id)
+        $tickets = Ticket::where('user_id', auth()->user()->id)
         ->orderBy('id','desc')
         ->get();
         return view('employee.dashboard', compact('tickets'));

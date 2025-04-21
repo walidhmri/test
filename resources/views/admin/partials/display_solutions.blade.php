@@ -1,5 +1,5 @@
 <div class="mt-8">
-    <h3 class="text-xl font-bold text-gray-900 dark:text-white mb-4 flex items-center">
+    <h3 class="text-xl font-bold text-gray-800 dark:text-white mb-4 flex items-center">
         <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 mr-2 text-indigo-500" fill="none" viewBox="0 0 24 24" stroke="currentColor">
             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 8h10M7 12h4m1 8l-4-4H5a2 2 0 01-2-2V6a2 2 0 012-2h14a2 2 0 012 2v8a2 2 0 01-2 2h-3l-4 4z" />
         </svg>
@@ -45,7 +45,7 @@
                                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z" />
                                 </svg>
                             </a>
-                            <form method="post" action="{{route('admin.ticket.solution.delete',['id'=>$solution->id])}}">
+                            <form method="post" action="{{route('admin.Ticket.solution.delete',['id'=>$solution->id])}}">
                                 @method('DELETE')
                                 @csrf
                             <button type="submit" 
@@ -116,7 +116,7 @@
                             @if (request()->routeIs('admin.profile.show'))
                                 <div class="flex flex-wrap gap-1">
                                     <span class="inline-flex items-center px-2 py-0.5 rounded text-xs font-medium bg-indigo-100 text-indigo-800 dark:bg-indigo-900 dark:text-indigo-300">
-                                        <a href="{{route('admin.tickets.show',['id'=>$solution->ticket->id,'user_id'=>$solution->ticket->user_id])}}">Show ticket</a>
+                                        <a href="{{route('admin.Tickets.show',['id'=>$solution->Ticket->id,'user_id'=>$solution->Ticket->user_id])}}">Show Ticket</a>
                                     </span>
                                 </div>
                             @endif

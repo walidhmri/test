@@ -44,7 +44,7 @@ return [
     'access'=>'وصول سريع',
     'last_update'=>'آخر تحديث:',
     'support'=> 'الدعم',
-    'tickets'=> 'التذاكر', // Support tickets
+    'tickets'=> 'التذاكر', // Support Tickets
     'copyrights' => '2025 نافطال. جميع الحقوق محفوظة.',
     'password'=>'كلمة المرور', // Key has lowercase p
 
@@ -65,7 +65,7 @@ return [
     'list_faqs'=> 'قائمة الأسئلة الشائعة',
     'editpassword'=>'تعديل كلمة المرور',
     'edit_employee'=> 'تعديل موظف',
-    'ticket_title'=> 'التذاكر', // Could also be 'عنوان التذكرة' if it's a title field
+    'Ticket_title'=> 'التذاكر', // Could also be 'عنوان التذكرة' if it's a title field
     'employee'=> 'موظف',
     'ingenieur'=> 'مهندس', // Key is in French
     'faq'=> 'سؤال شائع',
@@ -79,10 +79,10 @@ return [
     'total_employees'=>'إجمالي الموظفين',
     'total_ingenieurs'=>'إجمالي المهندسين',
     'total_faqs'=>'إجمالي الأسئلة الشائعة',
-    'total_tickets'=>'إجمالي التذاكر',
+    'total_Tickets'=>'إجمالي التذاكر',
     'tickets_solved'=>'التذاكر التي تم حلها',
     'priority'=> 'الأولوية',
-    'last_created_tickets'=>'آخر التذاكر التي تم إنشاؤها',
+    'last_created_Tickets'=>'آخر التذاكر التي تم إنشاؤها',
     'traffic'=>'حركة المرور', // Usually web traffic, can mean general activity
 
 

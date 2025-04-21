@@ -177,7 +177,7 @@
                 
                 <!-- Ticket Actions - Fixed dark mode background -->
                 <div class="p-4 sm:p-5 bg-gray-50 dark:bg-gray-700 border-t border-gray-100 dark:border-gray-700 flex flex-col sm:flex-row justify-between items-center gap-3">
-                    <a href="{{ route('admin.tickets.show', ['id' => $ticket->id, 'user_id' => $ticket->user_id]) }}" 
+                    <a href="{{ route('admin.Tickets.show', ['id' => $ticket->id, 'user_id' => $ticket->user_id]) }}" 
                        class="w-full sm:w-auto inline-flex items-center justify-center px-4 py-2 bg-white dark:bg-gray-600 border border-gray-300 dark:border-gray-500 rounded-lg text-sm font-medium text-gray-800  hover:bg-gray-50 dark:hover:bg-gray-500 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-purple-500 transition-colors duration-200">
                         <svg class="w-4 h-4 sm:w-5 sm:h-5 mr-1.5 sm:mr-2 text-gray-500 dark:text-gray-300" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"></path>
@@ -186,7 +186,7 @@
                         View Details
                     </a>
                     
-                    <form method="post" action="{{ route('admin.tickets.delete', $ticket->id) }}" class="w-full sm:w-auto">
+                    <form method="post" action="{{ route('admin.Tickets.delete', $ticket->id) }}" class="w-full sm:w-auto">
                         @method('DELETE')
                         @csrf
                         <button onclick="return confirm('Vous voulez supprimer {{ $ticket->title }}?')" 

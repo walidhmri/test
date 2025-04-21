@@ -34,7 +34,7 @@
                 {{-- Right Side: Header Actions --}}
                 <div class="flex items-center space-x-2 mt-4 sm:mt-0 flex-shrink-0">
                     {{-- Download PDF Button --}}
-                    <a href="{{ route('pdf.ticket', ['id' => $ticket->id]) }}" title="Download Ticket as PDF"
+                    <a href="{{ route('pdf.Ticket', ['id' => $ticket->id]) }}" title="Download Ticket as PDF"
                         class="inline-flex items-center justify-center px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-md shadow-sm text-sm font-medium text-gray-700 dark:text-gray-200 bg-white dark:bg-gray-700 hover:bg-gray-50 dark:hover:bg-gray-600 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 dark:focus:ring-offset-gray-800 transition ease-in-out duration-150">
                         <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" viewBox="0 0 20 20" fill="currentColor">
                             <path fill-rule="evenodd"
@@ -45,7 +45,7 @@
                     </a>
 
                     {{-- Add Solution Button --}}
-                    <a href="{{ route('ingenieur.ticket.solve', ['id' => $ticket->id]) }}"
+                    <a href="{{ route('ingenieur.Ticket.solve', ['id' => $ticket->id]) }}"
                         class="inline-flex items-center px-4 py-2 border border-indigo-500 dark:border-indigo-700 rounded-md shadow-sm text-sm font-medium 
                            text-black dark:text-white bg-indigo-500 hover:bg-indigo-600 dark:bg-indigo-700 dark:hover:bg-indigo-800 
                            focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 dark:focus:ring-offset-gray-900">
@@ -62,8 +62,8 @@
             </div>
 
             {{-- Form for Updates --}}
-            <form method="POST" action="{{ route('ingenieur.ticket.update', ['id' => $ticket->id]) }}"
-                id="ticketUpdateForm">
+            <form method="POST" action="{{ route('ingenieur.Ticket.update', ['id' => $ticket->id]) }}"
+                id="TicketUpdateForm">
                 @csrf
                 @method('PATCH')
 

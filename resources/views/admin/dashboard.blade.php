@@ -77,9 +77,9 @@ Admin Dashboard
             </div>
             <div>
                 <p class="mb-1 sm:mb-2 text-xs sm:text-sm font-medium text-gray-600 dark:text-gray-400">
-                    @lang('messages.total_tickets')
+                    @lang('messages.total_Tickets')
                 </p>
-                <p id="tickets" class="text-base sm:text-lg font-semibold text-gray-700 dark:text-gray-200" value="{{$tickets->count()}}">
+                <p id="Tickets" class="text-base sm:text-lg font-semibold text-gray-700 dark:text-gray-200" value="{{$tickets->count()}}">
                     {{$tickets->count()}}
                 </p>
             </div>
@@ -129,14 +129,14 @@ Admin Dashboard
               </div>
             </div>
           </div>
-          <h5 class="text-xl sm:text-2xl font-semibold text-gray-700 dark:text-gray-200 mb-3 sm:mb-4">@lang('messages.last_created_tickets')</h5>
+          <h5 class="text-xl sm:text-2xl font-semibold text-gray-700 dark:text-gray-200 mb-3 sm:mb-4">@lang('messages.last_created_Tickets')</h5>
 
           <div class="overflow-x-auto">
             <table class="w-full whitespace-nowrap">
               <thead>
                   <tr
                       class="text-xs font-semibold tracking-wide text-gray-500 uppercase border-b dark:border-gray-700 bg-gray-50 dark:text-gray-400 dark:bg-gray-800">
-                      <th class="px-2 sm:px-4 py-2 sm:py-3">@lang('messages.ticket_title')</th>
+                      <th class="px-2 sm:px-4 py-2 sm:py-3">@lang('messages.Ticket_title')</th>
                       <th class="px-2 sm:px-4 py-2 sm:py-3">@lang('messages.employee')</th>
                       <th class="px-2 sm:px-4 py-2 sm:py-3">@lang('messages.status')</th>
                       <th class="px-2 sm:px-4 py-2 sm:py-3">Priority</th>

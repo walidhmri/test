@@ -48,6 +48,6 @@ Route::middleware(['auth','userMiddleware'])->group(function () {
 Route::middleware('auth')->group(function () {
     Route::post('logout', [AuthenticatedSessionController::class, 'destroy'])
     ->name('logout');
-    Route::get('/pdf/ticket/{id}', [PdfController::class, 'create'])
-        ->name('pdf.ticket');
+    Route::get('/pdf/Ticket/{id}', [PdfController::class, 'create'])
+        ->name('pdf.Ticket');
 });

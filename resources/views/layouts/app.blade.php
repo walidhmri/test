@@ -53,14 +53,14 @@
             </a>
           </li>
           <li class="menu-item">
-            <a href="{{ route('employee.tickets.list') }}" class="menu-link {{ Route::is('employee.tickets.list') ? 'active' : '' }}">
+            <a href="{{ route('employee.Tickets.list') }}" class="menu-link {{ Route::is('employee.Tickets.list') ? 'active' : '' }}">
               <i class="material-symbols-rounded menu-icon">table_view</i>
               <span class="menu-text">All Tickets</span>
             </a>
           </li>
 
           <li class="menu-item">
-            <a href="{{ route('dasboard.tickets') }}" class="menu-link {{ Route::is('dasboard.tickets') ? 'active' : '' }}">
+            <a href="{{ route('dasboard.Tickets') }}" class="menu-link {{ Route::is('dasboard.Tickets') ? 'active' : '' }}">
               <i class="material-symbols-rounded menu-icon text-orange-400">add_circle</i>
               <span class="menu-text">Create Ticket</span>
             </a>

@@ -77,7 +77,7 @@
 
             // تحقق مما إذا كان المسار الحالي ينتمي إلى فئة معينة
             $isDashboardActive = request()->routeIs('admin.dashboard');
-            $isTicketsActive = Str::startsWith(request()->route()->getName(), 'admin.tickets');
+            $isTicketsActive = Str::startsWith(request()->route()->getName(), 'admin.Tickets');
             $isEmployeesActive = Str::startsWith(request()->route()->getName(), 'admin.employee');
             $isIngenActive = Str::startsWith(request()->route()->getName(), 'admin.ingenieur');
             $isFaqsActive = Str::startsWith(request()->route()->getName(), 'admin.faqs');
@@ -120,7 +120,7 @@
                                 aria-hidden="true"></span>
                         @endif
                         <a class="inline-flex items-center w-full text-sm font-semibold transition-colors duration-150 hover:text-gray-800 dark:hover:text-gray-200 {{ $isTicketsActive ? 'text-gray-800 dark:text-gray-100' : '' }}"
-                            href="{{ route('admin.tickets.list') }}">
+                            href="{{ route('admin.Tickets.list') }}">
 
                             <!-- New SVG Icon for Tickets -->
                             <svg class="w-5 h-5" aria-hidden="true" fill="none" stroke-linecap="round"
@@ -313,7 +313,7 @@
                                 aria-hidden="true"></span>
                         @endif
                         <a class="inline-flex items-center w-full text-sm font-semibold transition-colors duration-150 hover:text-gray-800 dark:hover:text-gray-200 {{ $isTicketsActive ? 'text-gray-800 dark:text-gray-100' : '' }}"
-                            href="{{ route('admin.tickets.list') }}">
+                            href="{{ route('admin.Tickets.list') }}">
                             <svg class="w-5 h-5" aria-hidden="true" fill="none" stroke-linecap="round"
                                 stroke-linejoin="round" stroke-width="2" viewBox="0 0 24 24" stroke="currentColor">
                                 <path

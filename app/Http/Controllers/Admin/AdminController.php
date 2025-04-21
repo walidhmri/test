@@ -4,7 +4,7 @@ namespace App\Http\Controllers\Admin;
 use App\Http\Controllers\Controller;
 use App\Models\Department;
 use App\Models\User;
-use App\Models\ticket;
+use App\Models\Ticket;
 use Illuminate\Auth\Events\Registered;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
@@ -16,7 +16,7 @@ class AdminController extends Controller
 {
     function index()
     {
-        $tickets = ticket::orderBy('created_at', 'desc')->get();
+        $tickets = Ticket::orderBy('created_at', 'desc')->get();
         $employees = User::get();
         return view('admin.dashboard', compact('employees', 'tickets'));
     }

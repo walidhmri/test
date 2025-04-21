@@ -156,14 +156,14 @@
     height: 300px;
   }
   
-  .recent-tickets {
+  .recent-Tickets {
     background-color: var(--bg-card);
     border-radius: 12px;
     box-shadow: 0 2px 12px var(--shadow-color);
     overflow: hidden;
   }
   
-  .recent-tickets-header {
+  .recent-Tickets-header {
     padding: 1.25rem 1.5rem;
     border-bottom: 1px solid var(--border-color);
     display: flex;
@@ -171,7 +171,7 @@
     justify-content: space-between;
   }
   
-  .recent-tickets-title {
+  .recent-Tickets-title {
     font-size: 1.125rem;
     font-weight: 600;
     color: var(--text-color);
@@ -181,11 +181,11 @@
     gap: 0.75rem;
   }
   
-  .recent-tickets-icon {
+  .recent-Tickets-icon {
     color: var(--primary-color);
   }
   
-  .recent-tickets-action {
+  .recent-Tickets-action {
     font-size: 0.875rem;
     font-weight: 500;
     color: var(--primary-color);
@@ -196,46 +196,46 @@
     transition: all 0.3s ease;
   }
   
-  .recent-tickets-action:hover {
+  .recent-Tickets-action:hover {
     color: var(--primary-hover);
     text-decoration: underline;
   }
   
-  .ticket-list {
+  .Ticket-list {
     list-style: none;
     padding: 0;
     margin: 0;
   }
   
-  .ticket-item {
+  .Ticket-item {
     padding: 1rem 1.5rem;
     border-bottom: 1px solid var(--border-color);
     transition: all 0.3s ease;
   }
   
-  .ticket-item:last-child {
+  .Ticket-item:last-child {
     border-bottom: none;
   }
   
-  .ticket-item:hover {
+  .Ticket-item:hover {
     background-color: var(--hover-bg);
   }
   
-  .ticket-header {
+  .Ticket-header {
     display: flex;
     align-items: center;
     justify-content: space-between;
     margin-bottom: 0.5rem;
   }
   
-  .ticket-title {
+  .Ticket-title {
     font-size: 0.875rem;
     font-weight: 600;
     color: var(--text-color);
     margin: 0;
   }
   
-  .ticket-badge {
+  .Ticket-badge {
     padding: 0.25rem 0.5rem;
     font-size: 0.75rem;
     font-weight: 600;
@@ -243,53 +243,53 @@
     display: inline-block;
   }
   
-  .ticket-badge-low {
+  .Ticket-badge-low {
     background-color: rgba(72, 187, 120, 0.1);
     color: var(--success-color);
   }
   
-  .ticket-badge-medium {
+  .Ticket-badge-medium {
     background-color: rgba(246, 173, 85, 0.1);
     color: var(--warning-color);
   }
   
-  .ticket-badge-high {
+  .Ticket-badge-high {
     background-color: rgba(245, 101, 101, 0.1);
     color: var(--danger-color);
   }
   
-  .ticket-badge-urgent {
+  .Ticket-badge-urgent {
     background-color: rgba(26, 32, 44, 0.1);
     color: var(--text-color);
   }
   
-  .ticket-badge-pending {
+  .Ticket-badge-pending {
     background-color: rgba(246, 173, 85, 0.1);
     color: var(--warning-color);
   }
   
-  .ticket-badge-solved {
+  .Ticket-badge-solved {
     background-color: rgba(72, 187, 120, 0.1);
     color: var(--success-color);
   }
   
-  .ticket-badge-in_progress {
+  .Ticket-badge-in_progress {
     background-color: rgba(66, 153, 225, 0.1);
     color: var(--info-color);
   }
   
-  .ticket-badge-closed {
+  .Ticket-badge-closed {
     background-color: rgba(160, 174, 192, 0.1);
     color: var(--text-muted);
   }
   
-  .ticket-meta {
+  .Ticket-meta {
     display: flex;
     align-items: center;
     gap: 1rem;
   }
   
-  .ticket-meta-item {
+  .Ticket-meta-item {
     font-size: 0.75rem;
     color: var(--text-muted);
     display: flex;
@@ -297,7 +297,7 @@
     gap: 0.25rem;
   }
   
-  .ticket-meta-icon {
+  .Ticket-meta-icon {
     font-size: 1rem;
   }
   
@@ -388,7 +388,7 @@
     </div>
     <div class="stat-info">
       <div class="stat-value">{{ $tickets->count() ?? 0 }}</div>
-      <div class="stat-label">Total des tickets</div>
+      <div class="stat-label">Total des Tickets</div>
       <div class="stat-change up">
         <i class="material-symbols-rounded stat-change-icon">trending_up</i>
         <span>12% ce mois</span>
@@ -445,7 +445,7 @@
       <div class="chart-card-header">
         <h2 class="chart-card-title">
           <i class="material-symbols-rounded chart-card-icon">analytics</i>
-          Activité des tickets
+          Activité des Tickets
         </h2>
         <div class="chart-card-actions">
           <button class="chart-card-action">
@@ -458,55 +458,55 @@
       </div>
       <div class="chart-card-body">
         <div class="chart-container">
-          <canvas id="ticketsChart"></canvas>
+          <canvas id="TicketsChart"></canvas>
         </div>
       </div>
     </div>
     
-    <div class="recent-tickets">
-      <div class="recent-tickets-header">
-        <h2 class="recent-tickets-title">
-          <i class="material-symbols-rounded recent-tickets-icon">receipt_long</i>
+    <div class="recent-Tickets">
+      <div class="recent-Tickets-header">
+        <h2 class="recent-Tickets-title">
+          <i class="material-symbols-rounded recent-Tickets-icon">receipt_long</i>
           Tickets récents
         </h2>
-        <a href="{{ route('employee.tickets.list') }}" class="recent-tickets-action">
+        <a href="{{ route('employee.Tickets.list') }}" class="recent-Tickets-action">
           <span>Voir tous</span>
           <i class="material-symbols-rounded">arrow_forward</i>
         </a>
       </div>
       
-      <ul class="ticket-list">
+      <ul class="Ticket-list">
         @forelse($tickets->take(5) as $ticket)
-          <li class="ticket-item">
-            <div class="ticket-header">
-              <h3 class="ticket-title">{{ \Illuminate\Support\Str::limit($ticket->title, 50) }}</h3>
-              <span class="ticket-badge ticket-badge-{{ $ticket->priority }}">
+          <li class="Ticket-item">
+            <div class="Ticket-header">
+              <h3 class="Ticket-title">{{ \Illuminate\Support\Str::limit($ticket->title, 50) }}</h3>
+              <span class="Ticket-badge Ticket-badge-{{ $ticket->priority }}">
                 {{ ucfirst($ticket->priority) }}
               </span>
             </div>
-            <div class="ticket-meta">
-              <div class="ticket-meta-item">
-                <i class="material-symbols-rounded ticket-meta-icon">schedule</i>
+            <div class="Ticket-meta">
+              <div class="Ticket-meta-item">
+                <i class="material-symbols-rounded Ticket-meta-icon">schedule</i>
                 <span>{{ $ticket->created_at->diffForHumans() }}</span>
               </div>
-              <div class="ticket-meta-item">
-                <i class="material-symbols-rounded ticket-meta-icon">label</i>
-                <span class="ticket-badge ticket-badge-{{ $ticket->status }}">{{ $ticket->status }}</span>
+              <div class="Ticket-meta-item">
+                <i class="material-symbols-rounded Ticket-meta-icon">label</i>
+                <span class="Ticket-badge Ticket-badge-{{ $ticket->status }}">{{ $ticket->status }}</span>
               </div>
-              <div class="ticket-meta-item">
-                <i class="material-symbols-rounded ticket-meta-icon">tag</i>
+              <div class="Ticket-meta-item">
+                <i class="material-symbols-rounded Ticket-meta-icon">tag</i>
                 <span>#{{ $ticket->id }}</span>
               </div>
             </div>
           </li>
         @empty
-          <li class="ticket-item">
+          <li class="Ticket-item">
             <div class="text-center py-4">
               <i class="material-symbols-rounded" style="font-size: 3rem; color: var(--text-muted); margin-bottom: 1rem;">inbox</i>
-              <p>Aucun ticket récent trouvé</p>
-              <a href="{{ route('dasboard.tickets') }}" class="btn btn-primary btn-sm mt-2">
+              <p>Aucun Ticket récent trouvé</p>
+              <a href="{{ route('dasboard.Tickets') }}" class="btn btn-primary btn-sm mt-2">
                 <i class="material-symbols-rounded">add</i>
-                Créer un ticket
+                Créer un Ticket
               </a>
             </div>
           </li>
@@ -526,18 +526,18 @@
       
       <div class="quick-actions-body">
         <div class="action-grid">
-          <a href="{{ route('dasboard.tickets') }}" class="action-card">
+          <a href="{{ route('dasboard.Tickets') }}" class="action-card">
             <div class="action-icon">
               <i class="material-symbols-rounded">add</i>
             </div>
-            <h3 class="action-title">Nouveau ticket</h3>
+            <h3 class="action-title">Nouveau Ticket</h3>
           </a>
           
-          <a href="{{ route('employee.tickets.list') }}" class="action-card">
+          <a href="{{ route('employee.Tickets.list') }}" class="action-card">
             <div class="action-icon">
               <i class="material-symbols-rounded">list</i>
             </div>
-            <h3 class="action-title">Mes tickets</h3>
+            <h3 class="action-title">Mes Tickets</h3>
           </a>
           
           <a href="{{ route('employee.profile.edit') }}" class="action-card">
@@ -577,12 +577,12 @@
 <script>
   document.addEventListener('DOMContentLoaded', function() {
     // Tickets Activity Chart
-    const ticketsCtx = document.getElementById('ticketsChart').getContext('2d');
+    const TicketsCtx = document.getElementById('TicketsChart').getContext('2d');
     const isDarkMode = document.body.classList.contains('dark-mode');
     const gridColor = isDarkMode ? 'rgba(255, 255, 255, 0.1)' : 'rgba(0, 0, 0, 0.1)';
     const textColor = isDarkMode ? '#e2e8f0' : '#2c3e50';
     
-    const ticketsChart = new Chart(ticketsCtx, {
+    const TicketsChart = new Chart(TicketsCtx, {
       type: 'line',
       data: {
         labels: ['Jan', 'Fév', 'Mar', 'Avr', 'Mai', 'Juin', 'Juil', 'Août', 'Sep', 'Oct', 'Nov', 'Déc'],
@@ -684,13 +684,13 @@
       const newGridColor = isDark ? 'rgba(255, 255, 255, 0.1)' : 'rgba(0, 0, 0, 0.1)';
       const newTextColor = isDark ? '#e2e8f0' : '#2c3e50';
       
-      // Update tickets chart
-      ticketsChart.options.scales.y.grid.color = newGridColor;
-      ticketsChart.options.scales.x.grid.color = newGridColor;
-      ticketsChart.options.scales.y.ticks.color = newTextColor;
-      ticketsChart.options.scales.x.ticks.color = newTextColor;
-      ticketsChart.options.plugins.legend.labels.color = newTextColor;
-      ticketsChart.update();
+      // Update Tickets chart
+      TicketsChart.options.scales.y.grid.color = newGridColor;
+      TicketsChart.options.scales.x.grid.color = newGridColor;
+      TicketsChart.options.scales.y.ticks.color = newTextColor;
+      TicketsChart.options.scales.x.ticks.color = newTextColor;
+      TicketsChart.options.plugins.legend.labels.color = newTextColor;
+      TicketsChart.update();
       
       // Update status chart
       statusChart.options.plugins.legend.labels.color = newTextColor;

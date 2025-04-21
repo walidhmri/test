@@ -22,19 +22,19 @@
   gap: 0.75rem;
 }
 
-.ticket-grid {
+.Ticket-grid {
   display: grid;
   grid-template-columns: 3fr 1fr;
   gap: 1.5rem;
 }
 
 @media (max-width: 991.98px) {
-  .ticket-grid {
+  .Ticket-grid {
     grid-template-columns: 1fr;
   }
 }
 
-.ticket-card {
+.Ticket-card {
   background-color: var(--bg-card);
   border-radius: 12px;
   box-shadow: 0 2px 12px var(--shadow-color);
@@ -42,7 +42,7 @@
   margin-bottom: 1.5rem;
 }
 
-.ticket-card-header {
+.Ticket-card-header {
   padding: 1.25rem 1.5rem;
   border-bottom: 1px solid var(--border-color);
   display: flex;
@@ -50,7 +50,7 @@
   justify-content: space-between;
 }
 
-.ticket-card-title {
+.Ticket-card-title {
   font-size: 1.125rem;
   font-weight: 600;
   color: var(--text-color);
@@ -60,44 +60,44 @@
   gap: 0.75rem;
 }
 
-.ticket-card-icon {
+.Ticket-card-icon {
   color: var(--primary-color);
 }
 
-.ticket-card-body {
+.Ticket-card-body {
   padding: 1.5rem;
 }
 
-.ticket-info {
+.Ticket-info {
   margin-bottom: 1.5rem;
 }
 
-.ticket-description {
+.Ticket-description {
   margin-bottom: 1.5rem;
   line-height: 1.6;
   color: var(--text-color);
 }
 
-.ticket-meta {
+.Ticket-meta {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
   gap: 1rem;
   margin-bottom: 1.5rem;
 }
 
-.ticket-meta-item {
+.Ticket-meta-item {
   display: flex;
   flex-direction: column;
 }
 
-.ticket-meta-label {
+.Ticket-meta-label {
   font-size: 0.75rem;
   font-weight: 500;
   color: var(--text-muted);
   margin-bottom: 0.25rem;
 }
 
-.ticket-meta-value {
+.Ticket-meta-value {
   font-size: 0.875rem;
   font-weight: 600;
   color: var(--text-color);
@@ -436,7 +436,7 @@
   box-shadow: 0 4px 12px rgba(255, 122, 0, 0.3);
 }
 
-.ticket-sidebar-card {
+.Ticket-sidebar-card {
   background-color: var(--bg-card);
   border-radius: 12px;
   box-shadow: 0 2px 12px var(--shadow-color);
@@ -444,12 +444,12 @@
   margin-bottom: 1.5rem;
 }
 
-.ticket-sidebar-header {
+.Ticket-sidebar-header {
   padding: 1.25rem 1.5rem;
   border-bottom: 1px solid var(--border-color);
 }
 
-.ticket-sidebar-title {
+.Ticket-sidebar-title {
   font-size: 1.125rem;
   font-weight: 600;
   color: var(--text-color);
@@ -459,21 +459,21 @@
   gap: 0.75rem;
 }
 
-.ticket-sidebar-icon {
+.Ticket-sidebar-icon {
   color: var(--primary-color);
 }
 
-.ticket-sidebar-body {
+.Ticket-sidebar-body {
   padding: 1.5rem;
 }
 
-.ticket-actions {
+.Ticket-actions {
   display: flex;
   flex-direction: column;
   gap: 0.75rem;
 }
 
-.ticket-action {
+.Ticket-action {
   display: flex;
   align-items: center;
   gap: 0.75rem;
@@ -489,13 +489,13 @@
   text-decoration: none;
 }
 
-.ticket-action:hover {
+.Ticket-action:hover {
   background-color: var(--hover-bg);
   transform: translateY(-2px);
   box-shadow: 0 4px 12px var(--shadow-color);
 }
 
-.ticket-action-icon {
+.Ticket-action-icon {
   width: 32px;
   height: 32px;
   border-radius: 8px;
@@ -506,22 +506,22 @@
   justify-content: center;
 }
 
-.ticket-action-text {
+.Ticket-action-text {
   flex: 1;
 }
 
-.ticket-action-arrow {
+.Ticket-action-arrow {
   color: var(--text-muted);
 }
 
-.ticket-timeline {
+.Ticket-timeline {
   list-style: none;
   padding: 0;
   margin: 0;
   position: relative;
 }
 
-.ticket-timeline::before {
+.Ticket-timeline::before {
   content: '';
   position: absolute;
   top: 0;
@@ -621,61 +621,61 @@
 @endpush
 
 <div class="page-header">
-  <h1 class="page-title">Détails du ticket #{{ $ticket->id }}</h1>
+  <h1 class="page-title">Détails du Ticket #{{ $ticket->id }}</h1>
   <div class="page-actions">
-    <a href="{{ route('employee.tickets.list') }}" class="btn btn-secondary">
+    <a href="{{ route('employee.Tickets.list') }}" class="btn btn-secondary">
       <i class="material-symbols-rounded">arrow_back</i>
       Retour à la liste
     </a>
-    <a href="{{ route('employee.tickets.edit', $ticket->id) }}" class="btn btn-primary">
+    <a href="{{ route('employee.Tickets.edit', $ticket->id) }}" class="btn btn-primary">
       <i class="material-symbols-rounded">edit</i>
       Modifier
     </a>
   </div>
 </div>
 
-<div class="ticket-grid">
-  <div class="ticket-main">
-    <div class="ticket-card">
-      <div class="ticket-card-header">
-        <h2 class="ticket-card-title">
-          <i class="material-symbols-rounded ticket-card-icon">confirmation_number</i>
+<div class="Ticket-grid">
+  <div class="Ticket-main">
+    <div class="Ticket-card">
+      <div class="Ticket-card-header">
+        <h2 class="Ticket-card-title">
+          <i class="material-symbols-rounded Ticket-card-icon">confirmation_number</i>
           {{ $ticket->title }}
         </h2>
         <span class="badge badge-{{ $ticket->status }}">
           {{ $ticket->status }}
         </span>
       </div>
-      <div class="ticket-card-body">
-        <div class="ticket-meta">
-          <div class="ticket-meta-item">
-            <div class="ticket-meta-label">Priorité</div>
-            <div class="ticket-meta-value">
+      <div class="Ticket-card-body">
+        <div class="Ticket-meta">
+          <div class="Ticket-meta-item">
+            <div class="Ticket-meta-label">Priorité</div>
+            <div class="Ticket-meta-value">
               <span class="badge badge-{{ $ticket->priority }}">
                 {{ ucfirst($ticket->priority) }}
               </span>
             </div>
           </div>
-          <div class="ticket-meta-item">
-            <div class="ticket-meta-label">Créé le</div>
-            <div class="ticket-meta-value">{{ $ticket->created_at->format('d M Y, H:i') }}</div>
+          <div class="Ticket-meta-item">
+            <div class="Ticket-meta-label">Créé le</div>
+            <div class="Ticket-meta-value">{{ $ticket->created_at->format('d M Y, H:i') }}</div>
           </div>
-          <div class="ticket-meta-item">
-            <div class="ticket-meta-label">Dernière mise à jour</div>
-            <div class="ticket-meta-value">{{ $ticket->updated_at->format('d M Y, H:i') }}</div>
+          <div class="Ticket-meta-item">
+            <div class="Ticket-meta-label">Dernière mise à jour</div>
+            <div class="Ticket-meta-value">{{ $ticket->updated_at->format('d M Y, H:i') }}</div>
           </div>
           
-          <div class="ticket-meta-item">
-            <div class="ticket-meta-label">Assigné à</div>
-            <div class="ticket-meta-value">{{ $ticket->user->find($ticket->assign)?->name ?? 'Non assigné' }}
+          <div class="Ticket-meta-item">
+            <div class="Ticket-meta-label">Assigné à</div>
+            <div class="Ticket-meta-value">{{ $ticket->user->find($ticket->assign)?->name ?? 'Non assigné' }}
             </div>
           </div>
           
         </div>
         
-        <div class="ticket-info">
+        <div class="Ticket-info">
           <h3>Description</h3>
-          <div class="ticket-description">
+          <div class="Ticket-description">
             {{ $ticket->description }}
           </div>
           
@@ -693,14 +693,14 @@
     </div>
     
     <!-- Solutions Section -->
-    <div class="ticket-card">
-      <div class="ticket-card-header">
-        <h2 class="ticket-card-title">
-          <i class="material-symbols-rounded ticket-card-icon">lightbulb</i>
+    <div class="Ticket-card">
+      <div class="Ticket-card-header">
+        <h2 class="Ticket-card-title">
+          <i class="material-symbols-rounded Ticket-card-icon">lightbulb</i>
           Solutions
         </h2>
       </div>
-      <div class="ticket-card-body">
+      <div class="Ticket-card-body">
         @if(count($solutions) > 0)
         <div class="solutions-list">
           @foreach($solutions as $solution)
@@ -748,15 +748,15 @@
     </div>
     
     <!-- Comments Section -->
-    <div class="ticket-card">
-      <div class="ticket-card-header">
-        <h2 class="ticket-card-title">
-          <i class="material-symbols-rounded ticket-card-icon">chat</i>
+    <div class="Ticket-card">
+      <div class="Ticket-card-header">
+        <h2 class="Ticket-card-title">
+          <i class="material-symbols-rounded Ticket-card-icon">chat</i>
           Commentaires
         </h2>
         <div class="comments-count">{{ count($comments) }}</div>
       </div>
-      <div class="ticket-card-body">
+      <div class="Ticket-card-body">
         @if(count($comments) > 0)
         <div class="comments-list">
           @foreach($comments as $comment)
@@ -783,12 +783,12 @@
         <div class="empty-state">
           <i class="material-symbols-rounded empty-state-icon">chat</i>
           <h3 class="empty-state-title">Aucun commentaire pour le moment</h3>
-          <p class="empty-state-description">Soyez le premier à commenter ce ticket.</p>
+          <p class="empty-state-description">Soyez le premier à commenter ce Ticket.</p>
         </div>
         @endif
         
         <!-- Comment Form -->
-        <form action="{{ route('employee.tickets.comment', $ticket->id) }}" method="POST" class="comment-form">
+        <form action="{{ route('employee.Tickets.comment', $ticket->id) }}" method="POST" class="comment-form">
           @csrf
           <div class="comment-avatar">
             {{ substr(Auth::user()->name ?? 'U', 0, 1) }}
@@ -804,42 +804,42 @@
     </div>
   </div>
   
-  <div class="ticket-sidebar">
-    <div class="ticket-sidebar-card">
-      <div class="ticket-sidebar-header">
-        <h3 class="ticket-sidebar-title">
-          <i class="material-symbols-rounded ticket-sidebar-icon">settings</i>
+  <div class="Ticket-sidebar">
+    <div class="Ticket-sidebar-card">
+      <div class="Ticket-sidebar-header">
+        <h3 class="Ticket-sidebar-title">
+          <i class="material-symbols-rounded Ticket-sidebar-icon">settings</i>
           Actions
         </h3>
       </div>
-      <div class="ticket-sidebar-body">
-        <div class="ticket-actions">
-          <a href="{{ route('employee.tickets.edit', $ticket->id) }}" class="ticket-action">
-            <div class="ticket-action-icon">
+      <div class="Ticket-sidebar-body">
+        <div class="Ticket-actions">
+          <a href="{{ route('employee.Tickets.edit', $ticket->id) }}" class="Ticket-action">
+            <div class="Ticket-action-icon">
               <i class="material-symbols-rounded">edit</i>
             </div>
-            <span class="ticket-action-text">Modifier le ticket</span>
-            <i class="material-symbols-rounded ticket-action-arrow">chevron_right</i>
+            <span class="Ticket-action-text">Modifier le Ticket</span>
+            <i class="material-symbols-rounded Ticket-action-arrow">chevron_right</i>
           </a>
           
-          <a href="{{ route('pdf.ticket', ['id' => $ticket->id]) }}" class="ticket-action">
-            <div class="ticket-action-icon">
+          <a href="{{ route('pdf.Ticket', ['id' => $ticket->id]) }}" class="Ticket-action">
+            <div class="Ticket-action-icon">
               <i class="material-symbols-rounded">download</i>
             </div>
-            <span class="ticket-action-text">Télécharger en PDF</span>
-            <i class="material-symbols-rounded ticket-action-arrow">chevron_right</i>
+            <span class="Ticket-action-text">Télécharger en PDF</span>
+            <i class="material-symbols-rounded Ticket-action-arrow">chevron_right</i>
           </a>
           
           @if($ticket->created_at->diffInHours(now()) < 24)
-          <form action="{{ route('employee.tickets.destroy', $ticket->id) }}" method="POST">
+          <form action="{{ route('employee.Tickets.destroy', $ticket->id) }}" method="POST">
             @csrf
             @method('DELETE')
-            <button type="submit" class="ticket-action" onclick="return confirm('Êtes-vous sûr de vouloir supprimer ce ticket ?')">
-              <div class="ticket-action-icon" style="background-color: rgba(245, 101, 101, 0.1); color: var(--danger-color);">
+            <button type="submit" class="Ticket-action" onclick="return confirm('Êtes-vous sûr de vouloir supprimer ce Ticket ?')">
+              <div class="Ticket-action-icon" style="background-color: rgba(245, 101, 101, 0.1); color: var(--danger-color);">
                 <i class="material-symbols-rounded">delete</i>
               </div>
-              <span class="ticket-action-text">Supprimer le ticket</span>
-              <i class="material-symbols-rounded ticket-action-arrow">chevron_right</i>
+              <span class="Ticket-action-text">Supprimer le Ticket</span>
+              <i class="material-symbols-rounded Ticket-action-arrow">chevron_right</i>
             </button>
           </form>
           @endif
@@ -847,15 +847,15 @@
       </div>
     </div>
     
-    <div class="ticket-sidebar-card">
-      <div class="ticket-sidebar-header">
-        <h3 class="ticket-sidebar-title">
-          <i class="material-symbols-rounded ticket-sidebar-icon">history</i>
+    <div class="Ticket-sidebar-card">
+      <div class="Ticket-sidebar-header">
+        <h3 class="Ticket-sidebar-title">
+          <i class="material-symbols-rounded Ticket-sidebar-icon">history</i>
           Historique
         </h3>
       </div>
-      <div class="ticket-sidebar-body">
-        <ul class="ticket-timeline">
+      <div class="Ticket-sidebar-body">
+        <ul class="Ticket-timeline">
           <li class="timeline-item">
             <div class="timeline-icon">
               <i class="material-symbols-rounded">add_circle</i>
