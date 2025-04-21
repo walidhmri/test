@@ -14,14 +14,14 @@ class SolutionsController extends Controller
     public function index(Request $request)
     {
         $ticket = Ticket::find($request->id);
-        $solutions = Solution::where('Ticket_id', $ticket->id)->get();
+        $solutions = Solution::where('ticket_id', $ticket->id)->get();
         return view('admin.solutions.create',compact('solutions','ticket'));
     }
     public function store(Request $request){
         $request->validate([
             'title' => 'required',
             'description' => 'required',
-            'Ticket_id' => 'required',
+            'ticket_id' => 'required',
             'file'=> 'nullable'
         ]);
 
@@ -44,11 +44,11 @@ class SolutionsController extends Controller
         $solution = new Solution();
         $solution->title = $request->title;
         $solution->description = $request->description;
-        $solution->Ticket_id = $request->Ticket_id;
+        $solution->ticket_id = $request->ticket_id;
         $solution->user_id = Auth::user()->id;
         $solution->file= $filepath;
         $solution->save();
-        return redirect()->route('admin.Tickets.show', [ 'user_id' => $request->user_id,'id' => $request->Ticket_id ,])->with('success', 'تم إضافة حل التذكرة بنجاح.');
+        return redirect()->route('admin.Tickets.show', [ 'user_id' => $request->user_id,'id' => $request->ticket_id ,])->with('success', 'تم إضافة حل التذكرة بنجاح.');
     }
     public function destroy(Request $request)
     {

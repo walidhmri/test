@@ -67,11 +67,13 @@
                         @endif
                         
                         <!-- Solution Description -->
-                        @if(isset($solution->description) && !empty($solution->description))
-                            <div class="text-sm text-gray-600 dark:text-gray-300 mb-3">
-                                {{ $solution->description }}
-                            </div>
-                        @endif
+                       
+                        <div id="solution-description">
+                            {!! $solution->html_description !!}
+                        </div>
+  
+
+                        
                         
                         <!-- Solution File (if available) -->
                         @if(isset($solution->file) && !empty($solution->file))

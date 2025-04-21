@@ -617,6 +617,9 @@
     display: none;
   }
 }
+
+
+
 </style>
 @endpush
 
@@ -712,9 +715,9 @@
                 <span>{{ $solution->created_at->format('d M Y, H:i') }}</span>
               </div>
             </div>
-            <div class="solution-content">
-              {{ $solution->description }}
-            </div>
+            <div id="solution-description">
+              {!! $solution->html_description !!}
+          </div>
             
             @if($solution->file)
             <div class="solution-file">

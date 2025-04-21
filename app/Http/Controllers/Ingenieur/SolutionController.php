@@ -29,7 +29,7 @@ class SolutionController extends Controller
             Solution::create([
                 'title' => $request->title,
                 'description' => $request->description,
-                'Ticket_id' => $ticket->id,
+                'ticket_id' => $ticket->id,
                 'user_id' => Auth::id(),
             ]); 
              return redirect()->route('ingenieur.Ticket.show',$ticket->id)->with('success','Solution added successfully');         

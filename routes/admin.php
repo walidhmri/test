@@ -14,12 +14,11 @@ Route::middleware(['auth', 'adminMiddleware','oualid-demo-actions'])->group(func
 
     //Les methodes get
     Route::get('/admin', [AdminController::class, 'index'])->name('admin.dashboard');
-    Route::get('/admin/Tickets', [TicketsController::class, 'index'])->name('admin.Tickets.list');
     Route::get('/admin/employee/edit/{id}', [AdminController::class, 'editEmployee'])->name('admin.employee.editemployee');
     Route::get('admin/profile/{id}', [ProfileController::class, 'index'])->name('admin.profile.show');
     Route::get('admin/profile/{id}/password-update', [ProfileController::class, 'indexpass'])->name('admin.profile.password');
 
-    Route::get('/admin/tickets', [TicketsController::class, 'index'])->name('admin.Tickets.list');
+    Route::get('/admin/tickets', [TicketsController::class, 'index'])->name('admin.tickets.list');
     Route::get('/admin/employee', [AdminController::class, 'employee'])->name('admin.employee.list');
     Route::get('/admin/employee/edit/{id}', [AdminController::class, 'editEmployee'])->name('admin.employee.editemployee');
     Route::get('/admin/employee/ajouter', [AdminController::class, 'addEmployee'])->name('admin.employee.ajouter');

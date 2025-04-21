@@ -69,7 +69,7 @@
             
             <!-- Ticket Badge -->
             <div class="px-3 py-1.5 bg-blue-50 dark:bg-blue-900/20 text-blue-700 dark:text-blue-300 text-xs font-medium rounded-full">
-                Ticket #{{ $comment->Ticket_id }}
+                Ticket #{{ $comment->ticket_id }}
             </div>
         </div>
         
@@ -93,7 +93,7 @@
             <!-- Action Buttons -->
             <div class="flex gap-2">
                 <!-- View Ticket Button -->
-                <a href="{{ route('ingenieur.Ticket.show', ['id' => $comment->Ticket_id]) }}" 
+                <a href="{{ route('ingenieur.Ticket.show', ['id' => $comment->ticket_id]) }}" 
                    class="inline-flex items-center justify-center px-3 py-1.5 bg-blue-600 hover:bg-blue-700 text-white text-xs font-medium rounded-md shadow-sm hover:shadow transition-all duration-200">
                     <svg class="w-4 h-4 mr-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 5v2m0 4v2m0 4v2M5 5a2 2 0 00-2 2v3a2 2 0 110 4v3a2 2 0 002 2h14a2 2 0 002-2v-3a2 2 0 110-4V7a2 2 0 00-2-2H5z" />
@@ -102,7 +102,7 @@
                 </a>
                 
                 <!-- View Details Button -->
-                <a href="{{ route('ingenieur.Ticket.show', ['id' => $comment->Ticket_id, 'user_id' => $comment->user_id]) }}"
+                <a href="{{ route('ingenieur.Ticket.show', ['id' => $comment->ticket_id, 'user_id' => $comment->user_id]) }}"
                    class="inline-flex items-center justify-center px-3 py-1.5 bg-indigo-600 hover:bg-indigo-700 text-white text-xs font-medium rounded-md shadow-sm hover:shadow transition-all duration-200">
                     <svg class="w-4 h-4 mr-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"></path>

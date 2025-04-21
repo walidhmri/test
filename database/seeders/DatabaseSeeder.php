@@ -82,7 +82,7 @@ class DatabaseSeeder extends Seeder
                 'title' => 'Solution example for solved Tickets',
                 'description' => $faker->paragraph,
                 'user_id' => 1,
-                'Ticket_id' => $ticket->id
+                'ticket_id' => $ticket->id
             ]);
         }
         for ($i = 0; $i < 10; $i++) {

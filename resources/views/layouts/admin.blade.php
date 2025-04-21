@@ -7,6 +7,8 @@
 
     <title>Naftal - @yield('title')</title>
     <link rel="stylesheet" href="{{ asset('css/chat-admin.css') }}">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css" rel="stylesheet" />
+
 
     <!-- Google Fonts -->
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
@@ -120,7 +122,7 @@
                                 aria-hidden="true"></span>
                         @endif
                         <a class="inline-flex items-center w-full text-sm font-semibold transition-colors duration-150 hover:text-gray-800 dark:hover:text-gray-200 {{ $isTicketsActive ? 'text-gray-800 dark:text-gray-100' : '' }}"
-                            href="{{ route('admin.Tickets.list') }}">
+                            href="{{ route('admin.tickets.list') }}">
 
                             <!-- New SVG Icon for Tickets -->
                             <svg class="w-5 h-5" aria-hidden="true" fill="none" stroke-linecap="round"
@@ -313,7 +315,7 @@
                                 aria-hidden="true"></span>
                         @endif
                         <a class="inline-flex items-center w-full text-sm font-semibold transition-colors duration-150 hover:text-gray-800 dark:hover:text-gray-200 {{ $isTicketsActive ? 'text-gray-800 dark:text-gray-100' : '' }}"
-                            href="{{ route('admin.Tickets.list') }}">
+                            href="{{ route('admin.tickets.list') }}">
                             <svg class="w-5 h-5" aria-hidden="true" fill="none" stroke-linecap="round"
                                 stroke-linejoin="round" stroke-width="2" viewBox="0 0 24 24" stroke="currentColor">
                                 <path
@@ -724,6 +726,7 @@
         </div>
     </div>
 
+  
 
 </body>
 

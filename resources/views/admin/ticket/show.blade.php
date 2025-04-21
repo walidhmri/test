@@ -17,6 +17,7 @@
                     <h2 class="text-xl sm:text-2xl font-semibold  text-gray-800 dark:text-white mb-1 sm:mb-0">
                         Ticket #{{ $ticket->id }}
                     </h2>
+                    
                     <span class="ml-3 px-2.5 py-0.5 rounded-full text-xs font-medium
                         @switch($ticket->status)
                             @case('pending') bg-amber-100 text-amber-800 dark:bg-amber-800 dark:text-amber-100 @break

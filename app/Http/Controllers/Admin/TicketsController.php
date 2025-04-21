@@ -7,6 +7,8 @@ use App\Models\Ticket;
 use App\Http\Controllers\Controller;
 use App\Models\User;
 use Illuminate\Http\Request;
+use GrahamCampbell\Markdown\Facades\Markdown;
+
 
 class TicketsController extends Controller
 {
@@ -67,7 +69,11 @@ class TicketsController extends Controller
         $employee = User::find($request->user_id);
         $ingenieurs = User::where('role', 'ingenieur')->get();
         $ticket=Ticket::find($request->id);
-        $solutions =Solution::where('Ticket_id',$ticket->id)->paginate(10);
+        $solutions =Solution::where('ticket_id',$ticket->id)->paginate(10);
+
+        foreach ($solutions as $solution) {
+            $solution->html_description = Markdown::convertToHtml($solution->description);
+        }
         $departments=Department::get();
         return view('admin.Ticket.show',compact('ticket','employee','solutions','ingenieurs','departments'));
     }
@@ -86,7 +92,7 @@ class TicketsController extends Controller
         $ticket->priority=$request->priority;
         $ticket->department_id=$request->department_id;	
         $ticket->save();
-        return redirect()->route('admin.Tickets.list')->with(['success' => "تم تحديث حالة التذكرة $ticket->id بنجاح."]);
+        return redirect()->route('admin.tickets.list')->with(['success' => "تم تحديث حالة التذكرة $ticket->id بنجاح."]);
     }
 function idfill($id)
 {

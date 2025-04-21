@@ -23,7 +23,7 @@ class GenerateAISolution implements ShouldQueue
      */
     public function __construct(Ticket $ticket)
     {
-        $this->Ticket = $ticket;
+        $this->ticket = $ticket;
     }
 
     /**
@@ -34,18 +34,23 @@ class GenerateAISolution implements ShouldQueue
         $apiKey = env('GEMINI_API_KEY');
         $apiUrl = "https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash:generateContent"; 
 
+        // Sending request to the Gemini API with clear instructions to respond in Markdown format
         $response = Http::post("{$apiUrl}?key={$apiKey}", [
             "contents" => [
-                ["parts" => [["text" => "A user submitted a support Ticket:\n\nTitle: {$this->Ticket->title}\nDescription: {$this->Ticket->description}  \n\nProvide a detailed technical solution in a small paragraph repond with same language as in title and description."]]]
+                ["parts" => [["text" => "A user submitted a support Ticket:\n\nTitle: {$this->ticket->title}\nDescription: {$this->ticket->description}  \n\nProvide a detailed technical solution in a small paragraph, using the same language as the title and description. Please respond with Markdown format for easy display (including headings, lists, code blocks, etc)."]]]
             ]
         ]);
 
+        // Get the AI's response, or fallback to a default message if not available
         $aiResponse = $response->json()['candidates'][0]['content']['parts'][0]['text'] ?? "No AI solution available";
+        
+        // Log the response for debugging
         Log::info('Gemini API Response:', ['response' => $response->body()]);
 
+        // Store the AI response in the Solution model
         Solution::create([
-            'Ticket_id' => $this->Ticket->id,
-            'user_id' => 1, 
+            'ticket_id' => $this->ticket->id,
+            'user_id' => 1, // Replace with the actual user id if needed
             'title' => 'Bot',
             'description' => $aiResponse,
         ]);

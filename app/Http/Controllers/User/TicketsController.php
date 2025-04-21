@@ -5,6 +5,7 @@ namespace App\Http\Controllers\User;
 use App\Http\Controllers\Controller;
 use App\Models\Comment;
 use App\Models\Solution;
+use GrahamCampbell\Markdown\Facades\Markdown;
 use Illuminate\Http\Request;
 use App\Models\Ticket;
 use App\Models\User;
@@ -104,8 +105,11 @@ public function store(Request $request)
 public function show(string $id)
 {
     $ticket = Ticket::findOrFail($id);
-    $solutions = Solution::where('Ticket_id', $ticket->id)->get(); // Get all solutions for the Ticket
-    $comments = Comment::where('Ticket_id', $ticket->id)
+    $solutions = Solution::where('ticket_id', $ticket->id)->get();
+    foreach ($solutions as $solution) {
+        $solution->html_description = Markdown::convertToHtml($solution->description);
+    }
+    $comments = Comment::where('ticket_id', $ticket->id)
                       ->orderBy('created_at', 'asc')
                       ->get(); // Get all comments for the Ticket
     
@@ -121,7 +125,7 @@ public function addComment(Request $request, string $id)
     $ticket = Ticket::findOrFail($id);
     
     $comment = new Comment();
-    $comment->Ticket_id = $ticket->id;
+    $comment->ticket_id = $ticket->id;
     $comment->user_id = auth()->id();
     $comment->content = $request->content;
     $comment->save();

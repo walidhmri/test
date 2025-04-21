@@ -28,7 +28,7 @@ class TicketController extends Controller
         if(Auth::user()->id!=$ticket->assign && Auth::user()->department_id!=$ticket->department_id){
             return redirect()->back()->with('error','you don\'t have permission to see this Ticket');
         }
-        $solutions=Solution::where('Ticket_id',$ticket->id)->paginate(10);
+        $solutions=Solution::where('ticket_id',$ticket->id)->paginate(10);
         return view('ingenieur.Ticket.show',compact('ticket','solutions'));
     }
   public function update(Request $request){

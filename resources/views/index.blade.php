@@ -26,7 +26,7 @@
                         left: 0;
                         width: 100%;
                         height: 100%;
-                        background-image: url('{{ asset('assets/nftl.webp') }}');
+                        background-image: url('{{ asset('assets/nftl2.png') }}');
                         background-repeat: no-repeat;
                         background-size: cover;
                     }
@@ -157,38 +157,7 @@
                         </a>
                     </div>
                 </div>
-                <div class="col-lg-5 d-none d-lg-block" data-aos="fade-left" data-aos-delay="300">
-                    <!-- 3D Dashboard Visualization -->
-                    <div class="dashboard-visual">
-                        <div class="dashboard-card dashboard-card-1">
-                            <div class="dashboard-icon">
-                                <i class="bi bi-graph-up-arrow"></i>
-                            </div>
-                            <div class="dashboard-content">
-                                <h5>@lang('messages.analytics')</h5>
-                                <div class="dashboard-chart"></div>
-                            </div>
-                        </div>
-                        <div class="dashboard-card dashboard-card-2">
-                            <div class="dashboard-icon">
-                                <i class="bi bi-fuel-pump"></i>
-                            </div>
-                            <div class="dashboard-content">
-                                <h5>@lang('messages.fuel_management')</h5>
-                                <div class="dashboard-progress"></div>
-                            </div>
-                        </div>
-                        <div class="dashboard-card dashboard-card-3">
-                            <div class="dashboard-icon">
-                                <i class="bi bi-geo-alt"></i>
-                            </div>
-                            <div class="dashboard-content">
-                                <h5>@lang('messages.station_locator')</h5>
-                                <div class="dashboard-map"></div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
+ 
             </div>
         </div>
 

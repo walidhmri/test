@@ -57,7 +57,7 @@
                 </div>
             </div>
             
-            <form method="get" action="{{ route('admin.Tickets.list') }}" class="p-4 sm:p-5">
+            <form method="get" action="{{ route('admin.tickets.list') }}" class="p-4 sm:p-5">
                 <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-5">
                     <div>
                         <label class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">Priority</label>
@@ -312,7 +312,7 @@
                 </div>
                 <h3 class="text-lg sm:text-xl font-semibold text-gray-800 dark:text-gray-200 mb-2">No Tickets Found</h3>
                 <p class="text-gray-500 dark:text-gray-400 mb-6">There are no Tickets matching your criteria.</p>
-                <a href="{{ route('admin.Tickets.list') }}" class="inline-flex items-center px-4 py-2 sm:px-5 sm:py-2.5 bg-gradient-to-r from-purple-600 to-indigo-600 hover:from-purple-700 hover:to-indigo-700 text-white font-medium rounded-lg shadow-md hover:shadow-lg transition-all duration-200">
+                <a href="{{ route('admin.tickets.list') }}" class="inline-flex items-center px-4 py-2 sm:px-5 sm:py-2.5 bg-gradient-to-r from-purple-600 to-indigo-600 hover:from-purple-700 hover:to-indigo-700 text-white font-medium rounded-lg shadow-md hover:shadow-lg transition-all duration-200">
                     <svg class="w-4 h-4 sm:w-5 sm:h-5 mr-1.5 sm:mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15"></path>
                     </svg>

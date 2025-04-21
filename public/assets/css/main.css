@@ -1,6 +1,6 @@
     
 :root {
---primary: #FFBF00;
+--primary: #f59e0b;
 --primary-dark: #e67e22;
 --primary-light: rgba(243, 156, 18, 0.1);
 --secondary: #2c3e50;
@@ -11,9 +11,9 @@
 --light: #f8f9fa;
 --dark: #343a40;
 --background-new: rgba(255, 255, 255, 0.796);
---body-bg: #ffffff;
+--body-bg: #f3f4f6;
 --card-bg: #ffffff;
---header-bg: #ffffffc1;
+--header-bg: rgba(255, 255, 255, 0.2);
 --footer-bg: #f8f9fa;
 --text-color: #333333;
 --text-muted: #6c757d;
@@ -38,7 +38,7 @@
 --secondary: #4a6785;
 --body-bg: #121212;
 --card-bg: #1e1e1e;
---header-bg: #1a1a1ab2;
+--header-bg: #1f2937b1;
 --footer-bg: #1a1a1a;
 --text-color: #e0e0e0;
 --background-new: rgba(0, 0, 0, 0.429);
@@ -96,6 +96,8 @@ border-radius: 3px;
 
 .navbar {
 background-color: var(--header-bg);
+backdrop-filter: blur(10px);
+color: #ffffff;
 box-shadow: var(--shadow-sm);
 min-height: var(--header-height);
 transition: all 0.3s ease;

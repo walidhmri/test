@@ -16,7 +16,7 @@ class CommentController extends Controller
         
         
         $tickets = Ticket::where('assign', auth()->user()->id)->orWhere('department_id',Auth::user()->department_id)->get();
-        $comments = Comment::whereIn('Ticket_id', $tickets->pluck('id'))->get();
+        $comments = Comment::whereIn('ticket_id', $tickets->pluck('id'))->get();
         $employees= User::where('role', 'employee')->get();
         return view('ingenieur.comments.list',compact('comments','tickets','employees'));
     }

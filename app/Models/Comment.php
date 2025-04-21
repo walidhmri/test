@@ -11,7 +11,7 @@ class Comment extends Model
 
     protected $fillable = [
         'user_id',
-        'Ticket_id',
+        'ticket_id',
         'content'
     ];
 

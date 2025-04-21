@@ -80,17 +80,10 @@
                     {{-- Description Row --}}
                     <div class="px-6 py-4 grid grid-cols-1 md:grid-cols-3 gap-x-4 gap-y-2">
                         <dt class="text-sm font-medium text-gray-500 dark:text-gray-400">Description</dt>
-                        <dd class="text-sm text-gray-900 dark:text-white md:col-span-2 whitespace-pre-wrap">
-                            {{ $ticket->description ?? 'No description provided.' }}
+                        <dd class="text-sm text-gray-900 dark:text-white md:col-span-2 whitespace-pre-wrap">{{ $ticket->description ?? 'No description provided.' }}
                         </dd>
                     </div>
-
-                    <div class="px-6 py-4 grid grid-cols-1 md:grid-cols-3 gap-x-4 gap-y-2 items-center">
-                        <dt class="text-sm font-medium text-gray-500 dark:text-gray-400">
-                            <label for="status">@lang('messages.Assign')</label>
-                        </dt>
-
-                        </dd>
+>
                     </div>
 
 

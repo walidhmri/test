@@ -31,7 +31,7 @@
                     <div class="input-group">
                         
                         <input type="text" class="inputs form-control" name="search" placeholder="@lang('messages.search_faqs')" value="{{ old('search') }}">
-                        <button class="btn btn-search" type="submit">@lang('messages.search')</button>
+                        <button class="btn btn-search " type="submit">@lang('messages.search')</button>
                     
                     </div>
                 </div>
@@ -98,7 +98,7 @@
                         <h4 class="fw-bold">@lang('messages.need_help')</h4>
                         <p class="text-body-secondary">@lang('messages.cant_find_answer')</p>
                     </div>
-                    <a href="{{ url('/contact') }}" class="btn btn-brand w-100">
+                    <a href="{{ url('/contact-us') }}" class="btn btn-brand w-100">
                         <i class="bi bi-headset me-2"></i> @lang('messages.contact_support')
                     </a>
                 </div>
@@ -189,7 +189,34 @@
         filter: invert(1);
     }
     .inputs{
+        color: var(--text-color);
+        border-color: var(--primary);
+        background-color: var(--card-bg);
+
         border-radius: 20px;
+        padding: 10px 20px;
+        font-size: 16px;
+        transition: all 0.3s ease;
+
+
+    }
+    .inputs::placeholder {
+  color: #9ca3af; /* soft gray */
+}
+    btn-search{
+        border-radius: 20px;
+    }
+    .btn-search{
+        background-color: var(--primary);
+        color: white;
+        border-radius: 20px;
+    }
+    .btn-search:hover{
+        background-color: var(--primary-dark);
+        color: white;
+    }
+    .btn-search:focus{
+        box-shadow: 0 0 0 0.2rem rgba(0, 123, 255, 0.25);
     }
     
     /* Icon Circle */

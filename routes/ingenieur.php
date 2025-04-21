@@ -17,7 +17,7 @@ use App\Http\Controllers\Ingenieur\ProfileController;
 Route::middleware(['auth', 'ingenieurMiddleware','oualid-demo-actions'])->group(function () {
     Route::get('/ingenieur', function () {
         $tickets = Ticket::where('assign', auth()->user()->id)->orWhere('department_id', Auth::user()->department_id)->get();
-        $comments = Comment::whereIn('Ticket_id', $tickets->pluck('id'))->get();
+        $comments = Comment::whereIn('ticket_id', $tickets->pluck('id'))->get();
         return view('ingenieur.dashboard',compact('comments', 'tickets'));
     })->name('ingenieur.dashboard');
 
