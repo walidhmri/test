@@ -25,44 +25,42 @@
 
     <link rel="stylesheet" href="{{ asset('css/employee.css') }}">
     <link rel="icon" type="image/svg+xml" href="{{ asset('favicon.svg') }}">
-<style>
-                             .popup-overlay {
-                                position: fixed;
-                                top: 0;
-                                left: 0;
-                                height: 100vh;
-                                width: 100vw;
-                                background-color: rgba(0, 0, 0, 0.6);
-                                display: none;
-                                /* Hidden initially */
-                                justify-content: center;
-                                align-items: center;
-                                z-index: 9999;
-                            }
+    <style>
+        .popup-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            height: 100vh;
+            width: 100vw;
+            background-color: rgba(0, 0, 0, 0.6);
+            display: none;
+            /* Hidden initially */
+            justify-content: center;
+            align-items: center;
+            z-index: 9999;
+        }
 
-                            /* Popup content */
-                            .popup-content {
-                                background-color: white;
-                                width: 80%;
-                                height: 80%;
-                                border-radius: 10px;
-                                padding: 20px;
-                                position: relative;
-                                box-shadow: 0 0 20px rgba(0, 0, 0, 0.3);
-                            }
+        /* Popup content */
+        .popup-content {
+            background-color: white;
+            width: 80%;
+            height: 80%;
+            border-radius: 10px;
+            padding: 20px;
+            position: relative;
+            box-shadow: 0 0 20px rgba(0, 0, 0, 0.3);
+        }
 
-                            .close-btn {
-                                position: absolute;
-                                top: 10px;
-                                right: 15px;
-                                font-size: 24px;
-                                font-weight: bold;
-                                color: #333;
-                                cursor: pointer;
-                            }
-                           
-
-</style>
+        .close-btn {
+            position: absolute;
+            top: 10px;
+            right: 15px;
+            font-size: 24px;
+            font-weight: bold;
+            color: #333;
+            cursor: pointer;
+        }
+    </style>
 
 
     @stack('styles')
@@ -220,7 +218,7 @@
                                                 <strong class="text-primary">Ticket
                                                     #{{ $notification->data['ticket_id'] }}</strong>
                                                 <small
-                                                    class="text-muted">{{ $notification->created_at->diffForHumans() }}</small>
+                                                    class="">{{ $notification->created_at->diffForHumans() }}</small>
                                             </div>
                                         </a>
                                         <p class="mb-2">{{ $notification->data['etat'] ?? 'Solution' }} par
@@ -239,14 +237,14 @@
                                 @empty
                                     <div class="p-4 text-center">
                                         <i class="material-symbols-rounded d-block mb-2"
-                                            style="font-size: 2rem; opacity: 0.5;">notifications_off</i>
-                                        <p class="text-muted mb-0">Aucune nouvelle notification</p>
+                                            style="font-size: 2rem; opacity: 0.5; color: rgb(0, 229, 255);">notifications_off</i>
+                                        <p class=" mb-0">Aucune nouvelle notification</p>
                                     </div>
                                 @endforelse
                             </div>
 
                             <!-- Actions -->
-                            @if (auth()->user()->unreadNotifications->where('type', App\Notifications\CreateSolutionNotification::class)->count())
+                            @if (auth()->user()->unreadNotifications->count())
                                 <div class="p-3 border-top border-bottom"
                                     style="background-color: var(--primary-light);">
                                     <form method="POST" action="{{ route('solutionNotifications.clearAll') }}">
@@ -264,72 +262,20 @@
                                 <a onclick="openPopup()" class="text-decoration-none fw-semibold">
                                     Voir toutes les notifications
                                 </a>
-                                
-  <!-- Popup structure -->
-  <div class="popup-overlay" id="popup">
-    <div class="popup-content">
-      <span class="close-btn" onclick="closePopup()">&times;</span>
-      <!-- Your popup content -->
-      <div class="notification-list"
-      style="max-height: 500px; overflow-y: auto; background-color: var(--primary-light);">
-      @forelse(auth()->user()->unreadNotifications->all() as $notification)
-          <div class="notification-item p-3 border-bottom hover-bg-light"
-              style="transition: background-color 0.2s;
-              background-color: var(--primary-light);">
-              <a
-                  href="{{ route('employee.Tickets.show', $notification->data['ticket_id']) }}">
-                  <div class="d-flex justify-content-between align-items-start mb-1">
-                      <strong class="text-primary">Ticket
-                          #{{ $notification->data['ticket_id'] }}</strong>
-                      <small
-                          class="text-muted">{{ $notification->created_at->diffForHumans() }}</small>
-                  </div>
-              </a>
-              <p class="mb-2">{{ $notification->data['etat'] ?? 'Solution' }} par
-                  {{ $notification->data['user_id'] }}
-              </p>
 
-              <form method="POST"
-                  action="@if ($notification->type == App\Notifications\CreateSolutionNotification::class) {{ route('solutionNotifications.markAsRead', $notification->id) }}
-                  @else
-                      {{ route('notifications.markAsRead', $notification->id) }} @endif">
-                  @csrf
-                  <button type="submit"
-                      class="btn btn-sm btn-outline-primary w-100">Marquer comme lu</button>
-              </form>
-          </div>
-      @empty
-          <div class="p-4 text-center">
-              <i class="material-symbols-rounded d-block mb-2"
-                  style="font-size: 2rem; opacity: 0.5;">notifications_off</i>
-              <p class="text-muted mb-0">Aucune nouvelle notification</p>
-          </div>
-      @endforelse
-  </div>
-    </div>
-  </div>
 
-  <script>
-    function openPopup() {
-      document.getElementById('popup').style.display = 'flex';
-    }
 
-    function closePopup() {
-      document.getElementById('popup').style.display = 'none';
-    }
-  </script>
-                                
                             </div>
 
 
                             <!-- Popup structure -->
-  
+
                         </div>
                     </div>
                     @push('styles')
                         <style>
                             /* Popup Overlay (hidden by default) */
-   
+
                             /* Custom styles for notification dropdown */
                             #simpleNotificationButton:hover {
                                 color: var(--bs-primary);
@@ -500,7 +446,66 @@
     </div>
 
 
+    <!-- Popup structure -->
+    <div class="popup-overlay" id="popup">
+        <div class="popup-content">
+            <span class="close-btn" onclick="closePopup()">&times;</span>
+            <!-- Your popup content -->
+            <div class="notification-list"
+                style="max-height: 500px; overflow-y: auto; background-color: var(--primary-light);">
+                @forelse(auth()->user()->notifications->all() as $notification)
+                    <div class="notification-item p-3 border-bottom hover-bg-light"
+                        style="transition: background-color 0.2s;
+              background-color: var(--primary-light);">
+                        <a href="{{ route('employee.Tickets.show', $notification->data['ticket_id']) }}">
+                            <div class="d-flex justify-content-between align-items-start mb-1">
+                                <strong class="text-primary">Ticket
+                                    #{{ $notification->data['ticket_id'] }}</strong>
+                                <small class="">{{ $notification->created_at->diffForHumans() }}</small>
+                            </div>
+                        </a>
+                        <p class="mb-2">{{ $notification->data['etat'] ?? 'Solution' }} par
+                            {{ $notification->data['user_id'] }}
+                        </p>
 
+                        <form method="POST"
+                            action="{{ route('notifications.delete', $notification->id) }}">
+                            @method('DELETE')
+                            @csrf
+                            <button type="submit" class="btn btn-sm btn-outline-primary w-100">Delete </button>
+                        </form>
+                    </div>
+                @empty
+                    <div class="p-4 text-center">
+                        <i class="material-symbols-rounded d-block mb-2"
+                            style="font-size: 2rem; opacity: 0.5; color: rgb(0, 229, 255);">notifications_off</i>
+                        <p class=" mb-0">Aucune nouvelle notification</p>
+                    </div>
+                @endforelse
+                @if (auth()->user()->unreadNotifications->count())
+                    <div class="p-3 border-top border-bottom" style="background-color: var(--primary-light);">
+                        <form method="POST" action="{{ route('notifications.clearAll') }}">
+                            @csrf
+                            @method('DELETE')
+                            <button class="btn btn-sm btn-danger w-100" type="submit">
+                                Tout marquer comme lu
+                            </button>
+                        </form>
+                    </div>
+                @endif
+            </div>
+        </div>
+    </div>
+
+    <script>
+        function openPopup() {
+            document.getElementById('popup').style.display = 'flex';
+        }
+
+        function closePopup() {
+            document.getElementById('popup').style.display = 'none';
+        }
+    </script>
     <!-- Core JS Files -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.3/Chart.min.js"></script>

@@ -18,6 +18,12 @@ class NotificationController extends Controller
     ]);
 }
 
+public function delete($id)
+{
+    auth()->user()->notifications()->where('id', $id)->delete();
+    return back();
+}
+
 public function clearAll()
 {
     auth()->user()->unreadNotifications->markAsRead();
