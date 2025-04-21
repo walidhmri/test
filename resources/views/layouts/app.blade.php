@@ -180,7 +180,15 @@
             <button type="button" class="btn-close ms-auto" data-bs-dismiss="alert" aria-label="Close"></button>
           </div>
         @endif
-
+        @if (session('demo'))
+          <div class="alert alert-danger" role="alert">
+            <div class="alert-icon">
+              <i class="material-symbols-rounded">Demo</i>
+            </div>
+            <div>{{ session('demo') }}</div>
+            <button type="button" class="btn-close ms-auto" data-bs-dismiss="alert" aria-label="Close"></button>
+          </div>
+        @endif
         @if (session('error'))
           <div class="alert alert-danger" role="alert">
             <div class="alert-icon">

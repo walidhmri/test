@@ -10,6 +10,7 @@ use Illuminate\Http\Request;
 
 class SolutionController extends Controller
 {
+ 
     public function index(Request $request){
         $ticket=Ticket::findOrFail($request->id);
         
@@ -22,7 +23,7 @@ class SolutionController extends Controller
         'id' => 'required|integer|exists:tickets,id',
             ]);
             $ticket=Ticket::findOrFail($request->id);
-            if(Auth::user()->id!=$ticket->assign){
+            if(Auth::user()->id!=$ticket->assign && Auth::user()->department_id!=$ticket->department_id){
                 return redirect()->back()->with('error','you don\'t have permission to see this ticket');
             }
             Solution::create([

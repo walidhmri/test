@@ -3,7 +3,7 @@ use App\Http\Controllers\User\UserController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\User\TicketsController;
 
-Route::middleware(['auth', 'userMiddleware'])->group(function (): void {
+Route::middleware(['auth', 'userMiddleware','oualid-demo-actions'])->group(function (): void {
     Route::get('dashboard',[UserController::class,'index'])->name('dashboard');
    Route::get('dashboard/tickets/create',[TicketsController::class,'create'])->name('dasboard.tickets'); 
    Route::post('dashboard/ticketes/add',[TicketsController::class,'store'])->name('employee.tickets.store');

@@ -26,7 +26,7 @@ class User extends Authenticatable
         'password',
         'role',
         'verified',
-        'department',
+        'department_id',
         'position',
         'phone',
         'adress',

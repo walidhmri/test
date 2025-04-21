@@ -74,7 +74,7 @@ edit {{$employee->name}}
                 <label class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
                     Department if enginner <span style="color: red">*</span>
                 </label>
-                <select id="department" name="department_id"
+                <select id="department" name="department"
                     class="block w-full rounded-lg border-2 border-gray-300 dark:border-gray-700 bg-white dark:bg-gray-800 text-gray-900 dark:text-white px-4 py-3 text-sm focus:border-purple-500 focus:ring-2 focus:ring-purple-500 appearance-none">
                     <option value="" disabled {{ old('department_id', '') ? '' : 'selected' }}>
                         -- Select a department --

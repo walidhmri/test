@@ -129,7 +129,13 @@
                             </select>
                         </dd>
                     </div>
-
+                    @error('priority')
+                        <div class="px-6 py-4 grid grid-cols-1 md:grid-cols-3 gap-x-4 gap-y-2">
+                            <dd class="text-sm text-red-600 dark:text-red-400 md:col-span-2">
+                                {{ $message }}
+                            </dd>
+                        </div>
+                    @enderror
                     {{-- Created At Row --}}
                     <div class="px-6 py-4 grid grid-cols-1 md:grid-cols-3 gap-x-4 gap-y-2">
                         <dt class="text-sm font-medium text-gray-500 dark:text-gray-400">Created At</dt>

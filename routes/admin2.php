@@ -10,7 +10,7 @@ use Illuminate\Support\Facades\Route;
 
 
 
-Route::middleware(['auth', 'adminMiddleware'])->group(function () {
+Route::middleware(['auth', 'adminMiddleware','oualid-demo-actions'])->group(function () {
 
  Route::get('/admin/tickets/{user_id}/{id}/solve', [SolutionsController::class, 'index'])->name('admin.tickets.solve');
  Route::get('admin/departments', [DepartmentController::class, 'index'])->name('admin.department.list');

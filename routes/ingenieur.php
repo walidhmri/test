@@ -14,16 +14,13 @@ use App\Http\Controllers\Ingenieur\ProfileController;
 
 
 
-Route::middleware(['auth', 'ingenieurMiddleware'])->group(function () {
-    Route::get('/ingenieur/dashboard', function () {
+Route::middleware(['auth', 'ingenieurMiddleware','oualid-demo-actions'])->group(function () {
+    Route::get('/ingenieur', function () {
         $tickets = ticket::where('assign', auth()->user()->id)->orWhere('department_id', Auth::user()->department_id)->get();
         $comments = Comment::whereIn('ticket_id', $tickets->pluck('id'))->get();
         return view('ingenieur.dashboard',compact('comments', 'tickets'));
     })->name('ingenieur.dashboard');
 
-    Route::get('/ingenieur', function () {
-        return view('ingenieur.dashboard');
-    })->name('ingenieur.dashboard');
     Route::get('ingenieur/profile', [ProfileController::class, 'index'])->name('ingenieur.profile.show');
     Route::get('ingenieur/settings', [ProfileController::class, 'update'])->name('ingenieur.profile.update');
     Route::get('ingenieur/tickets',[TicketController::class, 'index'])->name('ingenieur.ticket.list');

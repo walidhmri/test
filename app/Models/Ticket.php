@@ -12,7 +12,9 @@ class ticket extends Model
         'description',
         'user_id',
         'priority',
-        'file'
+        'file',
+        'department_id'
+
     ];
     public function user()
     {

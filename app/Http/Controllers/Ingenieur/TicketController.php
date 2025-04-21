@@ -11,16 +11,21 @@ use Illuminate\Support\Facades\Auth;
 
 class TicketController extends Controller
 {
+
     public function index(){
-        
-        $tickets=Ticket::where('assign',Auth::user()->id)->orderBy('updated_at' ,'desc')->paginate(10);
+        $department_id = Auth::user()->department_id;
+
+        if($department_id==null){
+            $department_id= 0;
+        }
+        $tickets=Ticket::where('assign',Auth::user()->id)->orWhere('department_id',$department_id)->orderBy('updated_at' ,'desc')->paginate(10);
         $employees =User::all();
         return view('ingenieur.ticket.list',compact('tickets'));
     }
     public function show(Request $request){
         
         $ticket= Ticket::findOrFail($request->id);
-        if(Auth::user()->id!=$ticket->assign){
+        if(Auth::user()->id!=$ticket->assign && Auth::user()->department_id!=$ticket->department_id){
             return redirect()->back()->with('error','you don\'t have permission to see this ticket');
         }
         $solutions=Solution::where('ticket_id',$ticket->id)->paginate(10);
@@ -29,7 +34,7 @@ class TicketController extends Controller
   public function update(Request $request){
     $request->validate(
         [
-            'priority'=> 'required|in:low,medium,high',
+            'priority'=> 'required|in:low,medium,high,urgent',
             'status'=> 'required',
         ]
         );

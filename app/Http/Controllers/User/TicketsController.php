@@ -92,7 +92,6 @@ public function store(Request $request)
     ]); 
     $ticket->save();
 
-    // ✅ Lancer le Job pour générer la solution en arrière-plan
     GenerateAISolution::dispatch($ticket);
 
     return redirect()->route('employee.tickets.list')->with('success', 'تمت إضافة التذكرة بنجاح. سيتم إنشاء الحل قريبًا.');
@@ -134,7 +133,11 @@ public function addComment(Request $request, string $id)
 
     public function edit(string $id)
     {
-        $ticket = ticket::findOrFail($id); // Get a single model instance
+
+        $ticket = ticket::findOrFail($id);
+        if($ticket->status == 'solved' || $ticket->status == 'closed'){
+            return redirect()->route('employee.tickets.list')->with('error', 'Ticket is closed and cannot be edited already '.$ticket->status.' status');
+        }
         return view('employee.update', compact('ticket')); // Adjust view name as needed
     }
 

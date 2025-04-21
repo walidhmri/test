@@ -10,7 +10,7 @@ use App\Http\Controllers\Auth\RegisteredUserController;
 
 
 
-Route::middleware(['auth', 'adminMiddleware'])->group(function () {
+Route::middleware(['auth', 'adminMiddleware','oualid-demo-actions'])->group(function () {
 
     //Les methodes get
     Route::get('/admin', [AdminController::class, 'index'])->name('admin.dashboard');

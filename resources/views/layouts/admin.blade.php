@@ -81,12 +81,13 @@
             $isEmployeesActive = Str::startsWith(request()->route()->getName(), 'admin.employee');
             $isIngenActive = Str::startsWith(request()->route()->getName(), 'admin.ingenieur');
             $isFaqsActive = Str::startsWith(request()->route()->getName(), 'admin.faqs');
-            $isDepartmentsActive=Str::startsWith(request()->route()->getName(), 'admin.department');
+            $isDepartmentsActive = Str::startsWith(request()->route()->getName(), 'admin.department');
 
         @endphp
 
 
-        <aside id="deskbar" class="z-20 hidden w-64 overflow-y-auto bg-white dark:bg-gray-800 md:block flex-shrink-0 shadow-md">
+        <aside id="deskbar"
+            class="z-20 hidden w-64 overflow-y-auto bg-white dark:bg-gray-800 md:block flex-shrink-0 shadow-md">
             <div class="py-4 text-gray-500 dark:text-gray-400">
                 <a class="ml-6 text-lg font-bold text-gray-800 dark:text-gray-200"
                     href="{{ route('admin.dashboard') }}">
@@ -252,8 +253,8 @@
                             <span class="ml-4"> @lang('messages.settings')</span>
                         </a>
                     </li>
-                   
-  
+
+
 
                 </ul>
 
@@ -282,7 +283,8 @@
             x-transition:leave-end="opacity-0 transform -translate-x-20" @click.away="closeSideMenu"
             @keydown.escape="closeSideMenu">
             <div class="py-4 text-gray-500 dark:text-gray-400">
-                <a class="ml-6 text-lg font-bold text-gray-800 dark:text-gray-200" href="{{ route('admin.dashboard') }}">
+                <a class="ml-6 text-lg font-bold text-gray-800 dark:text-gray-200"
+                    href="{{ route('admin.dashboard') }}">
                     @lang('messages.title')
                 </a>
                 <ul class="mt-6">
@@ -664,10 +666,52 @@
                             @endforeach
                         </ol>
                     </nav>
+                    @if (session('demo'))
+                        <div id="demo-alert"
+                            class="px-4 py-3 rounded relative transition-all duration-300 w-full max-w-full overflow-hidden"
+                            role="alert"
+                            style="background-color: #dbeafe; border: 1px solid #60a5fa; color: #1e40af;">
+                            <!-- Light mode styles applied directly -->
+                            <div class="flex items-start">
+                                <div class="flex-grow">
+                                    <strong class="font-bold block mb-1"
+                                        style="color: #1e40af;">{{ session('demo') }}</strong>
+                                    <span class="block" style="color: #1e40af;">
+                                        Ce mode est une version de démonstration.
+                                        Vous pouvez naviguer dans l'interface, tester les fonctionnalités et simuler des
+                                        actions.
+                                        Cependant, aucune donnée ne sera réellement enregistrée.
+                                    </span>
+                                </div>
+                                <button onclick="document.getElementById('demo-alert').style.display='none';"
+                                    class="ml-4 focus:outline-none" aria-label="Close" style="color: #3b82f6;">
+                                    <svg class="h-4 w-4" xmlns="http://www.w3.org/2000/svg" fill="none"
+                                        viewBox="0 0 24 24" stroke="currentColor">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                            d="M6 18L18 6M6 6l12 12"></path>
+                                    </svg>
+                                </button>
+                            </div>
+                        </div>
+
+                        <script>
+                            setTimeout(() => {
+                                const alertBox = document.getElementById('demo-alert');
+                                if (alertBox) {
+                                    alertBox.style.opacity = '0';
+                                    setTimeout(() => {
+                                        alertBox.style.display = 'none';
+                                    }, 500);
+                                }
+                            }, 9000);
+                        </script>
+                    @endif
+
 
                     @yield('content')
-                    
-                    <footer class="px-6 py-4 mt-8 text-gray-700 dark:text-gray-400 border-t border-gray-200 dark:border-gray-700">
+
+                    <footer
+                        class="px-6 py-4 mt-8 text-gray-700 dark:text-gray-400 border-t border-gray-200 dark:border-gray-700">
                         <div class="container mx-auto flex justify-end">
                             <p class="text-right text-sm">
                                 @lang('messages.copyrights')
@@ -680,6 +724,7 @@
         </div>
     </div>
 
-  
+
 </body>
+
 </html>
