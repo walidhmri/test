@@ -13,7 +13,7 @@ for (let index = 1; index <= 7; index++) {
   }
 }
 
-console.log(array);
+
 
 const lineConfig = {
   type: 'line',

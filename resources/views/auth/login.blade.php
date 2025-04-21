@@ -356,7 +356,6 @@
     }
 
     document.addEventListener('DOMContentLoaded', function() {
-        // Password visibility toggle
         const togglePassword = document.getElementById('togglePassword');
         const passwordInput = document.getElementById('password');
         
@@ -390,7 +389,6 @@
         function checkInactivity() {
             if (Date.now() - lastActivity > inactivityTimeout) {
                 console.log('User inactive for 15 minutes');
-                // Could implement auto-logout or warning here
             }
         }
         

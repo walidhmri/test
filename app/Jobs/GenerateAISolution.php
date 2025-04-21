@@ -3,6 +3,8 @@ namespace App\Jobs;
 
 use App\Models\Solution;
 use App\Models\Ticket;
+use App\Models\User;
+use App\Notifications\CreateSolutionNotification;
 use Illuminate\Bus\Queueable;
 use Illuminate\Contracts\Queue\ShouldBeUnique;
 use Illuminate\Contracts\Queue\ShouldQueue;
@@ -11,6 +13,7 @@ use Illuminate\Queue\InteractsWithQueue;
 use Illuminate\Queue\SerializesModels;
 use Illuminate\Support\Facades\Http;
 use Illuminate\Support\Facades\Log;
+use Illuminate\Support\Facades\Notification;
 
 class GenerateAISolution implements ShouldQueue
 {
@@ -46,13 +49,14 @@ class GenerateAISolution implements ShouldQueue
         
         // Log the response for debugging
         Log::info('Gemini API Response:', ['response' => $response->body()]);
-
-        // Store the AI response in the Solution model
-        Solution::create([
+        
+       $solution= Solution::create([
             'ticket_id' => $this->ticket->id,
             'user_id' => 1, // Replace with the actual user id if needed
             'title' => 'Bot',
             'description' => $aiResponse,
         ]);
+        $user = User::find($solution->ticket->user_id);
+        Notification::send($user, new CreateSolutionNotification($solution));
     }
 }

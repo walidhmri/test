@@ -23,6 +23,38 @@
 
     <link href="{{ asset('assets/css/main.css') }}" rel="stylesheet">
 
+    <style>
+        /* Custom styles for notification dropdown */
+        #simpleNotificationButton:hover {
+            color: var(--bs-primary);
+        }
+
+        #simpleNotificationDropdown .notification-item:hover {
+            background-color: rgba(0, 0, 0, 0.03);
+        }
+
+        #simpleNotificationDropdown .hover-bg-light:hover {
+            background-color: var(--header-bg);
+        }
+
+
+        .notification-list::-webkit-scrollbar {
+            width: 5px;
+        }
+
+        .notification-list::-webkit-scrollbar-track {
+            background: #f1f1f1;
+        }
+
+        .notification-list::-webkit-scrollbar-thumb {
+            background: var(--bs-primary);
+            border-radius: 5px;
+        }
+
+        .notification-list::-webkit-scrollbar-thumb:hover {
+            background: var(--bs-primary);
+        }
+    </style>
 
     <!-- MA tevghid styles nniden -->
     @stack('styles')
@@ -109,6 +141,12 @@
                                         data-bs-toggle="dropdown" aria-expanded="false">
                                         {{ Auth::user()->name }}
                                     </button>
+
+
+
+
+
+
                                     <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="userDropdown">
                                         <li><a class="dropdown-item"
                                                 href="{{ route('employee.profile.edit') }}">@lang('messages.profile')</a></li>
@@ -143,62 +181,221 @@
                                 <i class="bi bi-moon-fill fs-5" id="darkIconDesktop"></i>
                             </button>
                         </div>
+                        @auth
 
-                        <!-- Language Switcher (Desktop) -->
-                        <div class="dropdown language-switcher d-none d-lg-block">
-                            <button class="btn btn-sm btn-link p-0 dropdown-toggle" type="button"
-                                data-bs-toggle="dropdown" aria-expanded="false">
-                                <i class="bi bi-globe fs-5 me-1"></i>
-                                <span class="language-dropdown-text">{{ strtoupper(app()->getLocale()) }}</span>
-                            </button>
-                            <ul class="dropdown-menu dropdown-menu-end">
-                                <li><a class="dropdown-item {{ app()->getLocale() == 'en' ? 'active' : '' }}"
-                                        href="{{ route('language.switch', 'en') }}">English</a></li>
-                                <li><a class="dropdown-item {{ app()->getLocale() == 'fr' ? 'active' : '' }}"
-                                        href="{{ route('language.switch', 'fr') }}">Français</a></li>
-                                <li><a class="dropdown-item {{ app()->getLocale() == 'ar' ? 'active' : '' }}"
-                                        href="{{ route('language.switch', 'ar') }}">العربية</a></li>
-                                <li><a class="dropdown-item {{ app()->getLocale() == 'tm' ? 'active' : '' }}"
-                                        href="{{ route('language.switch', 'tm') }}">Taqbaylit</a></li>
-                            </ul>
-                        </div>
+                            <div class="nav-item">
+                                <!-- Enhanced button with ID -->
+                                <a href="#" id="simpleNotificationButton" class="position-relative d-inline-block"
+                                    style="width: 24px; height: 24px;">
 
-                        @guest
-                            <a href="{{ route('login') }}" class="btn btn-outline-brand d-none d-lg-block">
-                                @lang('messages.login')
-                            </a>
-                        @else
-                            <div class="dropdown">
-                                <button class="btn btn-outline-brand d-none d-lg-block" type="button" id="userDropdown"
-                                    data-bs-toggle="dropdown" aria-expanded="false">
-                                    {{ Auth::user()->name }}
-                                </button>
-                                <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="userDropdown">
-                                    <li><a class="dropdown-item"
-                                            href="{{ route('employee.profile.edit') }}">@lang('messages.profile')</a></li>
-                                    @if (auth::user()->role == 'user')
-                                        <li><a class="dropdown-item"
-                                                href="{{ route('dashboard') }}">@lang('messages.dashboard')</a></li>
-                                    @elseif (auth::user()->role == 'admin')
-                                        <li><a class="dropdown-item"
-                                                href="{{ route('admin.dashboard') }}">@lang('messages.admin_dashboard')</a></li>
-                                    @elseif(auth::user()->role == 'ingenieur')
-                                        <li><a class="dropdown-item"
-                                                href="{{ route('ingenieur.dashboard') }}">@lang('messages.engineer_dashboard')</a></li>
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="100%" height="100%"
+                                        viewBox="0 0 24 24" class="d-block" style="color: var(--bs-body-color);">
+
+                                        <!-- Icône de cloche -->
+                                        <path fill="currentColor"
+                                            d="M12 22q-.825 0-1.413-.588T10 20h4q0 .825-.588 1.413T12 22Zm6-6v-5q0-2.5-1.538-4.325T12 4Q9.075 4 7.538 5.825T6 10v5l-2 2v1h16v-1l-2-2Z" />
+
+                                        <!-- Point rouge si notification -->
+                                        @if (auth()->user()->unreadNotifications->where('type', App\Notifications\CreateSolutionNotification::class)->count())
+                                            <circle cx="18" cy="6" r="4" fill="red" stroke="white"
+                                                stroke-width="1" />
+                                        @endif
+                                    </svg>
+                                </a>
+
+
+                                <!-- Enhanced dropdown with ID -->
+                                <div id="simpleNotificationDropdown" class="shadow position-absolute end-0"
+                                    style="display: none; width: 320px; z-index: 1050; border-radius: 0.5rem; overflow: hidden;">
+
+                                    <!-- Header -->
+                                    <div class="border-bottom p-3 bg-body" style="color: var(--text-color);">
+                                        <h6 class="mb-0 fw-bold text-center" style="color: black;">Notifications</h6>
+                                    </div>
+
+                                    <!-- Notification List -->
+                                    <div class="notification-list bg-body text-body"
+                                        style="max-height: 350px; overflow-y: auto; color: var(--text-color);">
+                                        @forelse(auth()->user()->unreadNotifications->where('type', App\Notifications\CreateSolutionNotification::class)->take(5) as $notification)
+                                            <div class="notification-item p-3 border-bottom bg-body text-body"
+                                                style="transition: background-color 0.2s;"
+                                                onmouseover="this.style.backgroundColor = getComputedStyle(document.body).getPropertyValue('--bs-secondary-bg')"
+                                                onmouseout="this.style.backgroundColor = getComputedStyle(document.body).getPropertyValue('--bs-body-bg')">
+
+                                                <div class="d-flex justify-content-between align-items-start mb-1">
+                                                    <strong class="text-primary">
+                                                        Ticket #{{ $notification->data['ticket_id'] }}
+                                                    </strong>
+                                                    <small class="text-muted">
+                                                        {{ $notification->created_at->diffForHumans() }}
+                                                    </small>
+                                                </div>
+                                                <p class="mb-2">Solution ajoutée par
+                                                    {{ $notification->data['user_id'] }}</p>
+
+                                                <form method="POST"
+                                                    action="{{ route('solutionNotifications.markAsRead', $notification->id) }}">
+                                                    @csrf
+                                                    <button type="submit" class="btn btn-sm btn-outline-primary w-100">
+                                                        Marquer comme lu
+                                                    </button>
+                                                </form>
+                                            </div>
+                                        @empty
+                                            <div class="p-4 text-center bg-body text-body">
+                                                <i class="material-symbols-rounded d-block mb-2"
+                                                    style="font-size: 2rem; opacity: 0.5; color: var(--text-color);">
+                                                    notifications_off
+                                                </i>
+                                                <p class="text-muted mb-0">Aucune nouvelle notification</p>
+                                            </div>
+                                        @endforelse
+                                    </div>
+
+                                    <!-- Actions -->
+                                    @if (auth()->user()->unreadNotifications->where('type', App\Notifications\CreateSolutionNotification::class)->count())
+                                        <div class="p-3 border-top border-bottom bg-body">
+                                            <form method="POST" action="{{ route('solutionNotifications.clearAll') }}">
+                                                @csrf
+                                                @method('DELETE')
+                                                <button class="btn btn-sm btn-danger w-100" type="submit">
+                                                    Tout marquer comme lu
+                                                </button>
+                                            </form>
+                                        </div>
                                     @endif
-                                    <li><a class="dropdown-item" href="{{ route('logout') }}"
-                                            onclick="event.preventDefault(); document.getElementById('logout-form').submit();">@lang('messages.logout')</a>
-                                    </li>
-                                    <form id="logout-form" action="{{ route('logout') }}" method="POST"
-                                        style="display: none;">
-                                        @csrf
-                                    </form>
+
+                                    <!-- Footer -->
+                                    <div class="p-3 text-center bg-body">
+                                        <a href="{{ route('solutionNotifications.index') }}"
+                                            class="text-decoration-none fw-semibold text-primary">
+                                            Voir toutes les notifications
+                                        </a>
+                                    </div>
+                                </div>
+                            </div>
+
+
+
+
+                                <script>
+                                    document.addEventListener('DOMContentLoaded', function() {
+                                        // Get elements
+                                        const button = document.getElementById('simpleNotificationButton');
+                                        const dropdown = document.getElementById('simpleNotificationDropdown');
+
+                                        if (!button || !dropdown) {
+                                            console.error('Notification elements not found');
+                                            return;
+                                        }
+
+                                        // Add click event with detailed logging
+                                        button.addEventListener('click', function(event) {
+                                            event.preventDefault();
+
+                                            // Toggle dropdown
+                                            const isCurrentlyHidden = dropdown.style.display === 'none' || dropdown.style.display ===
+                                                '';
+                                            dropdown.style.display = isCurrentlyHidden ? 'block' : 'none';
+
+                                            // Position the dropdown properly
+                                            positionDropdown();
+
+                                            return false;
+                                        });
+
+                                        // Position dropdown appropriately
+                                        function positionDropdown() {
+                                            const buttonRect = button.getBoundingClientRect();
+                                            const windowWidth = window.innerWidth;
+
+                                            // If near the right edge, align right edge of dropdown with button
+                                            if (buttonRect.right + 320 > windowWidth) {
+                                                const rightOffset = windowWidth - buttonRect.right;
+                                                dropdown.style.right = rightOffset + 'px';
+                                                dropdown.style.left = 'auto';
+                                            } else {
+                                                dropdown.style.right = 'auto';
+                                                dropdown.style.left = buttonRect.left + 'px';
+                                            }
+                                        }
+
+                                        // Global click handler to close dropdown
+                                        document.addEventListener('click', function(event) {
+                                            if (dropdown.style.display === 'block' &&
+                                                event.target !== button &&
+                                                !button.contains(event.target) &&
+                                                event.target !== dropdown &&
+                                                !dropdown.contains(event.target)) {
+
+                                                dropdown.style.display = 'none';
+                                            }
+                                        });
+
+                                        // Handle window resize
+                                        window.addEventListener('resize', function() {
+                                            if (dropdown.style.display === 'block') {
+                                                positionDropdown();
+                                            }
+                                        });
+                                    });
+                                </script>
+                            @endauth
+                            <!-- Language Switcher (Desktop) -->
+                            <div class="dropdown language-switcher d-none d-lg-block">
+                                <button class="btn btn-sm btn-link p-0 dropdown-toggle" type="button"
+                                    data-bs-toggle="dropdown" aria-expanded="false">
+                                    <i class="bi bi-globe fs-5 me-1"></i>
+                                    <span class="language-dropdown-text">{{ strtoupper(app()->getLocale()) }}</span>
+                                </button>
+                                <ul class="dropdown-menu dropdown-menu-end">
+                                    <li><a class="dropdown-item {{ app()->getLocale() == 'en' ? 'active' : '' }}"
+                                            href="{{ route('language.switch', 'en') }}">English</a></li>
+                                    <li><a class="dropdown-item {{ app()->getLocale() == 'fr' ? 'active' : '' }}"
+                                            href="{{ route('language.switch', 'fr') }}">Français</a></li>
+                                    <li><a class="dropdown-item {{ app()->getLocale() == 'ar' ? 'active' : '' }}"
+                                            href="{{ route('language.switch', 'ar') }}">العربية</a></li>
+                                    <li><a class="dropdown-item {{ app()->getLocale() == 'tm' ? 'active' : '' }}"
+                                            href="{{ route('language.switch', 'tm') }}">Taqbaylit</a></li>
                                 </ul>
                             </div>
-                        @endguest
+
+                            @guest
+                                <a href="{{ route('login') }}" class="btn btn-outline-brand d-none d-lg-block">
+                                    @lang('messages.login')
+                                </a>
+                            @else
+                                <div class="dropdown">
+                                    <button class="btn btn-outline-brand d-none d-lg-block" type="button"
+                                        id="userDropdown" data-bs-toggle="dropdown" aria-expanded="false">
+                                        {{ Auth::user()->name }}
+                                    </button>
+                                    <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="userDropdown">
+                                        <li><a class="dropdown-item"
+                                                href="{{ route('employee.profile.edit') }}">@lang('messages.profile')</a></li>
+                                        @if (auth::user()->role == 'user')
+                                            <li><a class="dropdown-item"
+                                                    href="{{ route('dashboard') }}">@lang('messages.dashboard')</a></li>
+                                        @elseif (auth::user()->role == 'admin')
+                                            <li><a class="dropdown-item"
+                                                    href="{{ route('admin.dashboard') }}">@lang('messages.admin_dashboard')</a></li>
+                                        @elseif(auth::user()->role == 'ingenieur')
+                                            <li><a class="dropdown-item"
+                                                    href="{{ route('ingenieur.dashboard') }}">@lang('messages.engineer_dashboard')</a></li>
+                                        @endif
+                                        <li><a class="dropdown-item" href="{{ route('logout') }}"
+                                                onclick="event.preventDefault(); document.getElementById('logout-form').submit();">@lang('messages.logout')</a>
+                                        </li>
+                                        <form id="logout-form" action="{{ route('logout') }}" method="POST"
+                                            style="display: none;">
+                                            @csrf
+                                        </form>
+                                    </ul>
+                                </div>
+                            @endguest
+                        </div>
                     </div>
                 </div>
-            </div>
         </nav>
     </header>
 

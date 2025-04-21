@@ -9,6 +9,7 @@ use App\Http\Controllers\Auth\PasswordController;
 use App\Http\Controllers\Auth\PasswordResetLinkController;
 use App\Http\Controllers\Auth\RegisteredUserController;
 use App\Http\Controllers\Auth\VerifyEmailController;
+use App\Http\Controllers\NotificationController;
 use App\Http\Controllers\PdfController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\ProfileController;
@@ -50,4 +51,12 @@ Route::middleware('auth')->group(function () {
     ->name('logout');
     Route::get('/pdf/Ticket/{id}', [PdfController::class, 'create'])
         ->name('pdf.Ticket');
+
+    Route::post('/notifications/{id}/mark-as-read', [NotificationController::class, 'markAsRead'])->name('notifications.markAsRead');
+    Route::delete('/notifications/clear', [NotificationController::class, 'clearAll'])->name('notifications.clearAll');
+    Route::get('/notifications', [NotificationController::class, 'index'])->name('notifications.index');
+
+    Route::post('/solution-notifications/{id}/read', [NotificationController::class, 'markSolutionAsRead'])->name('solutionNotifications.markAsRead');
+Route::delete('/solution-notifications/clear', [NotificationController::class, 'clearSolutionAll'])->name('solutionNotifications.clearAll');
+Route::get('/solution-notifications', [NotificationController::class, 'solutionIndex'])->name('solutionNotifications.index');
 });

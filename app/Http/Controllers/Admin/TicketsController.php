@@ -6,8 +6,12 @@ use App\Models\Solution;
 use App\Models\Ticket;
 use App\Http\Controllers\Controller;
 use App\Models\User;
+use App\Notifications\CreateSolutionNotification;
+use App\Notifications\CreateTicketNotification;
+use Auth;
 use Illuminate\Http\Request;
 use GrahamCampbell\Markdown\Facades\Markdown;
+use Illuminate\Support\Facades\Notification;
 
 
 class TicketsController extends Controller
@@ -92,6 +96,12 @@ class TicketsController extends Controller
         $ticket->priority=$request->priority;
         $ticket->department_id=$request->department_id;	
         $ticket->save();
+        $user = User::find($ticket->user_id);
+        $etat= 'Updated';
+        
+        $ticket->user_id =Auth::user()->id;
+
+        Notification::send($user, new CreateTicketNotification($ticket, $etat));
         return redirect()->route('admin.tickets.list')->with(['success' => "تم تحديث حالة التذكرة $ticket->id بنجاح."]);
     }
 function idfill($id)

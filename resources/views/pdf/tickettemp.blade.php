@@ -59,6 +59,7 @@
         .info-table {
             width: 100%;
             border-collapse: collapse;
+            margin-top: 10px;
         }
         .info-table td {
             padding: 8px 12px;
@@ -153,7 +154,7 @@
             </tr>
             <tr>
                 <td class="label">@lang('messages.assigned_department')</td>
-                <td>{{ $ticket->assigned_to ?? __('messages.pending_assignment') }}</td>
+                <td>{{ $ticket->department->name ?? __('messages.pending_assignment') }}</td>
             </tr>
         </table>
     </div>

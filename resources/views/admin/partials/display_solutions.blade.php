@@ -63,7 +63,7 @@
                     <div class="px-4 py-4 bg-white dark:bg-gray-800 text-gray-800 dark:text-gray-200">
                         <!-- Solution Title -->
                         @if(isset($solution->title) && !empty($solution->title))
-                            <h3 class="text-lg font-semibold text-gray-900 dark:text-white mb-2">{{ $solution->title }}</h3>
+                            <h3 class="text-lg font-semibold text-gray-800 dark:text-white mb-2">{{ $solution->title }}</h3>
                         @endif
                         
                         <!-- Solution Description -->

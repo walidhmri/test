@@ -98,7 +98,7 @@ return [
     'footer_line1' => 'Ce document est généré automatiquement par le système officiel des services gouvernementaux',
     'footer_line2' => 'Tous droits réservés © Département des Services Gouvernementaux :year',
 
-    'official_seal' => 'SCEAU OFFICIEL',
+    'official_seal' => ' OFFICIEL',
     'government' => 'GOUVERNEMENT',
 
     'status_processed' => 'TRAITÉ',

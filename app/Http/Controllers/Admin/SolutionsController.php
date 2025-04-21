@@ -5,8 +5,11 @@ namespace App\Http\Controllers\Admin;
 use App\Http\Controllers\Controller;
 use App\Models\Solution;
 use App\Models\Ticket;
+use App\Models\User;
+use App\Notifications\CreateSolutionNotification;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Notification;
 
 
 class SolutionsController extends Controller
@@ -48,6 +51,9 @@ class SolutionsController extends Controller
         $solution->user_id = Auth::user()->id;
         $solution->file= $filepath;
         $solution->save();
+        $user = User::find($solution->ticket->user_id);
+        $etat= 'New Solution';
+        Notification::send($user, new CreateSolutionNotification($solution, $etat));
         return redirect()->route('admin.Tickets.show', [ 'user_id' => $request->user_id,'id' => $request->ticket_id ,])->with('success', 'تم إضافة حل التذكرة بنجاح.');
     }
     public function destroy(Request $request)

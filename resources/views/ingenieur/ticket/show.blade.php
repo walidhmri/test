@@ -72,7 +72,7 @@
                     {{-- Title Row --}}
                     <div class="px-6 py-4 grid grid-cols-1 md:grid-cols-3 gap-x-4 gap-y-2">
                         <dt class="text-sm font-medium text-gray-500 dark:text-gray-400">Title</dt>
-                        <dd class="text-sm text-gray-900 dark:text-white md:col-span-2">
+                        <dd class="text-sm text-gray-800 dark:text-white md:col-span-2">
                             {{ $ticket->title ?? 'N/A' }}
                         </dd>
                     </div>
@@ -80,10 +80,10 @@
                     {{-- Description Row --}}
                     <div class="px-6 py-4 grid grid-cols-1 md:grid-cols-3 gap-x-4 gap-y-2">
                         <dt class="text-sm font-medium text-gray-500 dark:text-gray-400">Description</dt>
-                        <dd class="text-sm text-gray-900 dark:text-white md:col-span-2 whitespace-pre-wrap">{{ $ticket->description ?? 'No description provided.' }}
+                        <dd class="text-sm text-gray-800 dark:text-white md:col-span-2 whitespace-pre-wrap">{{ $ticket->description ?? 'No description provided.' }}
                         </dd>
                     </div>
->
+
                     </div>
 
 
@@ -94,7 +94,7 @@
                         </dt>
                         <dd class="md:col-span-2">
                             <select id="status" name="status"
-                                class="block w-full max-w-xs rounded-md border-gray-300 dark:border-gray-600 py-2 px-3 shadow-sm focus:border-indigo-500 focus:ring focus:ring-indigo-200 focus:ring-opacity-50 dark:bg-gray-700 dark:text-gray-200 sm:text-sm">
+                                class="block w-full max-w-xs rounded-md border-gray-300 dark:border-gray-600 py-2 px-3 shadow-sm focus:border-indigo-500 focus:ring focus:ring-indigo-200 focus:ring-opacity-50 bg-white  dark:bg-gray-700 dark:text-gray-200 sm:text-sm">
                                 <option value="pending" @selected(old('status', $ticket->status) == 'pending')>Pending</option>
                                 <option value="solved" @selected(old('status', $ticket->status) == 'solved')>Solved</option>
                                 <option value="closed" @selected(old('status', $ticket->status) == 'closed')>Closed</option>
@@ -111,7 +111,7 @@
                         </dt>
                         <dd class="md:col-span-2">
                             <select id="priority" name="priority"
-                                class="block w-full max-w-xs rounded-md border-gray-300 dark:border-gray-600 py-2 px-3 shadow-sm focus:border-indigo-500 focus:ring focus:ring-indigo-200 focus:ring-opacity-50 dark:bg-gray-700 dark:text-gray-200 sm:text-sm">
+                                class="block w-full max-w-xs bg-white rounded-md border-gray-300 dark:border-gray-600 py-2 px-3 shadow-sm focus:border-indigo-500 focus:ring focus:ring-indigo-200 focus:ring-opacity-50 dark:bg-gray-700 dark:text-gray-200 sm:text-sm">
                                 <option value="low" @selected(old('priority', $ticket->priority) == 'low')>Low</option>
                                 <option value="medium" @selected(old('priority', $ticket->priority) == 'medium')>Medium</option>
                                 <option value="high" @selected(old('priority', $ticket->priority) == 'high')>High</option>
@@ -132,7 +132,7 @@
                     {{-- Created At Row --}}
                     <div class="px-6 py-4 grid grid-cols-1 md:grid-cols-3 gap-x-4 gap-y-2">
                         <dt class="text-sm font-medium text-gray-500 dark:text-gray-400">Created At</dt>
-                        <dd class="text-sm text-gray-900 dark:text-white md:col-span-2">
+                        <dd class="text-sm text-gray-800 dark:text-white md:col-span-2">
                             @if ($ticket->created_at)
                                 {{ $ticket->created_at->format('F j, Y - H:i') }}
                                 <span
@@ -146,7 +146,7 @@
                     {{-- Attachment Row --}}
                     <div class="px-6 py-4 grid grid-cols-1 md:grid-cols-3 gap-x-4 gap-y-2">
                         <dt class="text-sm font-medium text-gray-500 dark:text-gray-400">Attachment</dt>
-                        <dd class="text-sm text-gray-900 dark:text-white md:col-span-2">
+                        <dd class="text-sm text-gray-800 dark:text-white md:col-span-2">
                             @if (!empty($ticket->file))
                                 <div class="flex items-start space-x-3">
                                     {{-- Generic Icon --}}

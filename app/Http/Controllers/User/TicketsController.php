@@ -4,12 +4,15 @@ namespace App\Http\Controllers\User;
 
 use App\Http\Controllers\Controller;
 use App\Models\Comment;
+
 use App\Models\Solution;
+use App\Notifications\CreateTicketNotification;
 use GrahamCampbell\Markdown\Facades\Markdown;
 use Illuminate\Http\Request;
 use App\Models\Ticket;
 use App\Models\User;
 use App\Jobs\GenerateAISolution; 
+use Illuminate\Support\Facades\Notification;
 use Illuminate\Support\Facades\Http;
 
 
@@ -93,6 +96,10 @@ public function store(Request $request)
     ]); 
     $ticket->save();
 
+    $users= User::where('role', 'admin')->get();
+    $etat='New';
+    Notification::send($users, new CreateTicketNotification($ticket,$etat));
+
     GenerateAISolution::dispatch($ticket);
 
     return redirect()->route('employee.Tickets.list')->with('success', 'تمت إضافة التذكرة بنجاح. سيتم إنشاء الحل قريبًا.');
@@ -129,6 +136,8 @@ public function addComment(Request $request, string $id)
     $comment->user_id = auth()->id();
     $comment->content = $request->content;
     $comment->save();
+
+    
     
     return redirect()->back()->with('success', 'Commentaire ajouté avec succès');
 }
@@ -161,6 +170,11 @@ public function addComment(Request $request, string $id)
         $ticket->description=$request->description;
         $ticket->priority=$request->priority;
         $ticket->save();
+
+    
+    $users= User::where('role', 'admin')->get();
+    $etat='Updated';
+    Notification::send($users, new CreateTicketNotification($ticket,$etat));
     
         return redirect()->route('employee.Tickets.list')->with('success', 'Ticket mis à jour avec succès.');
     }
